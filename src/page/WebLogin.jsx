@@ -96,4 +96,4 @@ const WebLogin = () => {
   );
 };
 
-export { WebLogin };
+export default WebLogin ;
