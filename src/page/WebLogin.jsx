@@ -10,7 +10,9 @@ const WebLogin = () => {
       {/* Left Section */}
       <div className="p-10 flex items-center justify-center ml-16 mx-9 bg-white">
         <form className="w-full lg:w-80 flex flex-col items-start">
-          <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">Masuk</h2>
+          <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
+            Masuk
+          </h2>
           <div className="mb-4 w-full">
             <label
               htmlFor="emailOrPhone"
