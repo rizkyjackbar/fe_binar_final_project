@@ -81,7 +81,7 @@ const WebLogin = () => {
 
           <p className="mt-4 text-gray-600 flex items-center justify-center w-full">
             Belum punya akun?&nbsp;
-            <a href="/daftar" className="text-indigo-600">
+            <a href="/register" className="text-indigo-600">
               Daftar disini
             </a>
           </p>
