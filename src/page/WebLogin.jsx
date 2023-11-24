@@ -24,7 +24,7 @@ const WebLogin = () => {
               type="text"
               id="emailOrPhone"
               name="emailOrPhone"
-              className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
+              className="mt-1 p-3 w-full border rounded-md pl-3 pr-3 mb-3"
               style={{
                 borderRadius: "16px",
               }}
