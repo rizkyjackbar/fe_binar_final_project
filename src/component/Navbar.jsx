@@ -21,9 +21,11 @@ const Navbar = () => {
         </div>
       </div>
       <div className="text-white flex pr-[9.16rem]">
-        <button className="flex items-center gap-2">
-          <img src={fi_login} />
-          <p>Masuk</p>
+        <button>
+          <a className="flex items-center gap-2" href="/login">
+            <img src={fi_login} />
+            <p>Masuk</p>
+          </a>
         </button>
       </div>
     </nav>

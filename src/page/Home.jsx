@@ -1,13 +1,5 @@
-import { Navbar, CardCategory } from "../component";
-import {
-  hero,
-  categoryPM,
-  categoryUIUX,
-  categoryWEB,
-  categoryAND,
-  categoryDS,
-  categoryIOS,
-} from "../assets";
+import { Navbar, CardCategory, CardCourse, ButtonBuy } from "../component";
+import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 
 const Home = () => {
   return (
@@ -39,44 +31,54 @@ const Home = () => {
         <section id="kategori-belajar" className="bg-[#EBF3FC]">
           <div className="mx-60 pt-7">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">KATEGORI BELAJAR</h2>
+              <h2 className="text-2xl font-bold">Kategori Belajar</h2>
               <a href="#" className="text-xs font-extrabold text-[#6148FF]">
                 Lihat Semua
               </a>
             </div>
             <div className="p-5">
               <div className="flex flex-row justify-between">
+                <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
                 <CardCategory
                   link={"#"}
-                  img={categoryUIUX}
-                  label={"UI/UX Design"}
-                />
-                <CardCategory
-                  link={"#"}
-                  img={categoryPM}
+                  img={PM}
                   label={"Product Management"}
                 />
+                <CardCategory link={"#"} img={WEB} label={"Web Developer"} />
                 <CardCategory
                   link={"#"}
-                  img={categoryWEB}
-                  label={"Web Developer"}
-                />
-                <CardCategory
-                  link={"#"}
-                  img={categoryAND}
+                  img={AND}
                   label={"Android Development"}
                 />
-                <CardCategory
-                  link={"#"}
-                  img={categoryIOS}
-                  label={"IOS Development"}
-                />
-                <CardCategory
-                  link={"#"}
-                  img={categoryDS}
-                  label={"Data Science"}
-                />
+                <CardCategory link={"#"} img={IOS} label={"IOS Development"} />
+                <CardCategory link={"#"} img={DS} label={"Data Science"} />
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="kategori-belajar">
+          <div className="mx-60 py-7 ">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">Kursus Populer</h2>
+              <a href="#" className="text-xs font-extrabold text-[#6148FF]">
+                Lihat Semua
+              </a>
+            </div>
+            <div>button</div>
+            <div className="pt-[1.39rem] flex flex-row justify-between">
+              <CardCourse
+                img={UIUX}
+                classCategory={"UI/UX"}
+                classesName={"Belajar Web Designer dengan Figma"}
+                rating={4.5}
+                classMentor={"Angela Doe"}
+                level={"Intermediate Level"}
+                moduls={10}
+                times={120}
+              >
+                <ButtonBuy price={"20000"} />
+              </CardCourse>
             </div>
           </div>
         </section>
