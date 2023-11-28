@@ -3,6 +3,7 @@ import Register from "./page/Register";
 import WebLogin from "./page/WebLogin";
 import Otp from "./page/otp";
 import ResetPassword from "./page/ResetPassword";
+import ForgetPassword from "./page/ForgetPassword";
 import Home from "./page/Home";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<WebLogin />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/forgetPassword" element={<ForgetPassword />} />
       </Routes>
     </BrowserRouter>
   );
