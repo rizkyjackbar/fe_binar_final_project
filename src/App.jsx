@@ -6,6 +6,7 @@ import ResetPassword from "./page/ResetPassword";
 import ForgetPassword from "./page/ForgetPassword";
 import Home from "./page/Home";
 import NotificationUser from "./page/ProfileUser/NotificationUsers";
+import EditDetailAccount from "./page/ProfileUser/EditDetailAccount";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/usernotification" element={<NotificationUser />} />
+        <Route path="/editdetailaccount" element={<EditDetailAccount />} />
       </Routes>
     </BrowserRouter>
   );
