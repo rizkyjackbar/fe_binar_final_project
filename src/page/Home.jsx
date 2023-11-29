@@ -1,5 +1,5 @@
 import {
-  Navbar,
+  MainNavbar,
   CardCategory,
   CardCourse,
   ButtonBuy,
@@ -58,8 +58,8 @@ const Home = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-10">
-        <Navbar />
+      <header>
+        <MainNavbar />
       </header>
       <main>
         <section id="Hero">

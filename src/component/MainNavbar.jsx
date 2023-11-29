@@ -1,6 +1,6 @@
 import { bx_search, logo, fi_login } from "../assets";
 
-const Navbar = () => {
+const MainNavbar = () => {
   return (
     <nav className="h-[6.25rem] shadow-[0_0_0_10px_0_rgba(0, 0, 0, 0.15)] flex justify-between bg-[#6148ff]">
       <div className="flex">
@@ -24,7 +24,7 @@ const Navbar = () => {
         <button>
           <a className="flex items-center gap-2" href="/login">
             <img src={fi_login} />
-            <p>User</p>
+            <p>Masuk</p>
           </a>
         </button>
       </div>
@@ -32,4 +32,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default MainNavbar;
