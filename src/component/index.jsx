@@ -1,7 +1,7 @@
 import Button from "./Button";
-import Navbar from "./Navbar";
+import MainNavbar from "./MainNavbar";
 import CardCategory from "./cardCategory";
 import CardCourse from "./CardCourse";
 import ButtonBuy from "./ButtonBuy";
 
-export { Button, Navbar, CardCategory, CardCourse, ButtonBuy };
+export { Button, MainNavbar, CardCategory, CardCourse, ButtonBuy };

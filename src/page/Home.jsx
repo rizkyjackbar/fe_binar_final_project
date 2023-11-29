@@ -1,11 +1,11 @@
-import { Navbar, CardCategory, CardCourse, ButtonBuy } from "../component";
+import { MainNavbar, CardCategory, CardCourse, ButtonBuy } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 
 const Home = () => {
   return (
     <>
       <header>
-        <Navbar />
+        <MainNavbar />
       </header>
       <main>
         <section id="Hero">
