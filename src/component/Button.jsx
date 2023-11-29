@@ -1,7 +1,27 @@
-const Button = () => {
+const Button = ({
+  index,
+  activeIndex,
+  setActiveIndex,
+  classes,
+  color,
+  text,
+  textColor,
+}) => {
+  console.log("Hello");
+  console.log(color);
+  const isClicked = index === activeIndex;
+
+  const handleClick = () => {
+    setActiveIndex(index);
+  };
+
+  const buttonStyle = {
+    backgroundColor: isClicked ? "#6148FF" : color,
+    color: isClicked ? "white" : textColor,
+  };
   return (
-    <button className=" bg-[#fff] rounded-2xl">
-      <p className="text-base font-bold text-[#6148FF] my-1.5">IKUTI KELAS</p>
+    <button className={classes} style={buttonStyle} onClick={handleClick}>
+      {text}
     </button>
   );
 };

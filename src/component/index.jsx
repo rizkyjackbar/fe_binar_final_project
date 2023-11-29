@@ -4,5 +4,14 @@ import Navbar from "./Navbar";
 import CardCategory from "./cardCategory";
 import CardCourse from "./CardCourse";
 import ButtonBuy from "./ButtonBuy";
+import FilterCourse from "./filterCourse";
 
-export { Button, MainNavbar, Navbar, CardCategory, CardCourse, ButtonBuy };
+export {
+  Button,
+  Navbar,
+  MainNavbar,
+  CardCategory,
+  CardCourse,
+  ButtonBuy,
+  FilterCourse,
+};
