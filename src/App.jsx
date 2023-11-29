@@ -5,6 +5,7 @@ import Otp from "./page/otp";
 import ResetPassword from "./page/ResetPassword";
 import ForgetPassword from "./page/ForgetPassword";
 import Home from "./page/Home";
+import NotificationUser from "./page/ProfileUser/user";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/otp" element={<Otp />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
+        <Route path="/usernotification" element={<NotificationUser />} />
       </Routes>
     </BrowserRouter>
   );
