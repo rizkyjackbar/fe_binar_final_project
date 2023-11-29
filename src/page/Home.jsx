@@ -1,10 +1,64 @@
-import { Navbar, CardCategory, CardCourse, ButtonBuy } from "../component";
+import {
+  Navbar,
+  CardCategory,
+  CardCourse,
+  ButtonBuy,
+  Button,
+} from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
+import { useState } from "react";
 
 const Home = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const buttonData = [
+    {
+      color: "#EBF3FC",
+      textColor: "black",
+      text: "All",
+      classes: "rounded-2xl px-5 py-1",
+    },
+    {
+      color: "#EBF3FC",
+      textColor: "black",
+      text: "Data Science",
+      classes: "rounded-2xl px-5 py-1",
+    },
+    {
+      color: "#EBF3FC",
+      textColor: "black",
+      text: "Android Development",
+      classes: "rounded-2xl px-5 py-1",
+    },
+    {
+      color: "#EBF3FC",
+      textColor: "black",
+      text: "Web Development",
+      classes: "rounded-2xl px-5 py-1",
+    },
+    {
+      color: "#EBF3FC",
+      textColor: "black",
+      text: "IOS Development",
+      classes: "rounded-2xl px-5 py-1",
+    },
+    {
+      color: "#EBF3FC",
+      textColor: "black",
+      text: "Business Intelligence",
+      classes: "rounded-2xl px-5 py-1",
+    },
+    {
+      color: "#EBF3FC",
+      textColor: "black",
+      text: "UI/UX Design",
+      classes: "rounded-2xl px-5 py-1",
+    },
+  ];
+
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-10">
         <Navbar />
       </header>
       <main>
@@ -36,6 +90,7 @@ const Home = () => {
                 Lihat Semua
               </a>
             </div>
+            <div></div>
             <div className="p-5">
               <div className="flex flex-row justify-between">
                 <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
@@ -65,7 +120,18 @@ const Home = () => {
                 Lihat Semua
               </a>
             </div>
-            <div>button</div>
+            <div className="flex mt-3 px-6 justify-between text-sm font-bold">
+              {buttonData.map((button, index) => (
+                <Button
+                  key={index}
+                  index={index}
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                  {...button}
+                />
+              ))}
+              <Button />
+            </div>
             <div className="pt-[1.39rem] flex flex-row justify-between">
               <CardCourse
                 img={UIUX}
