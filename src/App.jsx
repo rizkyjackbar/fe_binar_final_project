@@ -9,6 +9,7 @@ import NotificationUser from "./page/ProfileUser/NotificationUsers";
 import MyClass from "./page/MyClass";
 import EditDetailAccount from "./page/ProfileUser/EditDetailAccount";
 import ChangePasswordUser from "./page/ProfileUser/ChangePassword";
+import PaymentHistory from "./page/ProfileUser/PaymentHistory";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/notification" element={<NotificationUser />} />
         <Route path="/editdetailaccount" element={<EditDetailAccount />} />
         <Route path="/changepassword" element={<ChangePasswordUser />} />
+        <Route path="/paymenthistory" element={<PaymentHistory />} />
       </Routes>
     </BrowserRouter>
   );

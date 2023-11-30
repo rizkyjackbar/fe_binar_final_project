@@ -30,7 +30,7 @@ import {
           <li className="flex items-center mb-3.5 pb-3.5 border-b border-gray-300">
             <ShoppingCartIcon className="w-6 h-6 mr-2 text-indigo-600" />
             <a
-              href="/payment-history"
+              href="/paymenthistory"
               className="text-black hover:text-indigo-600 font-medium transition-all"
             >
               Riwayat Pembayaran
