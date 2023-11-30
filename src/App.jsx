@@ -20,7 +20,7 @@ function App() {
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/myclass" element={<MyClass />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
-        <Route path="/usernotification" element={<NotificationUser />} />
+        <Route path="/notification" element={<NotificationUser />} />
         <Route path="/editdetailaccount" element={<EditDetailAccount />} />
       </Routes>
     </BrowserRouter>
