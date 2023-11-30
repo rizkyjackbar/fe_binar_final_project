@@ -8,6 +8,7 @@ import Home from "./page/Home";
 import NotificationUser from "./page/ProfileUser/NotificationUsers";
 import MyClass from "./page/MyClass";
 import EditDetailAccount from "./page/ProfileUser/EditDetailAccount";
+import ChangePasswordUser from "./page/ProfileUser/ChangePassword";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/notification" element={<NotificationUser />} />
         <Route path="/editdetailaccount" element={<EditDetailAccount />} />
+        <Route path="/changepassword" element={<ChangePasswordUser />} />
       </Routes>
     </BrowserRouter>
   );

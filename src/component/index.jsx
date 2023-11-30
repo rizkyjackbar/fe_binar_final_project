@@ -5,6 +5,7 @@ import CardCategory from "./cardCategory";
 import CardCourse from "./CardCourse";
 import ButtonBuy from "./ButtonBuy";
 import FilterCourse from "./filterCourse";
+import ChangePasswordUser from "./FormChangePasswordUser";
 
 export {
   Button,
@@ -14,4 +15,5 @@ export {
   CardCourse,
   ButtonBuy,
   FilterCourse,
+  ChangePasswordUser
 };

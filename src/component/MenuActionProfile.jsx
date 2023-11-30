@@ -21,7 +21,7 @@ import {
           <li className="flex items-center mb-3.5 pb-3.5 border-b border-gray-300">
             <CogIcon className="w-6 h-6 mr-2 text-indigo-600" />
             <a
-              href="/change-password"
+              href="/changepassword"
               className="text-black hover:text-indigo-600 font-medium transition-all"
             >
               Ubah Password
