@@ -1,7 +1,40 @@
-import { bx_search } from "../assets";
-import { FilterCourse, Navbar } from "../component";
+import { useState } from "react";
+import { UIUX, bx_search } from "../assets";
+import {
+  Button,
+  ButtonBuy,
+  CardCourse,
+  FilterCourse,
+  Navbar,
+} from "../component";
 
 const MyClass = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const buttonData = [
+    {
+      colorAf: "#6148FF",
+      colorBf: "#FFF",
+      textColor: "black",
+      text: "All",
+      classes: "rounded-2xl px-5 py-1",
+    },
+    {
+      colorAf: "#6148FF",
+      colorBf: "#FFF",
+      textColor: "black",
+      text: "In Progres",
+      classes: "rounded-2xl px-5 py-1",
+    },
+    {
+      colorAf: "#6148FF",
+      colorBf: "#FFF",
+      textColor: "black",
+      text: "Selesai",
+      classes: "rounded-2xl px-5 py-1",
+    },
+  ];
+
   return (
     <>
       <header className="sticky top-0">
@@ -25,9 +58,38 @@ const MyClass = () => {
               </form>
             </div>
           </div>
-          <div></div>
 
-          <FilterCourse />
+          <aside className="float-left pr-12">
+            <FilterCourse />
+          </aside>
+
+          <div>
+            <div className="button-fillter-progress flex gap-3">
+              {buttonData.map((button, index) => (
+                <Button
+                  key={index}
+                  index={index}
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                  {...button}
+                />
+              ))}
+            </div>
+            <div className="pt-[1.39rem] flex justify-between">
+              <CardCourse
+                img={UIUX}
+                classCategory={"UI/UX"}
+                classesName={"Belajar Web Designer dengan Figma"}
+                rating={4.5}
+                classMentor={"Angela Doe"}
+                level={"Intermediate Level"}
+                moduls={10}
+                times={120}
+              >
+                <ButtonBuy price={"20000"} />
+              </CardCourse>
+            </div>
+          </div>
         </div>
       </main>
     </>

@@ -4,9 +4,9 @@ const Navbar = () => {
   return (
     <nav className="h-[6.25rem] shadow-[0_0_0_10px_0_rgba(0, 0, 0, 0.15)] flex justify-between bg-[#6148ff]">
       <div className="flex">
-        <div className="ml-[5.94rem] mr-[2.18rem]">
+        <a href="/" className="ml-[5.94rem] mr-[2.18rem]">
           <img src={logo} />
-        </div>
+        </a>
         <div className="w-[32.875rem] bg-white my-[1.13rem] rounded-2xl py-3 px-6">
           <div className="flex items-center">
             <input

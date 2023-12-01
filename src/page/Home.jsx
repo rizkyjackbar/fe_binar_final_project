@@ -13,43 +13,50 @@ const Home = () => {
 
   const buttonData = [
     {
-      color: "#EBF3FC",
+      colorAf: "#6148FF",
+      colorBf: "#E8F1FF",
       textColor: "black",
       text: "All",
       classes: "rounded-2xl px-5 py-1",
     },
     {
-      color: "#EBF3FC",
+      colorAf: "#6148FF",
+      colorBf: "#E8F1FF",
       textColor: "black",
       text: "Data Science",
       classes: "rounded-2xl px-5 py-1",
     },
     {
-      color: "#EBF3FC",
+      colorAf: "#6148FF",
+      colorBf: "#E8F1FF",
       textColor: "black",
       text: "Android Development",
       classes: "rounded-2xl px-5 py-1",
     },
     {
-      color: "#EBF3FC",
+      colorAf: "#6148FF",
+      colorBf: "#E8F1FF",
       textColor: "black",
       text: "Web Development",
       classes: "rounded-2xl px-5 py-1",
     },
     {
-      color: "#EBF3FC",
+      colorAf: "#6148FF",
+      colorBf: "#E8F1FF",
       textColor: "black",
       text: "IOS Development",
       classes: "rounded-2xl px-5 py-1",
     },
     {
-      color: "#EBF3FC",
+      colorAf: "#6148FF",
+      colorBf: "#E8F1FF",
       textColor: "black",
       text: "Business Intelligence",
       classes: "rounded-2xl px-5 py-1",
     },
     {
-      color: "#EBF3FC",
+      colorAf: "#6148FF",
+      colorBf: "#E8F1FF",
       textColor: "black",
       text: "UI/UX Design",
       classes: "rounded-2xl px-5 py-1",
@@ -58,7 +65,7 @@ const Home = () => {
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-10">
         <MainNavbar />
       </header>
       <main>
@@ -130,14 +137,12 @@ const Home = () => {
                   {...button}
                 />
               ))}
-              <Button />
             </div>
             <div className="pt-[1.39rem] flex flex-row justify-between">
               <CardCourse
                 img={UIUX}
                 classCategory={"UI/UX"}
                 classesName={"Belajar Web Designer dengan Figma"}
-                rating={4.5}
                 classMentor={"Angela Doe"}
                 level={"Intermediate Level"}
                 moduls={10}

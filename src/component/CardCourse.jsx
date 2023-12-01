@@ -9,7 +9,6 @@ const CardCourse = ({
   img,
   classCategory,
   classesName,
-  rating,
   classMentor,
   level,
   moduls,
@@ -17,16 +16,15 @@ const CardCourse = ({
   children,
 }) => {
   return (
-    <a className="cardCourse w-[20.1875rem] rounded-2xl shadow-md" href="#">
+    <a
+      className="bg-white cardCourse w-[20.1875rem] rounded-2xl shadow-md"
+      href="#"
+    >
       <img src={img} className="rounded-t-2xl w-full h-20 object-none" />
       <div className="cardBody px-2.5 py-2 flex flex-col gap-0.5">
-        <div className="flex justify-between text-[0.625rem]">
-          <p className="font-bold text-[#6148FF]">{classCategory}</p>
-          <div className="flex flex-row items-center">
-            <StarIcon className="w-3.5 h-3.5 fill-[#F9CC00]" />
-            <p className="font-semibold">{rating}</p>
-          </div>
-        </div>
+        <p className="text-[0.625rem] font-bold text-[#6148FF]">
+          {classCategory}
+        </p>
         <p className="text-[0.625rem] font-bold">{classesName}</p>
         <p className="text-[0.5rem] font-normal">by {classMentor}</p>
         <div className="text-[0.5rem]/[0.875rem] font-semibold flex flex-row justify-between pt-[0.19rem]">

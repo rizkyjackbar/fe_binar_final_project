@@ -3,12 +3,11 @@ const Button = ({
   activeIndex,
   setActiveIndex,
   classes,
-  color,
+  colorAf,
+  colorBf,
   text,
   textColor,
 }) => {
-  console.log("Hello");
-  console.log(color);
   const isClicked = index === activeIndex;
 
   const handleClick = () => {
@@ -16,7 +15,7 @@ const Button = ({
   };
 
   const buttonStyle = {
-    backgroundColor: isClicked ? "#6148FF" : color,
+    backgroundColor: isClicked ? colorAf : colorBf,
     color: isClicked ? "white" : textColor,
   };
   return (
