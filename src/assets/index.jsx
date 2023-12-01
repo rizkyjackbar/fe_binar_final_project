@@ -10,6 +10,7 @@ import WEB from "../assets/WEB.png";
 import AND from "../assets/AND.png";
 import IOS from "../assets/IOS.png";
 import DS from "../assets/DS.png";
+import DummyProfile from "../assets/dummy_profile.png"
 
 export {
   user_icon,
@@ -24,4 +25,5 @@ export {
   AND,
   IOS,
   DS,
+  DummyProfile,
 };
