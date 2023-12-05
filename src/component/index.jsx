@@ -6,6 +6,8 @@ import CardCourse from "./CardCourse";
 import ButtonBuy from "./ButtonBuy";
 import FilterCourse from "./filterCourse";
 import ChangePasswordUser from "./FormChangePasswordUser";
+import ProgresBar from "./ProgresBar";
+import Module from "./Module";
 
 export {
   Button,
@@ -15,5 +17,7 @@ export {
   CardCourse,
   ButtonBuy,
   FilterCourse,
-  ChangePasswordUser
+  ChangePasswordUser,
+  ProgresBar,
+  Module,
 };
