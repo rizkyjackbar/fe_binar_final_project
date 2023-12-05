@@ -18,7 +18,7 @@ const CardCourse = ({
   return (
     <a
       className="bg-white cardCourse w-[20.1875rem] rounded-2xl shadow-md"
-      href="#"
+      href="/detailclass"
     >
       <img src={img} className="rounded-t-2xl w-full h-20 object-none" />
       <div className="cardBody px-2.5 py-2 flex flex-col gap-0.5">

@@ -9,7 +9,7 @@ import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 import { useState } from "react";
 
 const Home = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const buttonData = [
     {
@@ -17,49 +17,49 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "All",
-      classes: "rounded-2xl px-3",
+      classes: "rounded-2xl px-5 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Data Science",
-      classes: "rounded-2xl px-3",
+      classes: "rounded-2xl px-5 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Android Development",
-      classes: "rounded-2xl px-3",
+      classes: "rounded-2xl px-5 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Web Development",
-      classes: "rounded-2xl px-3",
+      classes: "rounded-2xl px-5 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "IOS Development",
-      classes: "rounded-2xl px-3",
+      classes: "rounded-2xl px-5 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Business Intelligence",
-      classes: "rounded-2xl px-3",
+      classes: "rounded-2xl px-5 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "UI/UX Design",
-      classes: "rounded-2xl px-3",
+      classes: "rounded-2xl px-5 py-1",
     },
   ];
 
@@ -93,18 +93,17 @@ const Home = () => {
           <div className="mx-60 pt-7">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Kategori Belajar</h2>
-              <a href="#" className="text-xs font-extrabold text-[#6148FF]">
+              <a
+                href="/class"
+                className="text-xs font-extrabold text-[#6148FF]"
+              >
                 Lihat Semua
               </a>
             </div>
-            <div className="p-5 font-semibold">
-              <div className="flex flex-row justify-between m">
-                <CardCategory
-                  link={"#"}
-                  img={UIUX}
-                  label={"UI/UX Design"}
-                  className="px-10"
-                />
+            <div></div>
+            <div className="p-5">
+              <div className="flex flex-row justify-between">
+                <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
                 <CardCategory
                   link={"#"}
                   img={PM}
@@ -144,11 +143,14 @@ const Home = () => {
           <div className="mx-60 py-7 ">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Kursus Populer</h2>
-              <a href="#" className="text-xs font-extrabold text-[#6148FF]">
+              <a
+                href="/class"
+                className="text-xs font-extrabold text-[#6148FF]"
+              >
                 Lihat Semua
               </a>
             </div>
-            <div className="flex mt-3 justify-between text-sm font-bold">
+            <div className="flex mt-3 px-6 justify-between text-sm font-bold">
               {buttonData.map((button, index) => (
                 <Button
                   key={index}
@@ -159,7 +161,7 @@ const Home = () => {
                 />
               ))}
             </div>
-            <div className="pt-[1.39rem] flex flex-row justify-between">
+            <div className="pt-7 flex flex-row justify-between">
               <CardCourse
                 img={UIUX}
                 classCategory={"UI/UX"}

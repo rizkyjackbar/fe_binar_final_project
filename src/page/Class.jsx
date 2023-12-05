@@ -8,7 +8,7 @@ import {
   Navbar,
 } from "../component";
 
-const MyClass = () => {
+const Class = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const buttonData = [
@@ -17,21 +17,21 @@ const MyClass = () => {
       colorBf: "#FFF",
       textColor: "black",
       text: "All",
-      classes: "rounded-2xl px-5 font-semibold py-1 ",
+      classes: "rounded-2xl font-semibold px-5 py-1 ",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#FFF",
       textColor: "black",
-      text: "In Progres",
-      classes: "rounded-2xl px-5 font-semibold py-1 grow",
+      text: "Kelas Premium",
+      classes: "rounded-2xl font-semibold px-5 py-1 grow",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#FFF",
       textColor: "black",
-      text: "Selesai",
-      classes: "rounded-2xl px-5 font-semibold py-1 grow",
+      text: "Kelas Gratis",
+      classes: "rounded-2xl font-semibold px-5 py-1 grow",
     },
   ];
 
@@ -44,7 +44,7 @@ const MyClass = () => {
       <main className="bg-[#EBF3FC] h-screen w-screen">
         <div className="mx-56 pt-5">
           <div className="flex flex-row items-center justify-between">
-            <h2 className="text-2xl font-bold ">Kelas Berjalan</h2>
+            <h2 className="text-2xl font-bold ">Topik Kelas</h2>
             <div className="w-[12.5rem] bg-white my-[1.13rem] rounded-2xl py-3 px-6">
               <form className="flex items-center">
                 <input
@@ -96,4 +96,4 @@ const MyClass = () => {
   );
 };
 
-export default MyClass;
+export default Class;
