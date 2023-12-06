@@ -6,10 +6,13 @@ import {
   Button,
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const [queries, setQueries] = useState("");
 
   const buttonData = [
     {
@@ -18,6 +21,7 @@ const Home = () => {
       textColor: "black",
       text: "All",
       classes: "rounded-2xl py-2 flex grow justify-center",
+      query: "",
     },
     {
       colorAf: "#6148FF",
@@ -25,6 +29,7 @@ const Home = () => {
       textColor: "black",
       text: "Data Science",
       classes: "rounded-2xl py-2 flex grow justify-center",
+      query: "",
     },
     {
       colorAf: "#6148FF",
@@ -32,6 +37,7 @@ const Home = () => {
       textColor: "black",
       text: "Android Development",
       classes: "rounded-2xl py-2 flex grow justify-center",
+      query: "Android",
     },
     {
       colorAf: "#6148FF",
@@ -39,6 +45,7 @@ const Home = () => {
       textColor: "black",
       text: "Web Development",
       classes: "rounded-2xl py-2 flex grow justify-center",
+      query: "",
     },
     {
       colorAf: "#6148FF",
@@ -46,6 +53,7 @@ const Home = () => {
       textColor: "black",
       text: "IOS Development",
       classes: "rounded-2xl py-2 flex grow justify-center",
+      query: "",
     },
     {
       colorAf: "#6148FF",
@@ -53,6 +61,7 @@ const Home = () => {
       textColor: "black",
       text: "Business Intelligence",
       classes: "rounded-2xl py-2 flex grow justify-center",
+      query: "Product Manager",
     },
     {
       colorAf: "#6148FF",
@@ -60,8 +69,22 @@ const Home = () => {
       textColor: "black",
       text: "UI/UX Design",
       classes: "rounded-2xl py-2 flex grow justify-center",
+      query: "UI/UX",
     },
   ];
+
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://befinalprojectbinar-production.up.railway.app/api/courses?category=${queries}`
+      );
+      const { data } = await response.json();
+      setCourses(data);
+    };
+    fetchData();
+  }, [queries]);
 
   return (
     <>
@@ -93,16 +116,16 @@ const Home = () => {
           <div className="mx-60 pt-7">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Kategori Belajar</h2>
-              <a
-                href="/class"
+              <Link
+                to="/class"
                 className="text-xs font-extrabold text-[#6148FF]"
               >
                 Lihat Semua
-              </a>
+              </Link>
             </div>
             <div></div>
             <div className="py-6">
-              <div className="flex flex-row text-sm font-semibold justify-between">
+              <div className="flex flex-row text-sm font-semibold justify-between gap-4">
                 <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
                 <CardCategory
                   link={"#"}
@@ -126,12 +149,12 @@ const Home = () => {
           <div className="mx-60 py-7 ">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Kursus Populer</h2>
-              <a
-                href="/class"
+              <Link
+                to="/class"
                 className="text-xs font-extrabold text-[#6148FF]"
               >
                 Lihat Semua
-              </a>
+              </Link>
             </div>
             <div className="flex gap-3 mt-3 px-3 text-sm font-bold ">
               {buttonData.map((button, index) => (
@@ -141,21 +164,26 @@ const Home = () => {
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
                   {...button}
+                  setQueries={() => setQueries(button.query)}
                 />
               ))}
             </div>
-            <div className="pt-7 flex flex-row justify-between">
-              <CardCourse
-                img={UIUX}
-                classCategory={"UI/UX"}
-                classesName={"Belajar Web Designer dengan Figma"}
-                classMentor={"Angela Doe"}
-                level={"Intermediate Level"}
-                moduls={10}
-                times={120}
-              >
-                <ButtonBuy price={"20000"} />
-              </CardCourse>
+            <div className="pt-7 flex flex-row justify-between gap-4">
+              {courses.slice(0, 3).map((course) => (
+                <CardCourse
+                  key={course.id}
+                  id={course.id}
+                  img={course.category.image}
+                  classCategory={course.category.category}
+                  classesName={course.name}
+                  classMentor={course.facilitator}
+                  level={course.level}
+                  moduls={course.total_chapter}
+                  times={course.total_duration}
+                >
+                  <ButtonBuy price={course.price} />
+                </CardCourse>
+              ))}
             </div>
           </div>
         </section>

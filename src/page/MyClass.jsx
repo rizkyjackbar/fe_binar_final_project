@@ -2,11 +2,12 @@ import { useState } from "react";
 import { UIUX, bx_search } from "../assets";
 import {
   Button,
-  ButtonBuy,
   CardCourse,
   FilterCourse,
   Navbar,
+  ProgresBar,
 } from "../component";
+import { BadgeCheckIcon } from "@heroicons/react/outline";
 
 const MyClass = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -34,6 +35,10 @@ const MyClass = () => {
       classes: "rounded-2xl px-5 font-semibold py-1 grow",
     },
   ];
+
+  const data = {
+    progres: "20%",
+  };
 
   return (
     <>
@@ -86,7 +91,10 @@ const MyClass = () => {
                 moduls={10}
                 times={120}
               >
-                <ButtonBuy price={"20000"} />
+                <div className="flex pt-1 w-2/4">
+                  <BadgeCheckIcon className="w-5 stroke-green-400" />
+                  <ProgresBar progres={data.progres} />
+                </div>
               </CardCourse>
             </div>
           </div>

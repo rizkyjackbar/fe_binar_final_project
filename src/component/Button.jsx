@@ -7,11 +7,14 @@ const Button = ({
   colorBf,
   text,
   textColor,
+  setQueries,
+  query,
 }) => {
   const isClicked = index === activeIndex;
 
   const handleClick = () => {
     setActiveIndex(index);
+    setQueries(query);
   };
 
   const buttonStyle = {
