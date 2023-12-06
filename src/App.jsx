@@ -10,6 +10,8 @@ import MyClass from "./page/MyClass";
 import EditDetailAccount from "./page/ProfileUser/EditDetailAccount";
 import ChangePasswordUser from "./page/ProfileUser/ChangePassword";
 import PaymentHistory from "./page/ProfileUser/PaymentHistory";
+import PaymentSuccess from "./page/PaymentSuccess";
+import Payment from "./page/Payment";
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
         <Route path="/editdetailaccount" element={<EditDetailAccount />} />
         <Route path="/changepassword" element={<ChangePasswordUser />} />
         <Route path="/paymenthistory" element={<PaymentHistory />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+
       </Routes>
     </BrowserRouter>
   );
