@@ -20,7 +20,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "All",
-      classes: "rounded-2xl py-2 flex grow justify-center",
+      classes: "rounded-2xl px-5 mx-1 py-1",
       query: "",
     },
     {
@@ -28,7 +28,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Data Science",
-      classes: "rounded-2xl py-2 flex grow justify-center",
+      classes: "rounded-2xl px-5 mx-1 py-1",
       query: "",
     },
     {
@@ -36,7 +36,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Android Development",
-      classes: "rounded-2xl py-2 flex grow justify-center",
+      classes: "rounded-2xl px-5 mx-1 py-1",
       query: "Android",
     },
     {
@@ -44,7 +44,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Web Development",
-      classes: "rounded-2xl py-2 flex grow justify-center",
+      classes: "rounded-2xl px-5 mx-1 py-1",
       query: "",
     },
     {
@@ -52,7 +52,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "IOS Development",
-      classes: "rounded-2xl py-2 flex grow justify-center",
+      classes: "rounded-2xl px-5 mx-1 py-1",
       query: "",
     },
     {
@@ -60,7 +60,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Business Intelligence",
-      classes: "rounded-2xl py-2 flex grow justify-center",
+      classes: "rounded-2xl px-5 mx-1 py-1",
       query: "Product Manager",
     },
     {
@@ -68,7 +68,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "UI/UX Design",
-      classes: "rounded-2xl py-2 flex grow justify-center",
+      classes: "rounded-2xl px-5 mx-1 py-1",
       query: "UI/UX",
     },
   ];
@@ -124,22 +124,39 @@ const Home = () => {
               </Link>
             </div>
             <div></div>
-            <div className="py-6">
-              <div className="flex flex-row text-sm font-semibold justify-between gap-4">
+            <div className="p-5">
+              <div className="flex flex-row justify-between">
                 <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
                 <CardCategory
                   link={"#"}
                   img={PM}
                   label={"Product Management"}
+                  className="px-10"
                 />
-                <CardCategory link={"#"} img={WEB} label={"Web Developer"} />
+                <CardCategory
+                  link={"#"}
+                  img={WEB}
+                  label={"Web Developer"}
+                  className="px-10"
+                />
                 <CardCategory
                   link={"#"}
                   img={AND}
                   label={"Android Development"}
+                  className="px-10"
                 />
-                <CardCategory link={"#"} img={IOS} label={"IOS Development"} />
-                <CardCategory link={"#"} img={DS} label={"Data Science"} />
+                <CardCategory
+                  link={"#"}
+                  img={IOS}
+                  label={"IOS Development"}
+                  className="px-10"
+                />
+                <CardCategory
+                  link={"#"}
+                  img={DS}
+                  label={"Data Science"}
+                  className="px-10"
+                />
               </div>
             </div>
           </div>
@@ -156,7 +173,7 @@ const Home = () => {
                 Lihat Semua
               </Link>
             </div>
-            <div className="flex gap-3 mt-3 px-3 text-sm font-bold ">
+            <div className="flex mt-3 px-6 justify-between text-sm font-bold">
               {buttonData.map((button, index) => (
                 <Button
                   key={index}
