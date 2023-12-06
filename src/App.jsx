@@ -10,6 +10,8 @@ import MyClass from "./page/MyClass";
 import EditDetailAccount from "./page/ProfileUser/EditDetailAccount";
 import ChangePasswordUser from "./page/ProfileUser/ChangePassword";
 import PaymentHistory from "./page/ProfileUser/PaymentHistory";
+import Class from "./page/Class";
+import DetailClass from "./page/DetailClass";
 import PaymentSuccess from "./page/PaymentSuccess";
 import Payment from "./page/Payment";
 
@@ -23,6 +25,8 @@ function App() {
         <Route path="/otp" element={<Otp />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/myclass" element={<MyClass />} />
+        <Route path="/class" element={<Class />} />
+        <Route path="/detailclass" element={<DetailClass />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/notification" element={<NotificationUser />} />
         <Route path="/editdetailaccount" element={<EditDetailAccount />} />

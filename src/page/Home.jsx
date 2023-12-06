@@ -9,7 +9,7 @@ import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 import { useState } from "react";
 
 const Home = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const buttonData = [
     {
@@ -17,49 +17,49 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "All",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-1 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Data Science",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-1 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Android Development",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-1 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Web Development",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-1 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "IOS Development",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-1 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Business Intelligence",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-1 py-1",
     },
     {
       colorAf: "#6148FF",
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "UI/UX Design",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-1 py-1",
     },
   ];
 
@@ -93,7 +93,10 @@ const Home = () => {
           <div className="mx-60 pt-7">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Kategori Belajar</h2>
-              <a href="#" className="text-xs font-extrabold text-[#6148FF]">
+              <a
+                href="/class"
+                className="text-xs font-extrabold text-[#6148FF]"
+              >
                 Lihat Semua
               </a>
             </div>
@@ -105,15 +108,32 @@ const Home = () => {
                   link={"#"}
                   img={PM}
                   label={"Product Management"}
+                  className="px-10"
                 />
-                <CardCategory link={"#"} img={WEB} label={"Web Developer"} />
+                <CardCategory
+                  link={"#"}
+                  img={WEB}
+                  label={"Web Developer"}
+                  className="px-10"
+                />
                 <CardCategory
                   link={"#"}
                   img={AND}
                   label={"Android Development"}
+                  className="px-10"
                 />
-                <CardCategory link={"#"} img={IOS} label={"IOS Development"} />
-                <CardCategory link={"#"} img={DS} label={"Data Science"} />
+                <CardCategory
+                  link={"#"}
+                  img={IOS}
+                  label={"IOS Development"}
+                  className="px-10"
+                />
+                <CardCategory
+                  link={"#"}
+                  img={DS}
+                  label={"Data Science"}
+                  className="px-10"
+                />
               </div>
             </div>
           </div>
@@ -123,7 +143,10 @@ const Home = () => {
           <div className="mx-60 py-7 ">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Kursus Populer</h2>
-              <a href="#" className="text-xs font-extrabold text-[#6148FF]">
+              <a
+                href="/class"
+                className="text-xs font-extrabold text-[#6148FF]"
+              >
                 Lihat Semua
               </a>
             </div>
@@ -138,7 +161,7 @@ const Home = () => {
                 />
               ))}
             </div>
-            <div className="pt-[1.39rem] flex flex-row justify-between">
+            <div className="pt-7 flex flex-row justify-between">
               <CardCourse
                 img={UIUX}
                 classCategory={"UI/UX"}
