@@ -16,6 +16,22 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    if (!name || !email || !phoneNumber || !password) {
+      setNotification({
+        type: "error",
+        message: "Harap lengkapi semua field formulir.",
+      });
+      return;
+    }
+
+    if (password.length < 8) {
+      setNotification({
+        type: "error",
+        message: "Password harus memiliki setidaknya 8 karakter.",
+      });
+      return;
+    }
+
     try {
       const response = await fetch(
         "https://befinalprojectbinar-production.up.railway.app/api/register",
@@ -61,7 +77,6 @@ const Register = () => {
         }
       }
     } catch (error) {
-      setRegistrationMessage("Terjadi kesalahan server. Silakan coba lagi.");
       setNotification({
         type: "error",
         message:
@@ -72,7 +87,6 @@ const Register = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setRegistrationMessage(null);
       setNotification(null);
     }, 5000);
 
