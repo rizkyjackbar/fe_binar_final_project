@@ -58,9 +58,9 @@ const Register = () => {
           message: "Registrasi berhasil! Anda dapat login sekarang.",
         });
 
-        setEmail(email)
+        setEmail(email);
 
-        navigate("/otp", { state: {email}});
+        navigate("/otp", { state: { email } });
       } else {
         const data = await response.json();
         setRegistrationMessage(
