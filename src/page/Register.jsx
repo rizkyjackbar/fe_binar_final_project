@@ -52,13 +52,7 @@ try {
   if (response.ok) {
     const data = await response.json();
 
-    console.log({
-      status: "OK",
-      message: "Email sent",
-      data: {
-        accessToken: data.accessToken,
-      },
-    });
+    console.log(data); 
 
     setRegistrationMessage("Registrasi berhasil! Anda dapat login sekarang.");
     setNotification({
