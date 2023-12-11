@@ -12,7 +12,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [registrationMessage, setRegistrationMessage] = useState(null);
   const [notification, setNotification] = useState(null);
-  
+  const [accessToken, setAccessToken] = useState("");
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -32,64 +33,70 @@ const Register = () => {
       return;
     }
 
-try {
-  const response = await fetch(
-    "https://befinalprojectbinar-production.up.railway.app/api/register",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        phone_number: phoneNumber,
-        password,
-      }),
-    }
-  );
+    try {
+      const response = await fetch(
+        "https://befinalprojectbinar-production.up.railway.app/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone_number: phoneNumber,
+            password,
+          }),
+        }
+      );
 
-  if (response.ok) {
-    const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
 
-    console.log(data); 
+        console.log(data);
 
-    setRegistrationMessage("Registrasi berhasil! Anda dapat login sekarang.");
-    setNotification({
-      type: "success",
-      message: "Registrasi berhasil! Anda dapat login sekarang.",
-    });
+        localStorage.setItem("accessToken", data.accessToken);
+        
+        setAccessToken(data.accessToken);
 
-    setEmail(email);
+        setRegistrationMessage(
+          "Registrasi berhasil! Anda dapat login sekarang."
+        );
+        setNotification({
+          type: "success",
+          message: "Registrasi berhasil! Anda dapat login sekarang.",
+        });
 
-    navigate("/otp", { state: { email } });
-  } else {
-    const data = await response.json();
-    setRegistrationMessage(
-      data.error || "Registrasi gagal. Silakan coba lagi."
-    );
+        setEmail(email);
 
-    if (response.status === 400 && data.error.includes("email")) {
+        navigate("/otp", { state: { email } });
+      } else {
+        const data = await response.json();
+        setRegistrationMessage(
+          data.error || "Registrasi gagal. Silakan coba lagi."
+        );
+
+        if (response.status === 400 && data.error.includes("email")) {
+          setNotification({
+            type: "error",
+            message: "Email sudah terdaftar. Gunakan email lain.",
+          });
+        } else if (data.error && data.error.includes("validation")) {
+          setNotification({
+            type: "error",
+            message: "Pastikan semua input terisi dengan benar.",
+          });
+        }
+      }
+    } catch (error) {
       setNotification({
         type: "error",
-        message: "Email sudah terdaftar. Gunakan email lain.",
+        message:
+          "Email yang Anda gunakan sudah terpakai, silakan gunakan email lain.",
       });
-    } else if (data.error && data.error.includes("validation")) {
-      setNotification({
-        type: "error",
-        message: "Pastikan semua input terisi dengan benar.",
-      });
+      console.error("Error during registration:", error);
     }
-  }
-} catch (error) {
-  setNotification({
-    type: "error",
-    message:
-      "Email yang Anda gunakan sudah terpakai, silakan gunakan email lain.",
-  });
-  console.error("Error during registration:", error);
-}
-  };
+  };  
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
