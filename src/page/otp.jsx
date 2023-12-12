@@ -102,7 +102,6 @@ const Otp = () => {
         return;
       }
 
-      // Lakukan pengiriman OTP ke email
       const response = await fetch(
         "https://befinalprojectbinar-production.up.railway.app/api/otp",
         {
@@ -117,7 +116,6 @@ const Otp = () => {
       if (response.ok) {
         console.log("OTP resent successfully");
 
-        // Jika server memberikan accessToken baru, simpan di localStorage dan update state
         const newToken = response.headers.get("new_access_token");
         if (newToken) {
           localStorage.setItem("accessToken", newToken);
