@@ -21,7 +21,7 @@ const Otp = () => {
   );
 
   useEffect(() => {
-    console.log(location.state);
+    // console.log(location.state);
     const storedToken =
       location.state?.accessToken || localStorage.getItem("accessToken");
 
