@@ -12,7 +12,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [registrationMessage, setRegistrationMessage] = useState(null);
   const [notification, setNotification] = useState(null);
-  const [setAccessToken] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -56,8 +55,6 @@ const Register = () => {
         console.log(data);
 
         localStorage.setItem("accessToken", data.accessToken);
-
-        setAccessToken(data.accessToken);
 
         setRegistrationMessage(
           "Registrasi berhasil! Anda dapat login sekarang."
