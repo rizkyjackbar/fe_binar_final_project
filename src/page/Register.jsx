@@ -54,7 +54,7 @@ const Register = () => {
 
         console.log(data);
 
-        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("accessToken", data.data.accessToken);
 
         setRegistrationMessage(
           "Registrasi berhasil! Anda dapat login sekarang."
@@ -66,7 +66,7 @@ const Register = () => {
 
         setEmail(email);
 
-        navigate("/otp", { state: { email } });
+        navigate("/otp", { state: { email, data } });
       } else {
         const data = await response.json();
         setRegistrationMessage(
