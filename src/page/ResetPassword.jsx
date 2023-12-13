@@ -7,6 +7,8 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const handlePasswordChange = (e) => {
     setNewPassword(e.target.value);
@@ -18,12 +20,42 @@ const ResetPassword = () => {
     setPasswordMatchError(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (newPassword !== confirmPassword) {
       setPasswordMatchError(true);
-    } else {
-      // ...
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://befinalprojectbinar-production.up.railway.app/api/reset/password",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: newPassword,
+            confirm_password: confirmPassword,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const successData = await response.json();
+        setSuccess(successData.message);
+        setTimeout(() => setSuccess(null), 5000);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message);
+        setTimeout(() => setError(null), 5000);
+      }
+    } catch (error) {
+      console.error("Error resetting password:", error.message);
+      setError("An error occurred while resetting the password");
+      setTimeout(() => setError(null), 5000);
     }
   };
 
@@ -38,7 +70,17 @@ const ResetPassword = () => {
           <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
             Reset Password
           </h2>
-          <div className="mb-4 w-full">
+          {success && (
+            <div className="text-green-500 bg-green-100 p-2 rounded-md">
+              {success}
+            </div>
+          )}
+          {error && (
+            <div className="text-red-500 bg-red-100 p-2 rounded-md">
+              {error}
+            </div>
+          )}
+          <div className="mb-4 mt-4 w-full">
             <label
               htmlFor="newPassword"
               className="block text-sm font-medium text-gray-600"
