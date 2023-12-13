@@ -4,8 +4,8 @@ import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [new_password, setNewPassword] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -23,7 +23,7 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (newPassword !== confirmPassword) {
+    if (new_password !== confirm_password) {
       setPasswordMatchError(true);
       return;
     }
@@ -37,8 +37,8 @@ const ResetPassword = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            password: newPassword,
-            confirm_password: confirmPassword,
+            new_password: new_password,
+            confirm_password: confirm_password,
           }),
         }
       );
@@ -92,7 +92,7 @@ const ResetPassword = () => {
                 type={showPassword ? "text" : "password"}
                 id="newPassword"
                 name="newPassword"
-                value={newPassword}
+                value={new_password}
                 onChange={handlePasswordChange}
                 className="mt-1 p-3 w-full border rounded-md pl-3 pr-10 mb-3"
                 style={{
@@ -128,7 +128,7 @@ const ResetPassword = () => {
                 type={showPassword ? "text" : "password"}
                 id="confirmPassword"
                 name="confirmPassword"
-                value={confirmPassword}
+                value={confirm_password}
                 onChange={handleConfirmPasswordChange}
                 className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
                 style={{
