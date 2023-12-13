@@ -93,7 +93,7 @@ const Class = () => {
         <Navbar />
       </header>
 
-      <main className="bg-[#EBF3FC] h-screen w-screen">
+      <main className="bg-[#EBF3FC] h-screen w-full">
         <div className="mx-56 pt-5">
           <div className="flex flex-row items-center justify-between">
             <h2 className="text-2xl font-bold ">Topik Kelas</h2>
