@@ -7,6 +7,7 @@ const FormChangePasswordUser = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleChangePassword = async () => {
     try {
@@ -27,16 +28,24 @@ const FormChangePasswordUser = () => {
       );
 
       if (response.ok) {
-        // Password changed successfully
-        // You may want to handle this based on your application's needs
         console.log("Password changed successfully");
+        setSuccessMessage("Update password success");
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 5000);
       } else {
         const errorData = await response.json();
         setError(errorData.message);
+        setTimeout(() => {
+          setError(null);
+        }, 5000);
       }
     } catch (error) {
       console.error("Error changing password:", error.message);
       setError("An error occurred while changing the password");
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
     }
   };
 
@@ -44,11 +53,14 @@ const FormChangePasswordUser = () => {
     <div className="FormChangePasswordUser p-4">
       <div className="mb-4 text-center">
         <h1 className="font-bold">Ubah Password</h1>
+        {successMessage && (
+          <div className="text-green-500 bg-green-100 p-2 rounded-md">
+            {successMessage}
+          </div>
+        )}
         {error && (
-        <div className="text-red-500 bg-red-100 p-2 rounded-md">
-          {error}
-        </div>
-      )}
+          <div className="text-red-500 bg-red-100 p-2 rounded-md">{error}</div>
+        )}
       </div>
 
       <div className="mb-4 w-full">
@@ -167,8 +179,6 @@ const FormChangePasswordUser = () => {
       >
         Ubah Password
       </button>
-
-      
     </div>
   );
 };
