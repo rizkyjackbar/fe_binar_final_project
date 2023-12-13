@@ -8,6 +8,9 @@ import FilterCourse from "./filterCourse";
 import ChangePasswordUser from "./FormChangePasswordUser";
 import ProgresBar from "./ProgresBar";
 import Module from "./Module";
+import ButtonPremium from "./ButtonPremium";
+import ButtonFree from "./Buttonfree";
+import ModalOnBoarding from "./ModalOnBoarding";
 
 export {
   Button,
@@ -20,4 +23,7 @@ export {
   ChangePasswordUser,
   ProgresBar,
   Module,
+  ButtonPremium,
+  ButtonFree,
+  ModalOnBoarding,
 };

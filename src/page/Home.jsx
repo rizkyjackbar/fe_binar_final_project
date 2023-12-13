@@ -29,7 +29,7 @@ const Home = () => {
       textColor: "black",
       text: "Data Science",
       classes: "rounded-2xl px-5 mx-1 py-1",
-      query: "",
+      query: "Data Science",
     },
     {
       colorAf: "#6148FF",
@@ -45,7 +45,7 @@ const Home = () => {
       textColor: "black",
       text: "Web Development",
       classes: "rounded-2xl px-5 mx-1 py-1",
-      query: "",
+      query: "Web Development",
     },
     {
       colorAf: "#6148FF",
@@ -53,7 +53,7 @@ const Home = () => {
       textColor: "black",
       text: "IOS Development",
       classes: "rounded-2xl px-5 mx-1 py-1",
-      query: "",
+      query: "IOS",
     },
     {
       colorAf: "#6148FF",
@@ -185,7 +185,7 @@ const Home = () => {
                 />
               ))}
             </div>
-            <div className="pt-7 flex flex-row justify-between gap-4">
+            <div className="pt-7 grid grid-cols-3 gap-4 ">
               {courses.slice(0, 3).map((course) => (
                 <CardCourse
                   key={course.id}

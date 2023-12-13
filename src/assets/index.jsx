@@ -13,6 +13,7 @@ import DS from "../assets/DS.png";
 import DummyProfile from "../assets/dummy_profile.png";
 import cart_shopping from "../assets/cart_shopping.png";
 import payment_option from "../assets/payment_option.png";
+import onboarding from "../assets/onboarding.png";
 
 export {
   user_icon,
@@ -29,5 +30,6 @@ export {
   DS,
   DummyProfile,
   cart_shopping,
-  payment_option
+  payment_option,
+  onboarding,
 };
