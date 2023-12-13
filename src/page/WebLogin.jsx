@@ -9,6 +9,8 @@ const WebLogin = () => {
     emailOrPhone: "",
     password: "",
   });
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const navigate = useNavigate();
 
@@ -29,20 +31,23 @@ const WebLogin = () => {
 
       if (response.ok) {
         const responseData = await response.json();
+        setSuccess(responseData.message);
+        setTimeout(() => setSuccess(null), 5000);
+
         console.log("Login successful");
         console.log(responseData);
 
-        navigate("/myClass");
+        navigate("/");
       } else {
         const errorData = await response.json();
+        setError(errorData.message);
+        setTimeout(() => setError(null), 5000);
         console.error("Login failed:", errorData.message);
-
-        // Tampilkan pesan kesalahan kepada pengguna
       }
     } catch (error) {
       console.error("Error during login:", error.message);
-
-      // Tampilkan pesan kesalahan kepada pengguna
+      setError("An error occurred during login");
+      setTimeout(() => setError(null), 5000);
     }
   };
 
@@ -64,6 +69,7 @@ const WebLogin = () => {
           <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
             Masuk
           </h2>
+
           <div className="mb-4 w-full">
             <label
               htmlFor="emailOrPhone"
@@ -140,6 +146,18 @@ const WebLogin = () => {
               Daftar disini
             </a>
           </p>
+          <div className="flex items-center justify-center mx-40">
+            {success && (
+              <div className="text-green-500 bg-green-100 p-2 rounded-md absolute bottom-0 mb-4">
+                {success}
+              </div>
+            )}
+            {error && (
+              <div className="text-red-500 bg-red-100 p-2 rounded-md absolute bottom-0 mb-4">
+                {error}
+              </div>
+            )}
+          </div>
         </form>
       </div>
 

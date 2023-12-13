@@ -86,7 +86,7 @@ const Otp = () => {
 
           showAlert(responseData.message);
 
-          navigate("/myClass");
+          navigate("/");
         } else {
           console.error("OTP verification failed");
           console.error(responseData.message);
