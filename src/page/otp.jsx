@@ -157,6 +157,11 @@ const Otp = () => {
           <p className="text-gray-600 mb-4">
             Ketik 6 digit kode yang dikirimkan ke {hiddenEmail}
           </p>
+          {alertMessage && (
+            <div className="mt-4 p-3 bg-red-500 text-white rounded-md">
+              {alertMessage}
+            </div>
+          )}
           <form className="space-y-4">
             <div className="flex items-center space-x-4 justify-center mt-16 mb-11">
               <input
@@ -304,11 +309,6 @@ const Otp = () => {
               Simpan
             </button>
           </form>
-          {alertMessage && (
-            <div className="mt-4 p-3 bg-red-500 text-white rounded-md">
-              {alertMessage}
-            </div>
-          )}
         </div>
       </div>
 
