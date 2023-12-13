@@ -19,6 +19,7 @@ const Otp = () => {
   const [accessToken, setAccessToken] = useState(
     location.state?.accessToken || localStorage.getItem("accessToken") || ""
   );
+  const [alertMessage, setAlertMessage] = useState(null);
 
   useEffect(() => {
     // console.log(location.state);
@@ -44,6 +45,14 @@ const Otp = () => {
 
     return () => clearInterval(timer);
   }, [countdown]);
+
+  const showAlert = (message) => {
+    setAlertMessage(message);
+
+    setTimeout(() => {
+      setAlertMessage(null);
+    }, 5000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,17 +84,23 @@ const Otp = () => {
           console.log("OTP verification successful");
           console.log(responseData.message);
 
+          showAlert(responseData.message);
+
           navigate("/myClass");
         } else {
           console.error("OTP verification failed");
           console.error(responseData.message);
+
+          showAlert(responseData.message);
         }
       } else {
         const errorData = await response.json();
         console.error("Error during OTP verification:", errorData.message);
+        showAlert(errorData.message);
       }
     } catch (error) {
       console.error("Error during OTP verification:", error.message);
+      showAlert(error.message);
     }
   };
 
@@ -289,6 +304,11 @@ const Otp = () => {
               Simpan
             </button>
           </form>
+          {alertMessage && (
+            <div className="mt-4 p-3 bg-red-500 text-white rounded-md">
+              {alertMessage}
+            </div>
+          )}
         </div>
       </div>
 
