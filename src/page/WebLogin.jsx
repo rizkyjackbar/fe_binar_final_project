@@ -1,15 +1,66 @@
 import { mainlogo } from "../assets";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import { useNavigate } from "react-router-dom";
 
 const WebLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    emailOrPhone: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "https://befinalprojectbinar-production.up.railway.app/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Login successful");
+        console.log(responseData);
+
+        navigate("/myClass");
+      } else {
+        const errorData = await response.json();
+        console.error("Login failed:", errorData.message);
+
+        // Tampilkan pesan kesalahan kepada pengguna
+      }
+    } catch (error) {
+      console.error("Error during login:", error.message);
+
+      // Tampilkan pesan kesalahan kepada pengguna
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* Left Section */}
       <div className="p-10 flex items-center justify-center ml-16 mx-9 bg-white">
-        <form className="w-full lg:w-80 flex flex-col items-start">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full lg:w-80 flex flex-col items-start"
+        >
           <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
             Masuk
           </h2>
@@ -24,6 +75,8 @@ const WebLogin = () => {
               type="text"
               id="emailOrPhone"
               name="emailOrPhone"
+              value={formData.emailOrPhone}
+              onChange={handleChange}
               className="mt-1 p-3 w-full border rounded-md pl-3 pr-3 mb-3"
               style={{
                 borderRadius: "16px",
@@ -51,6 +104,8 @@ const WebLogin = () => {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
+                value={formData.password}
+                onChange={handleChange}
                 className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
                 style={{
                   borderRadius: "16px",
@@ -96,4 +151,4 @@ const WebLogin = () => {
   );
 };
 
-export default WebLogin ;
+export default WebLogin;
