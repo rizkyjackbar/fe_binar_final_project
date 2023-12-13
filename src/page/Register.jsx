@@ -1,10 +1,107 @@
 import { mainlogo } from "../assets";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [registrationMessage, setRegistrationMessage] = useState(null);
+  const [notification, setNotification] = useState(null);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    if (!name || !email || !phoneNumber || !password) {
+      setNotification({
+        type: "error",
+        message: "Harap lengkapi semua field formulir.",
+      });
+      return;
+    }
+
+    if (password.length < 8) {
+      setNotification({
+        type: "error",
+        message: "Password harus memiliki setidaknya 8 karakter.",
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://befinalprojectbinar-production.up.railway.app/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone_number: phoneNumber,
+            password,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // console.log(data);
+
+        localStorage.setItem("accessToken", data.data.accessToken);
+
+        setRegistrationMessage(
+          "Registrasi berhasil! Anda dapat login sekarang."
+        );
+        setNotification({
+          type: "success",
+          message: "Registrasi berhasil! Anda dapat login sekarang.",
+        });
+
+        setEmail(email);
+
+        navigate("/otp", { state: { email, data } });
+      } else {
+        const data = await response.json();
+        setRegistrationMessage(
+          data.error || "Registrasi gagal. Silakan coba lagi."
+        );
+
+        if (response.status === 400 && data.error.includes("email")) {
+          setNotification({
+            type: "error",
+            message: "Email sudah terdaftar. Gunakan email lain.",
+          });
+        } else if (data.error && data.error.includes("validation")) {
+          setNotification({
+            type: "error",
+            message: "Pastikan semua input terisi dengan benar.",
+          });
+        }
+      }
+    } catch (error) {
+      setNotification({
+        type: "error",
+        message:
+          "Email yang Anda gunakan sudah terpakai, silakan gunakan email lain.",
+      });
+      console.error("Error during registration:", error);
+    }
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+
+    return () => clearTimeout(timeoutId);
+  }, [registrationMessage, notification]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
@@ -14,6 +111,23 @@ const Register = () => {
           <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
             Daftar
           </h2>
+
+          {notification && (
+            <div
+              className={`mb-4 p-4 ${
+                notification.type === "success"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              } border-l-4 ${
+                notification.type === "success"
+                  ? "border-green-500"
+                  : "border-red-500"
+              }`}
+            >
+              {notification.message}
+            </div>
+          )}
+
           <div className="mb-4 w-full">
             <label
               htmlFor="name"
@@ -25,6 +139,8 @@ const Register = () => {
               type="text"
               id="name"
               name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
               style={{
                 borderRadius: "16px",
@@ -43,6 +159,8 @@ const Register = () => {
               type="text"
               id="email"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
               style={{
                 borderRadius: "16px",
@@ -80,11 +198,14 @@ const Register = () => {
                 Buat Password
               </label>
             </div>
+
             <div className="relative w-full">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
                 style={{
                   borderRadius: "16px",
@@ -104,9 +225,9 @@ const Register = () => {
               </button>
             </div>
           </div>
-
           <button
-            type="submit"
+            type="button"
+            onClick={handleRegister}
             className="w-full py-2 px-4 mb-5 bg-indigo-600 text-white rounded hover:bg-indigo-600"
             style={{ borderRadius: "16px" }}
           >
@@ -114,10 +235,10 @@ const Register = () => {
           </button>
 
           <p className="mt-4 text-gray-600 flex items-center justify-center w-full">
-            Belum punya akun ?&nbsp;
-            <a href="/login" className="text-indigo-600">
+            Sudah punya akun ?&nbsp;
+            <Link to="/login" className="text-indigo-600">
               Masuk disini
-            </a>
+            </Link>
           </p>
         </form>
       </div>
