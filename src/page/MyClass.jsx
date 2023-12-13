@@ -80,7 +80,7 @@ const MyClass = () => {
                 />
               ))}
             </div>
-            <div className="pt-[1.39rem] flex justify-between">
+            <div className="pt-[1.39rem] grid grid-cols-3">
               <CardCourse
                 img={UIUX}
                 classCategory={"UI/UX"}

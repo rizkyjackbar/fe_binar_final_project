@@ -1,7 +1,12 @@
 import { BadgeCheckIcon } from "@heroicons/react/outline";
 import ProgresBar from "./ProgresBar";
+import { PlayIcon } from "@heroicons/react/solid";
 
-const Module = ({ progres }) => {
+const Module = ({ progres, chapterData, setCurrentVideoUrl }) => {
+  const handleModuleClick = (videoUrl) => {
+    setCurrentVideoUrl(videoUrl);
+  };
+
   return (
     <aside className="float-right w-96 bg-white rounded-2xl shadow-md mr-32 ml-12 p-5 mt-20">
       <div className="flex justify-between">
@@ -11,6 +16,33 @@ const Module = ({ progres }) => {
           <ProgresBar progres={progres} />
         </div>
       </div>
+
+      {chapterData &&
+        chapterData.map((chapter) => (
+          <div key={chapter.id}>
+            <div className="flex flex-row justify-between font-extrabold my-1 pt-3">
+              <h4 className="text-indigo-600">{`Chapter ${
+                chapter.index + 1
+              } - ${chapter.name}`}</h4>
+              <h4 className="text-blue-400">{`${chapter.total_module_duration} Menit`}</h4>
+            </div>
+            {chapter.modules.map((module, index) => (
+              <button
+                key={module.id}
+                className="text-xs font-normal flex flex-row justify-between mt-0.5 pb-2 border-b-2 mt-3 w-full items-center"
+                onClick={() => handleModuleClick(module.video)}
+              >
+                <div className="flex flex-row items-center">
+                  <div className="w-9 h-9 bg-indigo-50 rounded-full flex items-center mr-3 justify-center font-bold">
+                    {index + 1}
+                  </div>
+                  {module.name}
+                </div>
+                <PlayIcon className="w-4 fill-green-400" />
+              </button>
+            ))}
+          </div>
+        ))}
     </aside>
   );
 };

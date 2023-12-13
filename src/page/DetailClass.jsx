@@ -16,6 +16,8 @@ const DetailClass = () => {
 
   const location = useLocation();
   const [classData, setClassData] = useState(null);
+  const [chapterData, setChapterData] = useState([]);
+  const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +31,13 @@ const DetailClass = () => {
             const { data } = await response.json();
             setClassData(data);
             console.log(data);
+
+            if (data?.chapters?.length > 0) {
+              const fetchedChapters = await Promise.all(
+                data.chapters.map((chapter) => fetchChapterData(chapter.id))
+              );
+              setChapterData(fetchedChapters);
+            }
           } else {
             console.error(
               "Error fetching data:",
@@ -42,6 +51,32 @@ const DetailClass = () => {
       }
     };
 
+    const fetchChapterData = async (chapterId) => {
+      try {
+        const response = await fetch(
+          `https://befinalprojectbinar-production.up.railway.app/api/chapters/${chapterId}`
+        );
+
+        if (response.ok) {
+          const { data } = await response.json();
+
+          if (data.modules && data.modules.length > 0) {
+            setCurrentVideoUrl(data.modules[0].video);
+          }
+
+          return data;
+        } else {
+          console.error(
+            "Error fetching chapter data:",
+            response.status,
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching chapter data:", error);
+      }
+    };
+
     fetchData();
   }, [location?.state?.id]);
 
@@ -52,7 +87,11 @@ const DetailClass = () => {
       </header>
 
       <main>
-        <Module progres={data.progres} />
+        <Module
+          progres={data.progres}
+          chapterData={chapterData}
+          setCurrentVideoUrl={setCurrentVideoUrl}
+        />
         {classData && (
           <>
             <section className="bg-[#EBF3FC] pl-28 pt-8 pb-5 shadow">
@@ -101,7 +140,7 @@ const DetailClass = () => {
 
             <div className="pl-36 pr-16 w-8/12">
               <section className="py-8">
-                <ReactPlayer url={classData.introduction_video} controls />
+                <ReactPlayer url={currentVideoUrl} controls />
               </section>
 
               <section className="py-5">
