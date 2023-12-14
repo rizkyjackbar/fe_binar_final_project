@@ -134,7 +134,7 @@ const Navbar = () => {
                 }}
               >
                 <BellIcon className="w-6" />
-                {activeLink === "notification" && <p>Notofikasi</p>}
+                {activeLink === "notification" && <p>Notifikasi</p>}
               </Link>
             </li>
             <li>
