@@ -3,7 +3,8 @@ import {
   CardCourse,
   ButtonBuy,
   Button,
-  MainNavbar,
+  // MainNavbar,
+  Navbar,
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 import { useEffect, useState } from "react";
@@ -20,7 +21,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "All",
-      classes: "rounded-2xl px-5 mx-2",
+      classes: "rounded-2xl px-5 py-2 flex-shrink-0",
       query: "",
     },
     {
@@ -28,7 +29,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Data Science",
-      classes: "rounded-2xl px-5 mx-2",
+      classes: "rounded-2xl px-5 py-2 flex-shrink-0 flex grow justify-center",
       query: "Data Science",
     },
     {
@@ -36,7 +37,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Android Development",
-      classes: "rounded-2xl px-5 py-1 mx-2",
+      classes: "rounded-2xl px-5 py-2 flex-shrink-0 flex grow justify-center",
       query: "Android",
     },
     {
@@ -44,7 +45,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Web Development",
-      classes: "rounded-2xl px-5 py-1 mx-2",
+      classes: "rounded-2xl px-5 py-2 flex-shrink-0 flex grow justify-center",
       query: "Web Development",
     },
     {
@@ -52,7 +53,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "IOS Development",
-      classes: "rounded-2xl px-5 py-1 mx-2",
+      classes: "rounded-2xl px-5 py-2 flex-shrink-0 flex grow justify-center",
       query: "IOS",
     },
     {
@@ -60,7 +61,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Business Intelligence",
-      classes: "rounded-2xl px-5 py-1 mx-2",
+      classes: "rounded-2xl px-5 py-2 flex-shrink-0 flex grow justify-center",
       query: "Product Manager",
     },
     {
@@ -68,7 +69,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "UI/UX Design",
-      classes: "rounded-2xl px-5 py-1 mx-2",
+      classes: "rounded-2xl px-5 py-2 flex-shrink-0 flex grow justify-center",
       query: "UI/UX",
     },
   ];
@@ -89,11 +90,11 @@ const Home = () => {
   return (
     <>
       <header className="sticky top-0 z-10">
-        <MainNavbar />
+        <Navbar />
       </header>
       <main>
         <section id="Hero">
-          <div className=" bg-[#6148ff] grid grid-flow-col auto-cols-max gap-40">
+          <div className=" bg-[#6148ff] hidden lg:grid grid-flow-col auto-cols-max gap-40">
             <div className="relative">
               <img src={hero} />
               <div className="absolute bg-gradient-to-l from-[#6148ff] h-full w-full top-0"></div>
@@ -104,16 +105,18 @@ const Home = () => {
                 <h1>dari Praktisi Terbaik!</h1>
               </div>
               <button className=" bg-[#fff] rounded-2xl">
-                <p className="text-base font-bold text-[#6148FF] my-1.5">
-                  IKUTI KELAS
-                </p>
+                <Link to="/class">
+                  <p className="text-base font-bold text-[#6148FF] my-1.5">
+                    IKUTI KELAS
+                  </p>
+                </Link>
               </button>
             </div>
           </div>
         </section>
 
         <section id="kategori-belajar" className="bg-[#EBF3FC]">
-          <div className="mx-60 pt-7">
+          <div className="mx-7 lg:mx-60 pt-7">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Kategori Belajar</h2>
               <Link
@@ -123,47 +126,39 @@ const Home = () => {
                 Lihat Semua
               </Link>
             </div>
-            <div></div>
-            <div className="py-5 px-1">
-              <div className="flex flex-row justify-between">
+            <div className="py-5">
+              <div className="flex flex-wrap justify-center">
                 <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
                 <CardCategory
                   link={"#"}
                   img={PM}
                   label={"Product Management"}
-                  // className="px-10"
                 />
-                <CardCategory
-                  link={"#"}
-                  img={WEB}
-                  label={"Web Developer"}
-                  // className="px-10"
-                />
+                <CardCategory link={"#"} img={WEB} label={"Web Developer"} />
                 <CardCategory
                   link={"#"}
                   img={AND}
                   label={"Android Development"}
-                  // className="px-10"
                 />
                 <CardCategory
                   link={"#"}
                   img={IOS}
                   label={"IOS Development"}
-                  // className="px-10"
+                  classes={"hidden lg:block"}
                 />
                 <CardCategory
                   link={"#"}
                   img={DS}
                   label={"Data Science"}
-                  // className="px-10"
+                  classes={"hidden lg:block"}
                 />
               </div>
             </div>
           </div>
         </section>
 
-        <section id="kategori-belajar">
-          <div className="mx-60 py-7 ">
+        <section id="kursus-populer">
+          <div className="mx-7 lg:mx-60 py-7 ">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Kursus Populer</h2>
               <Link
@@ -173,7 +168,7 @@ const Home = () => {
                 Lihat Semua
               </Link>
             </div>
-            <div className="flex mt-3 justify-between text-xs font-bold">
+            <div className="flex grow mt-3 gap-2 lg:gap-4 text-xs font-bold overflow-x-auto lg:justify-center">
               {buttonData.map((button, index) => (
                 <Button
                   key={index}
@@ -185,7 +180,7 @@ const Home = () => {
                 />
               ))}
             </div>
-            <div className="pt-7 grid grid-cols-3 gap-4 ">
+            <div className="pt-7 flex flex-col lg:grid lg:grid-cols-3 gap-4">
               {courses.slice(0, 3).map((course) => (
                 <CardCourse
                   key={course.id}

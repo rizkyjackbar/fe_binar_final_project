@@ -109,7 +109,7 @@ const Class = () => {
                   ref={inputField}
                   type="text"
                   placeholder="Cari kelas..."
-                  className="w-full h-full text-gray-900"
+                  className="w-full h-full text-gray-900 outline-none"
                 />
                 <button
                   type="submit"

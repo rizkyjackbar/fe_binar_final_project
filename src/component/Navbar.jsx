@@ -38,9 +38,9 @@ const Navbar = () => {
   return (
     <nav className="h-12 sm:h-14 lg:h-20 shadow-[0_0_0_10px_0_rgba(0, 0, 0, 0.15)] flex justify-between bg-[#6148ff]">
       <div className="flex justify-center items-center">
-        <a href="/" className="ml-8 mr-2 mt-2 lg:ml-[5.94rem] lg:mr-[2.18rem]">
+        <Link to="/" className="ml-8 mr-2 mt-2 lg:ml-[5.94rem] lg:mr-[2.18rem]">
           <img src={logo} className="flex mt-2 w-20 lg:w-28" />
-        </a>
+        </Link>
         <div className="w-52 h-8 lg:w-[32.875rem] lg:h-12 bg-white  rounded-2xl p-1 px-4">
           <div className="flex justify-between items-center">
             <input
@@ -56,7 +56,7 @@ const Navbar = () => {
       </div>
       <div className="text-white flex pr-8 lg:pr-[9.16rem]">
         {isLoggedIn ? (
-          <ul className="flex justify-center items-center text-base font-bold lg:text-lg gap-2">
+          <ul className="flex justify-center items-center text-base font-bold lg:text-lg gap-1">
             <li>
               <Link
                 to={"/class"}
