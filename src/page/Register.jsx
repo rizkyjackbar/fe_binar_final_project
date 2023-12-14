@@ -27,7 +27,7 @@ const Register = () => {
     if (password.length < 8) {
       setNotification({
         type: "error",
-        message: "Password harus memiliki setidaknya 8 karakter.",
+        message: "Password min 8 karakter.",
       });
       return;
     }
@@ -106,27 +106,11 @@ const Register = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* Left Section */}
-      <div className="p-10 flex items-center justify-center ml-16 mx-9 bg-white">
+      <div className="p-10 flex items-center justify-center ml-16 mx-9 mb-5 bg-white">
         <form className="w-full lg:w-80 flex flex-col items-start">
           <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
             Daftar
           </h2>
-
-          {notification && (
-            <div
-              className={`mb-4 p-4 ${
-                notification.type === "success"
-                  ? "bg-green-100 text-green-800"
-                  : "bg-red-100 text-red-800"
-              } border-l-4 ${
-                notification.type === "success"
-                  ? "border-green-500"
-                  : "border-red-500"
-              }`}
-            >
-              {notification.message}
-            </div>
-          )}
 
           <div className="mb-4 w-full">
             <label
@@ -240,6 +224,19 @@ const Register = () => {
               Masuk disini
             </Link>
           </p>
+          <div className="flex items-center justify-center mx-40 ">
+            {notification && (
+              <div
+                className={`text-${
+                  notification.type === "success" ? "green" : "red"
+                }-500 bg-${
+                  notification.type === "success" ? "green" : "red"
+                }-100 p-2 rounded-xl absolute bottom-0 mb-4`}
+              >
+                {notification.message}
+              </div>
+            )}
+          </div>
         </form>
       </div>
 

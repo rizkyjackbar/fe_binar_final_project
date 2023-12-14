@@ -3,7 +3,7 @@ import {
   CardCourse,
   ButtonBuy,
   Button,
-  Navbar,
+  MainNavbar,
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "All",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-2",
       query: "",
     },
     {
@@ -28,7 +28,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Data Science",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 mx-2",
       query: "Data Science",
     },
     {
@@ -36,7 +36,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Android Development",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 py-1 mx-2",
       query: "Android",
     },
     {
@@ -44,7 +44,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Web Development",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 py-1 mx-2",
       query: "Web Development",
     },
     {
@@ -52,7 +52,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "IOS Development",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 py-1 mx-2",
       query: "IOS",
     },
     {
@@ -60,7 +60,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "Business Intelligence",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 py-1 mx-2",
       query: "Product Manager",
     },
     {
@@ -68,7 +68,7 @@ const Home = () => {
       colorBf: "#E8F1FF",
       textColor: "black",
       text: "UI/UX Design",
-      classes: "rounded-2xl px-5 py-1",
+      classes: "rounded-2xl px-5 py-1 mx-2",
       query: "UI/UX",
     },
   ];
@@ -89,7 +89,7 @@ const Home = () => {
   return (
     <>
       <header className="sticky top-0 z-10">
-        <Navbar />
+        <MainNavbar />
       </header>
       <main>
         <section id="Hero">
@@ -173,7 +173,7 @@ const Home = () => {
                 Lihat Semua
               </Link>
             </div>
-            <div className="flex mt-3 justify-between text-sm font-bold">
+            <div className="flex mt-3 justify-between text-xs font-bold">
               {buttonData.map((button, index) => (
                 <Button
                   key={index}

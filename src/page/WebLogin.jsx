@@ -153,7 +153,7 @@ const WebLogin = () => {
               </div>
             )}
             {error && (
-              <div className="text-red-500 bg-red-100 p-2 rounded-md absolute bottom-0 mb-4">
+              <div className="text-red-500 bg-red-100 p-2 rounded-xl absolute bottom-0 mb-4">
                 {error}
               </div>
             )}
