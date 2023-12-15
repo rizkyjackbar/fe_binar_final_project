@@ -3,7 +3,7 @@ import { CashIcon } from "@heroicons/react/outline";
 const ButtonBuy = ({ price }) => {
   return (
     <a
-      className="flex flex-row bg-[#489CFF] mt-0.5 px-3 py-0.5 gap-0.5 max-w-max rounded-2xl z-10"
+      className="flex flex-row bg-[#489CFF] mt-0.5 px-3 py-0.5 gap-0.5 max-w-max rounded-2xl"
       href="/#"
     >
       <CashIcon className="w-[0.75rem] text-white" />
