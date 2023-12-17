@@ -3,7 +3,6 @@ import {
   CardCourse,
   ButtonBuy,
   Button,
-  // MainNavbar,
   Navbar,
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
