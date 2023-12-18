@@ -1,6 +1,7 @@
 import { mainlogo } from "../assets";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import { Link } from "react-router-dom";
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -165,9 +166,9 @@ const ResetPassword = () => {
 
           <p className="mt-4 text-gray-600 flex items-center justify-center w-full">
             Belum punya akun?&nbsp;
-            <a href="/register" className="text-indigo-600">
+            <Link to="/register" className="text-indigo-600">
               Daftar disini
-            </a>
+            </Link>
           </p>
         </form>
       </div>
