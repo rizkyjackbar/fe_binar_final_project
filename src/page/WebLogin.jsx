@@ -101,9 +101,9 @@ const WebLogin = () => {
                 Password
               </label>
               <p className="text-gray-600">
-                <a href="/forgetPassword" className="text-indigo-600">
+                <Link to="/forgetPassword" className="text-indigo-600">
                   Lupa kata sandi?
-                </a>
+                </Link>
               </p>
             </div>
             <div className="relative w-full">
