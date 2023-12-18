@@ -1,12 +1,24 @@
-import {
-  CogIcon,
-  ShoppingCartIcon,
-  PencilAltIcon,
-  LogoutIcon,
-} from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { CogIcon, ShoppingCartIcon, PencilAltIcon, LogoutIcon } from "@heroicons/react/solid";
+import { Link, useNavigate } from "react-router-dom";
 
 const MenuActionProfile = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clearSessionData();
+    removeAuthToken();
+    navigate("/login");
+  };
+
+  const clearSessionData = () => {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("userPhoto");
+  };
+
+  const removeAuthToken = () => {
+    localStorage.removeItem("accessToken");
+  };
+
   return (
     <div className="p-4">
       <ul>
@@ -39,12 +51,12 @@ const MenuActionProfile = () => {
         </li>
         <li className="flex items-center mb-3.5 pb-3.5 border-b border-gray-300">
           <LogoutIcon className="w-6 h-6 mr-2 text-indigo-600" />
-          <Link
-            to="/logout"
+          <button
+            onClick={handleLogout}
             className="text-black hover:text-indigo-600 font-medium transition-all"
           >
             Keluar
-          </Link>
+          </button>
         </li>
       </ul>
     </div>
