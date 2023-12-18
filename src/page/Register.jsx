@@ -52,9 +52,11 @@ const Register = () => {
       if (response.ok) {
         const data = await response.json();
 
-        // console.log(data);
-
         localStorage.setItem("accessToken", data.data.accessToken);
+        localStorage.setItem(
+          "userData",
+          JSON.stringify({ name, email, phoneNumber })
+        );
 
         setRegistrationMessage(
           "Registrasi berhasil! Anda dapat login sekarang."
