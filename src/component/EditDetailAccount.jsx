@@ -14,47 +14,57 @@ const EditDetailAccount = () => {
     const fetchData = async () => {
       try {
         const userDataString = localStorage.getItem("userData");
+
         if (userDataString) {
-          const userData = JSON.parse(userDataString);
-          setPhoto(userData.photo || "");
-          setName(userData.name || "");
-          setEmail(userData.email || "");
-          setphone_number(userData.phone_number || "");
-          setCountry(userData.country || "");
-          setCity(userData.city || "");
+          setInitialUserDataFromLocalStorage(userDataString);
         } else {
-          setPhoto("");
-        }
-
-        const response = await fetch(
-          "https://befinalprojectbinar-production.up.railway.app/api/user",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-
-        if (response.ok) {
-          const userData = await response.json();
-          setPhoto(userData.photo || "");
-          setName(userData.name || "");
-          setEmail(userData.email || "");
-          setphone_number(userData.phone_number || "");
-          setCountry(userData.country || "");
-          setCity(userData.city || "");
-          console.log(userData);
-        } else {
-          console.error("Gagal mengambil data pengguna");
+          await fetchUserDataFromApi();
         }
       } catch (error) {
-        console.error("Kesalahan selama pengambilan data:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
+
+  const setInitialUserDataFromLocalStorage = (userDataString) => {
+    const userData = JSON.parse(userDataString);
+    setPhoto(userData.photo || "");
+    setName(userData.name || "");
+    setEmail(userData.email || "");
+    setphone_number(userData.phone_number || "");
+    setCountry(userData.country || "");
+    setCity(userData.city || "");
+  };
+
+  const fetchUserDataFromApi = async () => {
+    try {
+      const response = await fetch(
+        "https://befinalprojectbinar-production.up.railway.app/api/user",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const userData = await response.json();
+        setPhoto(userData.photo || "");
+        setName(userData.name || "");
+        setEmail(userData.email || "");
+        setphone_number(userData.phone_number || "");
+        setCountry(userData.country || "");
+        setCity(userData.city || "");
+      } else {
+        console.error("Failed to fetch user data");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     const storedPhoto = localStorage.getItem("userPhoto");
