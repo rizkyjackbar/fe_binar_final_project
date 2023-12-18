@@ -35,7 +35,7 @@ const WebLogin = () => {
         setTimeout(() => setSuccess(null), 5000);
         localStorage.setItem("accessToken", `${responseData.data.accessToken}`);
 
-        console.log("Login successful");
+        console.log("Login successful", responseData);
 
         navigate("/");
       } else {
