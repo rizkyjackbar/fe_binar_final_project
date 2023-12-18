@@ -1,10 +1,9 @@
 import React from "react";
 import {
-  MainNavbar,
-  CardCategory,
   CardCourse,
-  ButtonBuy,
-  Button,
+  ButtonPaid,
+  ButtonPaidFailed,
+  ButtonPaidWaiting,
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 
@@ -15,18 +14,50 @@ const PaymentHistory = () => {
         <h1 className="font-bold">Riwayat Pembayaran</h1>
       </div>
 
-      <CardCourse
-        img={UIUX}
-        classCategory={"UI/UX"}
-        classesName={"Belajar Web Designer dengan Figma"}
-        rating={4.5}
-        classMentor={"Angela Doe"}
-        level={"Intermediate Level"}
-        moduls={10}
-        times={120}
-      >
-        <ButtonBuy price={"20000"} />
-      </CardCourse>
+      <div>
+        <CardCourse
+          img={UIUX}
+          classCategory={"UI/UX"}
+          classesName={"Belajar Web Designer dengan Figma"}
+          rating={4.5}
+          classMentor={"Angela Doe"}
+          level={"Intermediate Level"}
+          moduls={10}
+          times={120}
+        >
+          <ButtonPaid />
+        </CardCourse>
+
+        <div className="my-3"></div>
+
+        <CardCourse
+          img={AND}
+          classCategory={"AND"}
+          classesName={"Belajar Basic Android Studio"}
+          rating={4.5}
+          classMentor={"Angela Doe"}
+          level={"Intermediate Level"}
+          moduls={10}
+          times={120}
+        >
+          <ButtonPaidFailed />
+        </CardCourse>
+
+        <div className="my-3"></div>
+
+        <CardCourse
+          img={WEB}
+          classCategory={"WEB"}
+          classesName={"Belajar Web Designer"}
+          rating={4.5}
+          classMentor={"Angela Doe"}
+          level={"Intermediate Level"}
+          moduls={10}
+          times={120}
+        >
+          <ButtonPaidWaiting />
+        </CardCourse>
+      </div>
     </div>
   );
 };

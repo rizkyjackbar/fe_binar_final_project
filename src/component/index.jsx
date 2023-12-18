@@ -11,6 +11,9 @@ import Module from "./Module";
 import ButtonPremium from "./ButtonPremium";
 import ButtonFree from "./Buttonfree";
 import ModalOnBoarding from "./ModalOnBoarding";
+import ButtonPaid from "./ButtonPaid";
+import ButtonPaidFailed from "./ButtonPaidFailed";
+import ButtonPaidWaiting from "./ButtonPaidWaiting";
 
 export {
   Button,
@@ -26,4 +29,7 @@ export {
   ButtonPremium,
   ButtonFree,
   ModalOnBoarding,
+  ButtonPaid,
+  ButtonPaidFailed,
+  ButtonPaidWaiting,
 };
