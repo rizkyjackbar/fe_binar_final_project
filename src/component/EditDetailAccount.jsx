@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { DummyProfile } from "../assets";
 
 const EditDetailAccount = () => {
   const [photo, setPhoto] = useState("");
@@ -52,12 +51,14 @@ const EditDetailAccount = () => {
 
       if (response.ok) {
         const userData = await response.json();
+        // localStorage.setItem("userData", JSON.stringify(userData));
         setPhoto(userData.photo || "");
         setName(userData.name || "");
         setEmail(userData.email || "");
         setphone_number(userData.phone_number || "");
         setCountry(userData.country || "");
         setCity(userData.city || "");
+        console.log(userData);
       } else {
         console.error("Failed to fetch user data");
       }
