@@ -36,7 +36,6 @@ const WebLogin = () => {
         localStorage.setItem("accessToken", `${responseData.data.accessToken}`);
 
         console.log("Login successful");
-        console.log(responseData);
 
         navigate("/");
       } else {
