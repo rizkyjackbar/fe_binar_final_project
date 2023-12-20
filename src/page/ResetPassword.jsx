@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const {id} = useParams()
+  const {tokenResetPassword} = useParams()
 
   const handlePasswordChange = (e) => {
     setNewPassword(e.target.value);
@@ -32,7 +32,7 @@ const ResetPassword = () => {
 
     try {
       const response = await fetch(
-        "https://befinalprojectbinar-production.up.railway.app/api/reset/password"+id,
+        "https://befinalprojectbinar-production.up.railway.app/api/reset/password"+tokenResetPassword,
         {
           method: "PUT",
           headers: {
