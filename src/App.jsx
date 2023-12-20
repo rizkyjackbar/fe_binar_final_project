@@ -23,7 +23,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<WebLogin />} />
         <Route path="/otp" element={<Otp />} />
-        <Route path="/reset/password" element={<ResetPassword />} />
+        <Route path="/reset/password/:tokenResetPassword" element={<ResetPassword />} />
         <Route path="/myclass" element={<MyClass />} />
         <Route path="/class" element={<Class />} />
         <Route path="/detailclass" element={<DetailClass />} />
