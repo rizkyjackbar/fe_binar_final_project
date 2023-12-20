@@ -1,7 +1,7 @@
 import { mainlogo } from "../assets";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,6 +10,7 @@ const ResetPassword = () => {
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const {id} = useParams()
 
   const handlePasswordChange = (e) => {
     setNewPassword(e.target.value);
@@ -31,7 +32,7 @@ const ResetPassword = () => {
 
     try {
       const response = await fetch(
-        "https://befinalprojectbinar-production.up.railway.app/api/reset/password",
+        "https://befinalprojectbinar-production.up.railway.app/api/reset/password"+id,
         {
           method: "PUT",
           headers: {
