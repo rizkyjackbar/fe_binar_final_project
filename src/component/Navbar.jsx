@@ -27,6 +27,10 @@ const Navbar = () => {
       setActiveLink("notification");
     } else if (editDetailAccountMatch) {
       setActiveLink("editdetailaccount");
+    } else if (pathname.includes("/changepassword")) {
+      setActiveLink("editdetailaccount");
+    } else if (pathname.includes("/paymenthistory")) {
+      setActiveLink("editdetailaccount");
     } else {
       setActiveLink(null);
     }
@@ -59,7 +63,7 @@ const Navbar = () => {
           <ul className="flex justify-center items-center text-base font-bold lg:text-lg gap-1">
             <li>
               <Link
-                to={"/class"}
+                to={"/myclass"}
                 onClick={() => handleNavLinkClick("class")}
                 className={`flex items-center gap-1 py-0.5 px-4 rounded-xl ${
                   activeLink === "class" ? "bg-blue-400" : ""
