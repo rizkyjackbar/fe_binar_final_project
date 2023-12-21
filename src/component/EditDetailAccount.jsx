@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
+import { DummyProfile } from "../assets";
 
 const EditDetailAccount = () => {
-  const [userDataString] = useState(localStorage.getItem("userData"));
-  const dataOrang = userDataString ? JSON.parse(userDataString) : null;
   const [alert, setAlert] = useState(null);
   const [userData, setUserData] = useState({
     photo: "",
@@ -35,6 +34,8 @@ const EditDetailAccount = () => {
     const storedPhoto = localStorage.getItem("userPhoto");
     if (storedPhoto) {
       setUserData((prevData) => ({ ...prevData, photo: storedPhoto }));
+    } else {
+      setUserData((prevData) => ({ ...prevData, photo: DummyProfile }));
     }
   }, []);
 
@@ -79,7 +80,7 @@ const EditDetailAccount = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setUserData((prevData) => ({ ...prevData, photo: reader.result }));
-        localStorage.setItem("userPhoto", reader.result);
+        // localStorage.setItem("userData", reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -146,7 +147,7 @@ const EditDetailAccount = () => {
               onChange={handleImageChange}
             />
             <img
-              src={userData.photo}
+              src={userData.photo || DummyProfile}
               alt=""
               className="w-24 h-24 object-cover rounded-full mx-auto cursor-pointer"
             />
