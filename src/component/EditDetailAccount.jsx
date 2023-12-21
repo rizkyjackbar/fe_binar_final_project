@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 
 const EditDetailAccount = () => {
-  const [photo, setPhoto] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone_number, setphone_number] = useState("");
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
+  const [userDataString] = useState(localStorage.getItem("userData"));
+  const dataOrang = userDataString ? JSON.parse(userDataString) : null;
   const [alert, setAlert] = useState(null);
+  const [userData, setUserData] = useState({
+    photo: "",
+    name: "",
+    email: "",
+    phone_number: "",
+    country: "",
+    city: "",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,14 +31,20 @@ const EditDetailAccount = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const storedPhoto = localStorage.getItem("userPhoto");
+    if (storedPhoto) {
+      setUserData((prevData) => ({ ...prevData, photo: storedPhoto }));
+    }
+  }, []);
+
   const setInitialUserDataFromLocalStorage = (userDataString) => {
-    const userData = JSON.parse(userDataString);
-    setPhoto(userData.photo || "");
-    setName(userData.name || "");
-    setEmail(userData.email || "");
-    setphone_number(userData.phone_number || "");
-    setCountry(userData.country || "");
-    setCity(userData.city || "");
+    try {
+      const userData = JSON.parse(userDataString);
+      setUserData(userData.data);
+    } catch (error) {
+      console.error("Error parsing data from Local Storage:", error);
+    }
   };
 
   const fetchUserDataFromApi = async () => {
@@ -51,14 +61,9 @@ const EditDetailAccount = () => {
 
       if (response.ok) {
         const userData = await response.json();
-        // localStorage.setItem("userData", JSON.stringify(userData));
-        setPhoto(userData.photo || "");
-        setName(userData.name || "");
-        setEmail(userData.email || "");
-        setphone_number(userData.phone_number || "");
-        setCountry(userData.country || "");
-        setCity(userData.city || "");
-        console.log(userData);
+        setUserData(userData.data);
+
+        localStorage.setItem("userData", JSON.stringify(userData));
       } else {
         console.error("Failed to fetch user data");
       }
@@ -67,20 +72,13 @@ const EditDetailAccount = () => {
     }
   };
 
-  useEffect(() => {
-    const storedPhoto = localStorage.getItem("userPhoto");
-    if (storedPhoto) {
-      setPhoto(storedPhoto);
-    }
-  }, []);
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPhoto(reader.result);
+        setUserData((prevData) => ({ ...prevData, photo: reader.result }));
         localStorage.setItem("userPhoto", reader.result);
       };
       reader.readAsDataURL(file);
@@ -99,34 +97,18 @@ const EditDetailAccount = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-          body: JSON.stringify({
-            name,
-            email,
-            phone_number,
-            country,
-            city,
-            photo,
-          }),
+          body: JSON.stringify(userData),
         }
       );
 
       if (response.ok) {
-        const userData = {
-          name,
-          email,
-          phone_number,
-          country,
-          city,
-          photo,
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
+        localStorage.setItem("userData", JSON.stringify({ data: userData }));
 
         setAlert({
           type: "success",
           message: "Profil berhasil diperbarui!",
         });
 
-        console.log("Profil berhasil diperbarui!", userData);
         setTimeout(() => {
           setAlert(null);
         }, 3000);
@@ -135,7 +117,7 @@ const EditDetailAccount = () => {
           type: "error",
           message: "Gagal memperbarui profil",
         });
-        console.error("Gagal memperbarui profil");
+
         setTimeout(() => {
           setAlert(null);
         }, 3000);
@@ -145,6 +127,7 @@ const EditDetailAccount = () => {
         type: "error",
         message: "Kesalahan selama pembaruan profil",
       });
+
       console.error("Kesalahan selama pembaruan profil:", error);
     }
   };
@@ -163,7 +146,7 @@ const EditDetailAccount = () => {
               onChange={handleImageChange}
             />
             <img
-              src={photo}
+              src={userData.photo}
               alt=""
               className="w-24 h-24 object-cover rounded-full mx-auto cursor-pointer"
             />
@@ -181,8 +164,10 @@ const EditDetailAccount = () => {
             type="text"
             id="name"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={userData.name}
+            onChange={(e) =>
+              setUserData((prevData) => ({ ...prevData, name: e.target.value }))
+            }
             className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
             style={{
               borderRadius: "16px",
@@ -202,8 +187,13 @@ const EditDetailAccount = () => {
             type="text"
             id="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={userData.email}
+            onChange={(e) =>
+              setUserData((prevData) => ({
+                ...prevData,
+                email: e.target.value,
+              }))
+            }
             className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
             style={{
               borderRadius: "16px",
@@ -223,8 +213,13 @@ const EditDetailAccount = () => {
             type="tel"
             id="phone_number"
             name="phone_number"
-            value={phone_number}
-            onChange={(e) => setphone_number(e.target.value)}
+            value={userData.phone_number}
+            onChange={(e) =>
+              setUserData((prevData) => ({
+                ...prevData,
+                phone_number: e.target.value,
+              }))
+            }
             className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
             style={{
               borderRadius: "16px",
@@ -247,8 +242,13 @@ const EditDetailAccount = () => {
               id="country"
               type="text"
               name="country"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              value={userData.country}
+              onChange={(e) =>
+                setUserData((prevData) => ({
+                  ...prevData,
+                  country: e.target.value,
+                }))
+              }
               className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
               style={{
                 borderRadius: "16px",
@@ -272,8 +272,13 @@ const EditDetailAccount = () => {
               id="city"
               type="text"
               name="city"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              value={userData.city}
+              onChange={(e) =>
+                setUserData((prevData) => ({
+                  ...prevData,
+                  city: e.target.value,
+                }))
+              }
               className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
               style={{
                 borderRadius: "16px",
