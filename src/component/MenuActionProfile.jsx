@@ -11,17 +11,13 @@ const MenuActionProfile = () => {
 
   const handleLogout = () => {
     clearSessionData();
-    // removeAuthToken();
     navigate("/login");
   };
 
   const clearSessionData = () => {
     localStorage.removeItem("userData");
-    localStorage.removeItem("userPhoto");
     localStorage.removeItem("accessToken");
   };
-
-  // const removeAuthToken = () => {};
 
   return (
     <div className="p-4">
