@@ -30,21 +30,30 @@ const EditDetailAccount = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const storedPhoto = localStorage.getItem("userPhoto");
-    if (storedPhoto) {
-      setUserData((prevData) => ({ ...prevData, photo: storedPhoto }));
-    } else {
-      setUserData((prevData) => ({ ...prevData, photo: DummyProfile }));
-    }
-  }, []);
-
   const setInitialUserDataFromLocalStorage = (userDataString) => {
     try {
       const userData = JSON.parse(userDataString);
       setUserData(userData.data);
     } catch (error) {
       console.error("Error parsing data from Local Storage:", error);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const updatedPhoto = reader.result;
+
+        setUserData((prevData) => ({ ...prevData, photo: updatedPhoto }));
+
+        localStorage.setItem("userPhoto", updatedPhoto);
+
+        fetchUserDataFromApi();
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -62,27 +71,24 @@ const EditDetailAccount = () => {
 
       if (response.ok) {
         const userData = await response.json();
-        setUserData(userData.data);
 
+        const userPhoto =
+          userData.data.photo ||
+          localStorage.getItem("userPhoto") ||
+          DummyProfile;
+
+        setUserData((prevData) => ({
+          ...prevData,
+          photo: userPhoto,
+        }));
+
+        localStorage.setItem("userPhoto", userPhoto);
         localStorage.setItem("userData", JSON.stringify(userData));
       } else {
         console.error("Failed to fetch user data");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
-    }
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUserData((prevData) => ({ ...prevData, photo: reader.result }));
-        // localStorage.setItem("userData", reader.result);
-      };
-      reader.readAsDataURL(file);
     }
   };
 
