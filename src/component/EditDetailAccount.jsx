@@ -97,20 +97,35 @@ const EditDetailAccount = () => {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+      const fileInput = document.getElementById("photo");
+      const file = fileInput.files[0];
+
+      if (file) {
+        formData.append("photo", file);
+      }
+
+      formData.append("name", userData.name);
+      formData.append("email", userData.email);
+      formData.append("phone_number", userData.phone_number);
+      formData.append("country", userData.country);
+      formData.append("city", userData.city);
+
       const response = await fetch(
         "https://befinalprojectbinar-production.up.railway.app/api/user",
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-          body: JSON.stringify(userData),
+          body: formData,
         }
       );
 
       if (response.ok) {
-        localStorage.setItem("userData", JSON.stringify({ data: userData }));
+        const responseData = await response.json();
+
+        localStorage.setItem("userData", JSON.stringify(responseData.data));
 
         setAlert({
           type: "success",
@@ -135,8 +150,11 @@ const EditDetailAccount = () => {
         type: "error",
         message: "Kesalahan selama pembaruan profil",
       });
+      setTimeout(() => {
+        setAlert(null);
+      }, 3000);
 
-      console.error("Kesalahan selama pembaruan profil:", error);
+      // console.error("Kesalahan selama pembaruan profil:", error);
     }
   };
 
