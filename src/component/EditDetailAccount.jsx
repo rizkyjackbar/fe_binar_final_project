@@ -39,24 +39,6 @@ const EditDetailAccount = () => {
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const updatedPhoto = reader.result;
-
-        setUserData((prevData) => ({ ...prevData, photo: updatedPhoto }));
-
-        localStorage.setItem("userPhoto", updatedPhoto);
-
-        fetchUserDataFromApi();
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const fetchUserDataFromApi = async () => {
     try {
       const response = await fetch(
@@ -72,23 +54,42 @@ const EditDetailAccount = () => {
       if (response.ok) {
         const userData = await response.json();
 
-        const userPhoto =
-          userData.data.photo ||
-          localStorage.getItem("userPhoto") ||
-          DummyProfile;
-
-        setUserData((prevData) => ({
-          ...prevData,
-          photo: userPhoto,
-        }));
-
-        localStorage.setItem("userPhoto", userPhoto);
+        setUserData(userData.data);
         localStorage.setItem("userData", JSON.stringify(userData));
+
+        const userPhoto =
+          userData.data.photo || localStorage.getItem("userPhoto");
+
+        if (userPhoto) {
+          setUserData((prevData) => ({ ...prevData, photo: userPhoto }));
+          localStorage.setItem("userPhoto", userPhoto);
+        } else {
+          setUserData((prevData) => ({ ...prevData, photo: DummyProfile }));
+          localStorage.setItem("userPhoto", DummyProfile);
+        }
       } else {
         console.error("Failed to fetch user data");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const updatedPhoto = reader.result;
+
+        setUserData((prevData) => ({ ...prevData, photo: updatedPhoto }));
+
+        localStorage.setItem("userPhoto", updatedPhoto);
+
+        fetchUserDataFromApi();
+      };
+      reader.readAsDataURL(file);
     }
   };
 
