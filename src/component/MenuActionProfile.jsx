@@ -1,4 +1,9 @@
-import { CogIcon, ShoppingCartIcon, PencilAltIcon, LogoutIcon } from "@heroicons/react/solid";
+import {
+  CogIcon,
+  ShoppingCartIcon,
+  PencilAltIcon,
+  LogoutIcon,
+} from "@heroicons/react/solid";
 import { Link, useNavigate } from "react-router-dom";
 
 const MenuActionProfile = () => {
@@ -6,16 +11,12 @@ const MenuActionProfile = () => {
 
   const handleLogout = () => {
     clearSessionData();
-    removeAuthToken();
     navigate("/login");
   };
 
   const clearSessionData = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("userPhoto");
-  };
-
-  const removeAuthToken = () => {
     localStorage.removeItem("accessToken");
   };
 

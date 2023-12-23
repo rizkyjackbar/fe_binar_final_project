@@ -32,7 +32,7 @@ const ResetPassword = () => {
 
     try {
       const response = await fetch(
-        "https://befinalprojectbinar-production.up.railway.app/api/reset/password"+tokenResetPassword,
+        "https://befinalprojectbinar-production.up.railway.app/api/reset/password/"+tokenResetPassword,
         {
           method: "PUT",
           headers: {
