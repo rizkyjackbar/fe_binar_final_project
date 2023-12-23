@@ -22,7 +22,7 @@ const Module = ({ progres, chapterData, setCurrentVideoUrl, openModal }) => {
       </div>
 
       {chapterData &&
-        chapterData.reverse().map((chapter) => (
+        chapterData.map((chapter) => (
           <div key={chapter.id}>
             <div className="flex flex-row justify-between font-extrabold my-1 pt-3">
               <h4 className="text-indigo-600">{`Chapter ${chapter.index} - ${chapter.name}`}</h4>
