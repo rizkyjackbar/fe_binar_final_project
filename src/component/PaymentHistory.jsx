@@ -46,8 +46,8 @@ class PaymentHistory extends Component {
 
         <div className="d-flex justify-content-center flex-grow-1">
           {paymentHistory.length === 0 ? (
-            <div className="text-center my-16 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-2 mx-10 rounded-lg shadow-lg">
-              <p className="text-xl">Tidak Ada Pembayaran</p>
+            <div className="text-center my-16 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-2 mx-16 rounded-lg shadow-lg">
+              <p className="text-xl font-bold">Tidak Ada Pembayaran</p>
             </div>
           ) : (
             <div>
