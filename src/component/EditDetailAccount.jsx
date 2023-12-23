@@ -33,7 +33,7 @@ const EditDetailAccount = () => {
   const setInitialUserDataFromLocalStorage = (userDataString) => {
     try {
       const userData = JSON.parse(userDataString);
-      setUserData(userData.data);
+      setUserData(userData.data ?? {});
     } catch (error) {
       console.error("Error parsing data from Local Storage:", error);
     }
@@ -54,9 +54,8 @@ const EditDetailAccount = () => {
       if (response.ok) {
         const userData = await response.json();
 
-        setUserData(userData.data);
+        setUserData(userData.data ?? {});
         localStorage.setItem("userData", JSON.stringify(userData));
-
         const userPhoto =
           userData.data.photo || localStorage.getItem("userPhoto");
 
@@ -153,8 +152,6 @@ const EditDetailAccount = () => {
       setTimeout(() => {
         setAlert(null);
       }, 3000);
-
-      // console.error("Kesalahan selama pembaruan profil:", error);
     }
   };
 
@@ -172,7 +169,7 @@ const EditDetailAccount = () => {
               onChange={handleImageChange}
             />
             <img
-              src={userData.photo || DummyProfile}
+              src={userData?.photo ?? DummyProfile}
               alt=""
               className="w-24 h-24 object-cover rounded-full mx-auto cursor-pointer"
             />

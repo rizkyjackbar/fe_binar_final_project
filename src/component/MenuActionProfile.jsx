@@ -16,6 +16,7 @@ const MenuActionProfile = () => {
 
   const clearSessionData = () => {
     localStorage.removeItem("userData");
+    localStorage.removeItem("userPhoto");
     localStorage.removeItem("accessToken");
   };
 
