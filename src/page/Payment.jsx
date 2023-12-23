@@ -178,8 +178,14 @@ const Payment = () => {
 
       <div className="flex flex-col-reverse lg:flex-row justify-center items-center lg:items-start">
         <div className="flex lg:hidden justify-center items-center m-4">
-          <button className="w-[20rem] h-10 bg-[#FF0000] text-white font-bold text-middle text-xs rounded-3xl p-1 px-4">
-            <a href="/paymentsuccess">Bayar dan Ikuti Kelas Selamanya</a>
+          <button
+            className="w-[20rem] h-10 bg-[#FF0000] text-white font-bold text-middle text-xs rounded-3xl p-1 px-4"
+            type="submit"
+            onClick={handlePaymentButtonClick}
+          >
+            <Link to="/paymentsuccess" state={{ id: course.id }}>
+              <p>Bayar dan Ikuti Kelas Selamanya</p>
+            </Link>
           </button>
         </div>
         <div>
