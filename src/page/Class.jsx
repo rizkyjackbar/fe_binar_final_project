@@ -155,11 +155,8 @@ const Class = () => {
                   moduls={course.total_chapter}
                   times={course.total_duration}
                 >
-                  {activeIndex === 0 ? (
-                    <ButtonBuy price={course.price} />
-                  ) : null}
-                  {activeIndex === 1 ? <ButtonPremium /> : null}
-                  {activeIndex === 2 ? <ButtonFree /> : null}
+                  {course.type === "Premium" && <ButtonPremium />}
+                  {course.type === "Free" && <ButtonFree />}
                 </CardCourse>
               ))}
             </div>

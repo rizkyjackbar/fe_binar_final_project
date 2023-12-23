@@ -1,9 +1,6 @@
 const ButtonPremium = () => {
   return (
-    <a
-      className="flex flex-row bg-[#489CFF] mt-0.5 px-3 py-0.5 gap-0.5 max-w-max rounded-2xl z-10 items-center"
-      href="/#"
-    >
+    <div className="flex flex-row bg-[#489CFF] mt-0.5 px-3 py-0.5 gap-0.5 max-w-max rounded-2xl z-10 items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="10"
@@ -19,7 +16,7 @@ const ButtonPremium = () => {
       <div className="text-[0.625rem]/[0.875rem] font-bold text-white flex flex-row gap-5 pl-1">
         <p>Premium</p>
       </div>
-    </a>
+    </div>
   );
 };
 

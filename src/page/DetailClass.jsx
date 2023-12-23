@@ -8,6 +8,7 @@ import { ArrowLeftIcon, ChatAlt2Icon } from "@heroicons/react/solid";
 import ReactPlayer from "react-player";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import ModalBuy from "../component/ModalBuy";
 
 const DetailClass = () => {
   const data = {
@@ -18,6 +19,13 @@ const DetailClass = () => {
   const [classData, setClassData] = useState(null);
   const [chapterData, setChapterData] = useState([]);
   const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const token = localStorage.getItem("accessToken");
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +38,7 @@ const DetailClass = () => {
           if (response.ok) {
             const { data } = await response.json();
             setClassData(data);
-            console.log(data);
+            setCurrentVideoUrl(data.introduction_video);
 
             if (data?.chapters?.length > 0) {
               const fetchedChapters = await Promise.all(
@@ -53,16 +61,21 @@ const DetailClass = () => {
 
     const fetchChapterData = async (chapterId) => {
       try {
+        const headers = {};
+
+        if (token) {
+          headers.Authorization = `Bearer ${token}`;
+        }
         const response = await fetch(
-          `https://befinalprojectbinar-production.up.railway.app/api/chapters/${chapterId}`
+          `https://befinalprojectbinar-production.up.railway.app/api/chapters/${chapterId}`,
+          {
+            method: "GET",
+            headers,
+          }
         );
 
         if (response.ok) {
           const { data } = await response.json();
-
-          if (data.modules && data.modules.length > 0) {
-            setCurrentVideoUrl(data.modules[0].video);
-          }
 
           return data;
         } else {
@@ -91,6 +104,7 @@ const DetailClass = () => {
           progres={data.progres}
           chapterData={chapterData}
           setCurrentVideoUrl={setCurrentVideoUrl}
+          openModal={openModal}
         />
         {classData && (
           <>
@@ -146,12 +160,20 @@ const DetailClass = () => {
               <section className="py-5">
                 <h1 className="text-2xl font-bold">Tentang Kelas</h1>
                 <p className="text-sm pt-3">{classData.description}</p>
-                <h1 className="text-2xl font-bold pt-4">
-                  Kelas Ini Ditujukan Untuk
-                </h1>
-                <p className="text-sm py-3">{classData.description}</p>
               </section>
             </div>
+            <ModalBuy
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              id={classData.id}
+              category={classData.category.category}
+              name={classData.name}
+              img={classData.category.image}
+              facilitator={classData.facilitator}
+              level={classData.level}
+              modul={chapterData.total_chapter}
+              duration={chapterData.total_duration}
+            />
           </>
         )}
       </main>
