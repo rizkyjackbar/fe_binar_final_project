@@ -1,9 +1,40 @@
-
+import { useEffect, useState } from 'react';
 import { Navbar } from "../../component";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import IsiCard from "../../component/InNotifCard";
 
 const NotificationUser = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await fetch('https://befinalprojectbinar-production.up.railway.app/api/notifications', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch notifications');
+        }
+
+        const data = await response.json();
+        setNotifications(data.data || []);
+        // console.log(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching notifications:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
   return (
     <div className="">
       <header>
@@ -19,28 +50,24 @@ const NotificationUser = () => {
         </div>
 
         <div className="flex items-center justify-center">
-          <div className="card bg-white shadow-md mt-12 w-2/3 h-auto border border-indigo-600 rounded-2xl">
+          <div className="card bg-white shadow-md mt-12 w-2/3 h-auto border border-indigo-600 rounded-2xl mb-10">
             <h2 className="bg-indigo-600 flex items-center justify-center text-sm font-bold text-white rounded-t-2xl h-12">
               Notifikasi
             </h2>
 
-            <IsiCard
-              title="Promosi"
-              content="Dapatkan Potongan 50% selama Bulan Maret!"
-              date="2 Maret, 12:00"
-            />
-
-            <IsiCard
-              title="Notifikasi"
-              content="Password berhasil diubah"
-              date="1 Maret, 10:00"
-            />
-
-            <IsiCard
-              title="Promosi"
-              content="Dapatkan Potongan 50% selama Bulan Maret!"
-              date="1 Maret, 09:00"
-            />
+            {isLoading ? (
+              <p className="text-center mt-4 text-gray-800 mb-10">Tunggu Sebentar...</p>
+            ) : notifications.length === 0 ? (
+              <p className="text-center mt-4 text-gray-800">Tidak Ada Pemberitahuan</p>
+            ) : (
+              notifications.map(notification => (
+                <IsiCard
+                  key={notification.id}
+                  data={notification}
+                  createdAt={new Date(notification.createdAt).toLocaleString()}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>
