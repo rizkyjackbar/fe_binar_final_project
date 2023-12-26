@@ -20,6 +20,7 @@ const DetailClass = () => {
   const [chapterData, setChapterData] = useState([]);
   const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [seProgress, setSePogress] = useState(false)
 
   const token = localStorage.getItem("accessToken");
 
@@ -99,13 +100,15 @@ const DetailClass = () => {
         <Navbar />
       </header>
 
-      <main>
-        <Module
-          progres={data.progres}
-          chapterData={chapterData}
-          setCurrentVideoUrl={setCurrentVideoUrl}
-          openModal={openModal}
-        />
+      <main className=" -ml-[90px] lg:ml-0">
+        <div className=" hidden lg:block">
+          <Module
+            progres={data.progres}
+            chapterData={chapterData}
+            setCurrentVideoUrl={setCurrentVideoUrl}
+            openModal={openModal}
+          />
+        </div>
         {classData && (
           <>
             <section className="bg-[#EBF3FC] pl-28 pt-8 pb-5 shadow">
@@ -119,6 +122,17 @@ const DetailClass = () => {
                 </Link>
               </span>
               <div className="pl-6 pt-5">
+                <button onClick={() => setSePogress(!seProgress)} className=" block lg:hidden float-right mr-5 bg-[#6148FF] w-[130px] h-[40px] rounded-lg text-white font-medium">
+                  Lihat Progres
+                </button>
+                <div className={`float-right w-[200px] absolute mt-6 right-0 h-auto ${seProgress ? 'hidden' : 'block'} lg:hidden`}>
+                <Module
+            progres={data.progres}
+            chapterData={chapterData}
+            setCurrentVideoUrl={setCurrentVideoUrl}
+            openModal={openModal}
+          />
+                </div>
                 <p className="text-xl font-bold text-[#6148FF]">
                   {classData.category.category}
                 </p>
@@ -126,7 +140,7 @@ const DetailClass = () => {
                 <p className="text-sm font-normal">
                   by {classData.facilitator}
                 </p>
-                <div className="text-xs font-semibold flex gap-36 pt-[0.19rem]">
+                <div className="text-xs font-semibold flex gap-5 lg:gap-36 pt-[0.19rem]">
                   <div className="flex items-center">
                     <ShieldExclamationIcon className="stroke-green-500 w-3.5" />
                     <p className="text-[#6148FF]">{classData.level} Level</p>
@@ -152,14 +166,21 @@ const DetailClass = () => {
               </div>
             </section>
 
-            <div className="pl-36 pr-16 w-8/12">
-              <section className="py-8">
-                <ReactPlayer url={currentVideoUrl} controls />
+            <div className="pl-36 lg:w-8/12">
+              <section className="py-8 w-[300px] lg:w-[520px]">
+                <ReactPlayer
+                  url={currentVideoUrl}
+                  controls
+                  width={"auto"}
+                  height={250}
+                />
               </section>
 
-              <section className="py-5">
+              <section className="py-0 lg:py-5">
                 <h1 className="text-2xl font-bold">Tentang Kelas</h1>
-                <p className="text-sm pt-3">{classData.description}</p>
+                <p className="text-sm pt-3 mr-5 pg:mr-0">
+                  {classData.description}
+                </p>
               </section>
             </div>
             <ModalBuy

@@ -12,10 +12,10 @@ const Module = ({ progres, chapterData, setCurrentVideoUrl, openModal }) => {
   };
 
   return (
-    <aside className="float-right w-96 bg-white rounded-2xl shadow-md mr-32 ml-12 p-5 mt-20">
+    <aside className="float-right w-[200px] lg:w-96 bg-white rounded-2xl shadow-md mr-0 lg:mr-32 ml-12 p-5 mt-10 lg:mt-20">
       <div className="flex justify-between">
-        <h1 className="text-lg font-bold">Materi Belajar</h1>
-        <div className="flex w-2/5">
+        <h1 className="text-lg font-bold hidden lg:block">Materi Belajar</h1>
+        <div className="flex w-2/5 lg:gap-0 gap-2">
           <BadgeCheckIcon className="w-6 stroke-green-400" />
           <ProgresBar progres={progres} />
         </div>
@@ -25,8 +25,8 @@ const Module = ({ progres, chapterData, setCurrentVideoUrl, openModal }) => {
         chapterData.map((chapter) => (
           <div key={chapter.id}>
             <div className="flex flex-row justify-between font-extrabold my-1 pt-3">
-              <h4 className="text-indigo-600">{`Chapter ${chapter.index} - ${chapter.name}`}</h4>
-              <h4 className="text-blue-400">{`${chapter.total_module_duration} Menit`}</h4>
+              <h4 className="text-indigo-600 text-[14px] lg:text-[16px] mr-3 lg:mr-0">{`Chapter ${chapter.index} - ${chapter.name}`}</h4>
+              <h4 className="text-blue-400 text-[12px] lg:text-[14px]">{`${chapter.total_module_duration} Menit`}</h4>
             </div>
             {chapter.modules.map((module, index) => (
               <button
