@@ -170,12 +170,12 @@ const Otp = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* Left Section */}
-      <div className="p-10 flex items-center justify-center ml-16 mx-9 bg-white">
+      <div className="p-4 lg:p-10 flex items-center justify-center mx-4 lg:mx-9 bg-white">
         <div className="w-full max-w-md">
-          <h2 className="text-3xl font-bold mb-6 text-indigo-600">
+          <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-6 text-indigo-600 self-start">
             Masukkan OTP
           </h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 mb-2 lg:mb-4">
             Ketik 6 digit kode yang dikirimkan ke {hiddenEmail}
           </p>
           {alertMessage && (
@@ -184,14 +184,14 @@ const Otp = () => {
             </div>
           )}
           <form className="space-y-4">
-            <div className="flex items-center space-x-4 justify-center mt-16 mb-11">
+            <div className="flex items-center space-x-2 lg:space-x-4 justify-center mt-6 lg:mt-16 mb-6 lg:mb-11">
               {inputRefs.map((ref, index) => (
                 <input
                   key={index}
                   type="text"
-                  className="p-3 h-11 w-11 border rounded-md pl-3 pr-3"
+                  className="p-2 lg:p-3 h-10 lg:h-11 w-10 lg:w-11 border rounded-md pl-2 lg:pl-3 pr-2 lg:pr-3 text-sm lg:text-base"
                   style={{
-                    borderRadius: "16px",
+                    borderRadius: "12px",
                   }}
                   placeholder=""
                   maxLength="1"
@@ -202,8 +202,8 @@ const Otp = () => {
               ))}
             </div>
 
-            <div className="flex justify-center items-center text-gray-600 mb-12">
-              <p>
+            <div className="flex justify-center items-center text-gray-600 mb-6 lg:mb-12 whitespace-nowrap">
+              <p className="text-xs lg:text-sm">
                 Kirim Ulang OTP dalam {Math.floor(countdown / 60)} menit{" "}
                 {countdown % 60} detik
               </p>
@@ -211,7 +211,7 @@ const Otp = () => {
                 type="button"
                 onClick={handleResend}
                 disabled={resendDisabled}
-                className="ml-2 text-indigo-600"
+                className="ml-2 text-indigo-600 text-xs lg:text-sm"
               >
                 Kirim Ulang
               </button>
@@ -219,8 +219,8 @@ const Otp = () => {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="w-full py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-600"
-              style={{ borderRadius: "16px" }}
+              className="w-full py-2 lg:py-3 px-4 lg:px-6 bg-indigo-600 text-white rounded hover:bg-indigo-600"
+              style={{ borderRadius: "12px" }}
             >
               Simpan
             </button>
@@ -229,8 +229,12 @@ const Otp = () => {
       </div>
 
       {/* Right Section */}
-      <div className="hidden ms-24 lg:flex bg-[#6148FF] items-center justify-center text-white">
-        <img src={mainlogo} alt="Logo" className="text-3xl font-semibold" />
+      <div className="hidden lg:flex bg-[#6148FF] items-center justify-center text-white">
+        <img
+          src={mainlogo}
+          alt="Logo"
+          className="text-2xl lg:text-3xl font-semibold"
+        />
       </div>
     </div>
   );

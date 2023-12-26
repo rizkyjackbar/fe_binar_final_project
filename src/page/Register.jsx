@@ -27,7 +27,7 @@ const Register = () => {
     if (password.length < 8) {
       setNotification({
         type: "error",
-        message: "Password min 8 karakter.",
+        message: "Password harus minimal 8 karakter.",
       });
       return;
     }
@@ -108,16 +108,16 @@ const Register = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* Left Section */}
-      <div className="p-10 flex items-center justify-center ml-16 mx-9 mb-5 bg-white">
+      <div className="p-4 lg:p-10 flex items-center justify-center mx-4 lg:mx-9 mb-5 bg-white">
         <form className="w-full lg:w-80 flex flex-col items-start">
-          <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
+          <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-6 text-indigo-600 self-start">
             Daftar
           </h2>
 
-          <div className="mb-4 w-full">
+          <div className="mb-2 lg:mb-4 w-full">
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm lg:text-base font-medium text-gray-600"
             >
               Name
             </label>
@@ -127,17 +127,17 @@ const Register = () => {
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
+              className="mt-1 p-2 lg:p-3 w-full border rounded-md pl-2 lg:pl-3 pr-2 lg:pr-3 text-sm lg:text-base"
               style={{
-                borderRadius: "16px",
+                borderRadius: "12px",
               }}
               placeholder="Nama Lengkap"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-2 lg:mb-4 w-full">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm lg:text-base font-medium text-gray-600"
             >
               Email
             </label>
@@ -147,17 +147,17 @@ const Register = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
+              className="mt-1 p-2 lg:p-3 w-full border rounded-md pl-2 lg:pl-3 pr-2 lg:pr-3 text-sm lg:text-base"
               style={{
-                borderRadius: "16px",
+                borderRadius: "12px",
               }}
               placeholder="Contoh: johndoe@gmail.com"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-2 lg:mb-4 w-full">
             <label
               htmlFor="phoneNumber"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm lg:text-base font-medium text-gray-600"
             >
               Nomor Telepon
             </label>
@@ -167,19 +167,19 @@ const Register = () => {
               name="phoneNumber"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className="mt-1 p-3 w-full border rounded-md pl-3 pr-3"
+              className="mt-1 p-2 lg:p-3 w-full border rounded-md pl-2 lg:pl-3 pr-2 lg:pr-3 text-sm lg:text-base"
               style={{
-                borderRadius: "16px",
+                borderRadius: "12px",
               }}
               placeholder="+62."
             />
           </div>
 
-          <div className="mb-4 w-full">
+          <div className="mb-2 lg:mb-4 w-full">
             <div className="flex justify-between items-center w-full">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-600"
+                className="block text-sm lg:text-base font-medium text-gray-600"
               >
                 Buat Password
               </label>
@@ -192,21 +192,21 @@ const Register = () => {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
+                className="mt-1 p-2 lg:p-3 w-full border rounded-md pr-8 lg:pr-10 pl-2 lg:pl-3 text-sm lg:text-base"
                 style={{
-                  borderRadius: "16px",
+                  borderRadius: "12px",
                 }}
                 placeholder="Buat Password"
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                className="absolute inset-y-0 right-0 pr-2 lg:pr-3 flex items-center"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <EyeOffIcon className="h-6 w-6 text-gray-400" />
+                  <EyeOffIcon className="h-5 lg:h-6 w-5 lg:w-6 text-gray-400" />
                 ) : (
-                  <EyeIcon className="h-6 w-6 text-gray-400" />
+                  <EyeIcon className="h-5 lg:h-6 w-5 lg:w-6 text-gray-400" />
                 )}
               </button>
             </div>
@@ -214,26 +214,26 @@ const Register = () => {
           <button
             type="button"
             onClick={handleRegister}
-            className="w-full py-2 px-4 mb-5 bg-indigo-600 text-white rounded hover:bg-indigo-600"
-            style={{ borderRadius: "16px" }}
+            className="w-full py-2 lg:py-3 px-4 lg:px-6 mb-5 lg:mb-0 bg-indigo-600 text-white rounded hover:bg-indigo-600"
+            style={{ borderRadius: "12px" }}
           >
             Daftar
           </button>
 
-          <p className="mt-4 text-gray-600 flex items-center justify-center w-full">
+          <p className="mt-2 lg:mt-4 text-gray-600 flex items-center justify-center w-full text-sm lg:text-base">
             Sudah punya akun ?&nbsp;
             <Link to="/login" className="text-indigo-600">
               Masuk disini
             </Link>
           </p>
-          <div className="flex items-center justify-center mx-40 ">
+          <div className="flex items-center justify-center mx-2 lg:mx-40">
             {notification && (
               <div
                 className={`text-${
                   notification.type === "success" ? "green" : "red"
                 }-500 bg-${
                   notification.type === "success" ? "green" : "red"
-                }-100 p-2 rounded-xl absolute bottom-0 mb-4`}
+                }-100 p-1 lg:p-2 rounded-xl absolute bottom-0 mb-2 lg:mb-4`}
               >
                 {notification.message}
               </div>
@@ -243,8 +243,12 @@ const Register = () => {
       </div>
 
       {/* Right Section */}
-      <div className="hidden ms-24 lg:flex bg-[#6148FF] items-center justify-center text-white">
-        <img src={mainlogo} alt="Logo" className="text-3xl font-semibold" />
+      <div className="hidden lg:flex bg-[#6148FF] items-center justify-center text-white">
+        <img
+          src={mainlogo}
+          alt="Logo"
+          className="text-2xl lg:text-3xl font-semibold"
+        />
       </div>
     </div>
   );
