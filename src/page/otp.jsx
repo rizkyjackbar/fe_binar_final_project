@@ -19,7 +19,7 @@ const Otp = () => {
   const [accessToken, setAccessToken] = useState(
     location.state?.accessToken || localStorage.getItem("accessToken") || ""
   );
-  const [alertMessage, setAlertMessage] = useState(null);
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     const storedToken =
@@ -45,11 +45,14 @@ const Otp = () => {
     return () => clearInterval(timer);
   }, [countdown]);
 
-  const showAlert = (message) => {
-    setAlertMessage(message);
+  const showAlert = (type, message) => {
+    setNotification({
+      type,
+      message,
+    });
 
     setTimeout(() => {
-      setAlertMessage(null);
+      setNotification(null);
     }, 5000);
   };
 
@@ -83,23 +86,23 @@ const Otp = () => {
           console.log("OTP verification successful");
           console.log(responseData.message);
 
-          showAlert(responseData.message);
+          showAlert("success", responseData.message);
 
           navigate("/");
         } else {
           console.error("OTP verification failed");
           console.error(responseData.message);
 
-          showAlert(responseData.message);
+          showAlert("error", responseData.message);
         }
       } else {
         const errorData = await response.json();
         console.error("Error during OTP verification:", errorData.message);
-        showAlert(errorData.message);
+        showAlert("error", errorData.message);
       }
     } catch (error) {
       console.error("Error during OTP verification:", error.message);
-      showAlert(error.message);
+      showAlert("error", error.message);
     }
   };
 
@@ -170,7 +173,7 @@ const Otp = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* Left Section */}
-      <div className="p-4 lg:p-10 flex items-center justify-center mx-4 lg:mx-9 bg-white">
+      <div className="p-4 lg:p-10 flex items-center justify-center mx-4 lg:mx-9 bg-white relative">
         <div className="w-full max-w-md">
           <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-6 text-indigo-600 self-start">
             Masukkan OTP
@@ -178,11 +181,21 @@ const Otp = () => {
           <p className="text-gray-600 mb-2 lg:mb-4">
             Ketik 6 digit kode yang dikirimkan ke {hiddenEmail}
           </p>
-          {alertMessage && (
-            <div className="mt-4 p-3 bg-red-500 text-white rounded-md">
-              {alertMessage}
-            </div>
-          )}
+          {/* Notif Responsive */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-center mb-4">
+            {notification && (
+              <div
+                className={`text-${
+                  notification.type === "success" ? "green" : "red"
+                }-500 bg-${
+                  notification.type === "success" ? "green" : "red"
+                }-100 p-2 rounded-xl`}
+              >
+                {notification.message}
+              </div>
+            )}
+          </div>
+
           <form className="space-y-4">
             <div className="flex items-center space-x-2 lg:space-x-4 justify-center mt-6 lg:mt-16 mb-6 lg:mb-11">
               {inputRefs.map((ref, index) => (
@@ -224,6 +237,20 @@ const Otp = () => {
             >
               Simpan
             </button>
+            {/* Notif Dekstop */}
+            <div className="hidden lg:flex items-center justify-center absolute bottom-4 left-1/2 transform -translate-x-1/2">
+              {notification && (
+                <div
+                  className={`text-${
+                    notification.type === "success" ? "green" : "red"
+                  }-500 bg-${
+                    notification.type === "success" ? "green" : "red"
+                  }-100 p-2 rounded-xl`}
+                >
+                  {notification.message}
+                </div>
+              )}
+            </div>
           </form>
         </div>
       </div>
