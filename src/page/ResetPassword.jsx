@@ -1,4 +1,4 @@
-import { mainlogo } from "../assets";
+import { logo } from "../assets";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 import { Link, useParams } from "react-router-dom";
@@ -176,7 +176,7 @@ const ResetPassword = () => {
 
       {/* Right Section */}
       <div className="hidden lg:flex bg-[#6148FF] items-center justify-center text-white w-full">
-        <img src={mainlogo} alt="Logo" className="text-3xl font-semibold" />
+        <img src={logo} alt="Logo" className="text-3xl w-44 font-semibold" />
       </div>
     </div>
   );
