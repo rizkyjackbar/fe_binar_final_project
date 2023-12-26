@@ -11,10 +11,6 @@ import { Link, useLocation } from "react-router-dom";
 import ModalBuy from "../component/ModalBuy";
 
 const DetailClass = () => {
-  const data = {
-    progres: "20%",
-  };
-
   const location = useLocation();
   const [classData, setClassData] = useState(null);
   const [chapterData, setChapterData] = useState([]);
@@ -26,6 +22,8 @@ const DetailClass = () => {
   const openModal = () => {
     setIsModalOpen(true);
   };
+
+  const nextButton = () => {};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,7 +99,7 @@ const DetailClass = () => {
 
       <main>
         <Module
-          progres={data.progres}
+          courseId={location.state.id}
           chapterData={chapterData}
           setCurrentVideoUrl={setCurrentVideoUrl}
           openModal={openModal}
@@ -140,7 +138,9 @@ const DetailClass = () => {
                     <p className="">{classData.total_duration} Menit</p>
                   </div>
                 </div>
-                <span>
+                <span
+                  className={token ? "cursor-pointer" : "pointer-events-none"}
+                >
                   <a
                     className="flex mt-4 bg-[#73CA5C] font-bold text-base w-64 text-white justify-center rounded-3xl shadow-lg gap-2 py-1"
                     href={classData.telegram_group}
@@ -153,8 +153,23 @@ const DetailClass = () => {
             </section>
 
             <div className="pl-36 pr-16 w-8/12">
-              <section className="py-8">
+              <section className="py-8 max-w-max">
                 <ReactPlayer url={currentVideoUrl} controls />
+                <div
+                  className={`flex mt-3 gap-4 justify-end ${
+                    !token ? "hidden" : ""
+                  }`}
+                >
+                  <button className="px-5 py-2 bg-indigo-50 rounded-3xl  text-blue-400 text-base font-bold">
+                    Kelas Lainnya
+                  </button>
+                  <button
+                    className="px-5 py-2 bg-indigo-600 rounded-3xl text-blue-400 text-white text-base font-bold"
+                    onClick={nextButton}
+                  >
+                    Next
+                  </button>
+                </div>
               </section>
 
               <section className="py-5">
