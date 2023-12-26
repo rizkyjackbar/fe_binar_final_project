@@ -1,18 +1,16 @@
 import { mainlogo } from "../assets";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 import { Link, useNavigate } from "react-router-dom";
 
 const WebLogin = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     password: "",
   });
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-
-  const navigate = useNavigate();
+  const [notification, setNotification] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,23 +29,26 @@ const WebLogin = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        setSuccess(responseData.message);
-        setTimeout(() => setSuccess(null), 5000);
-        localStorage.setItem("accessToken", `${responseData.data.accessToken}`);
-
-        console.log("Login successful", responseData);
-
+        setNotification({
+          type: "success",
+          message: responseData.message,
+        });
+        localStorage.setItem("accessToken", responseData.data.accessToken);
         navigate("/");
       } else {
         const errorData = await response.json();
-        setError(errorData.message);
-        setTimeout(() => setError(null), 5000);
+        setNotification({
+          type: "error",
+          message: errorData.message,
+        });
         console.error("Login failed:", errorData.message);
       }
     } catch (error) {
       console.error("Error during login:", error.message);
-      setError("An error occurred during login");
-      setTimeout(() => setError(null), 5000);
+      setNotification({
+        type: "error",
+        message: "An error occurred during login",
+      });
     }
   };
 
@@ -57,6 +58,14 @@ const WebLogin = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+
+    return () => clearTimeout(timeoutId);
+  }, [notification]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
@@ -146,15 +155,29 @@ const WebLogin = () => {
               Daftar disini
             </Link>
           </p>
-          <div className="flex items-center justify-center mx-2 lg:mx-40">
-            {success && (
-              <div className="text-green-500 bg-green-100 p-1 lg:p-2 rounded-md absolute bottom-0 mb-2 lg:mb-4">
-                {success}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-center mb-4">
+            {notification && (
+              <div
+                className={`text-${
+                  notification.type === "success" ? "green" : "red"
+                }-500 bg-${
+                  notification.type === "success" ? "green" : "red"
+                }-100 p-2 rounded-xl`}
+              >
+                {notification.message}
               </div>
             )}
-            {error && (
-              <div className="text-red-500 bg-red-100 p-1 lg:p-2 rounded-xl absolute bottom-0 mb-2 lg:mb-4">
-                {error}
+          </div>
+          <div className="hidden lg:flex items-center justify-center mx-2 lg:mx-40">
+            {notification && (
+              <div
+                className={`text-${
+                  notification.type === "success" ? "green" : "red"
+                }-500 bg-${
+                  notification.type === "success" ? "green" : "red"
+                }-100 p-1 lg:p-2 rounded-xl absolute bottom-0 mb-2 lg:mb-4`}
+              >
+                {notification.message}
               </div>
             )}
           </div>
