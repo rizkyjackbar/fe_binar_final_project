@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { bx_search } from "../assets";
 import {
   Button,
-  ButtonBuy,
   ButtonFree,
   ButtonPremium,
   CardCourse,
