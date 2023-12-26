@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 const CardCategory = ({ link, img, label, classes }) => {
   return (
     <span className={classes}>
@@ -7,9 +8,9 @@ const CardCategory = ({ link, img, label, classes }) => {
       >
         <img
           src={img}
-          className="w-[8.75rem] h-[6.25rem] rounded-3xl object-cover"
+          className=" w-[100px] lg:w-[8.75rem] h-[6.25rem] rounded-3xl object-cover"
         />
-        <label>{label}</label>
+        <label className=" text-[12px] md:text-[16px]">{label}</label>
       </a>
     </span>
   );

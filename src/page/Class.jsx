@@ -19,7 +19,7 @@ const Class = () => {
       colorBf: "#FFF",
       textColor: "black",
       text: "All",
-      classes: "rounded-2xl font-semibold px-5 py-1 ",
+      classes: "rounded-2xl font-semibold px-5 py-2 text-[14px] lg:text-[16px]",
       query: "",
     },
     {
@@ -27,7 +27,7 @@ const Class = () => {
       colorBf: "#FFF",
       textColor: "black",
       text: "Kelas Premium",
-      classes: "rounded-2xl font-semibold px-5 py-1 grow",
+      classes: "rounded-2xl font-semibold px-5 py-2 grow text-[14px] lg:text-[16px]",
       query: "Premium",
     },
     {
@@ -35,7 +35,7 @@ const Class = () => {
       colorBf: "#FFF",
       textColor: "black",
       text: "Kelas Gratis",
-      classes: "rounded-2xl font-semibold px-5 py-1 grow",
+      classes: "rounded-2xl font-semibold px-5 py-2 grow text-[14px] lg:text-[16px]",
       query: "Free",
     },
   ];
@@ -45,6 +45,8 @@ const Class = () => {
   const [filterCheckboxesCategory, setFilterCheckboxesCategory] = useState([]);
   const [filterCheckboxesLevel, setFilterCheckboxesLevel] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [seacrhActive, setSeacrhActive] = useState(false);
+  const [filterActive, setFilterActive] = useState(false);
 
   const inputField = useRef();
 
@@ -89,15 +91,27 @@ const Class = () => {
 
   return (
     <>
-      <header className="sticky top-0">
+      <header className="sticky top-0 z-20">
         <Navbar />
       </header>
 
-      <main className="bg-[#EBF3FC] h-screen w-full">
-        <div className="mx-56 pt-5">
-          <div className="flex flex-row items-center justify-between">
-            <h2 className="text-2xl font-bold ">Topik Kelas</h2>
-            <div className="w-[12.5rem] bg-white my-[1.13rem] rounded-2xl py-3 px-6 border border-indigo-600">
+      <main className="bg-[#EBF3FC] h-full w-full">
+        <div className=" mx-8 lg:mx-56 pt-5">
+          <div className="flex flex-row items-center gap-4 lg:justify-between">
+            <h2 className={`text-[16px] ${seacrhActive? 'mr-0': 'mr-14'} lg:mr-0 lg:text-2xl font-bold `}>Topik Kelas</h2>
+            <div className=" relative">
+            <button onClick={() => setFilterActive(!filterActive)} className={`w-[50px] bg-[#6148FF] rounded-[0.625rem] py-3 px-2 lg:px-6 text-white ${seacrhActive ? 'hidden': 'block'} lg:hidden`}>Filter</button>
+            <div className={`absolute ${filterActive ? 'block' : 'hidden'}`}>
+              <div className=" -ml-20 mt-5">
+              <FilterCourse
+              setFilterCheckboxesFilter={setFilterCheckboxesFilter}
+              setFilterCheckboxesCategory={setFilterCheckboxesCategory}
+              setFilterCheckboxesLevel={setFilterCheckboxesLevel}
+            />
+              </div>
+            </div>
+            </div>
+            <div className={`${seacrhActive ? 'w-[160px]' : ''} lg:w-[12.5rem] bg-white my-[1.13rem] rounded-2xl py-3 px-2 lg:px-6 border border-indigo-600`}>
               <form
                 className="flex items-center"
                 onSubmit={async (e) => {
@@ -109,19 +123,20 @@ const Class = () => {
                   ref={inputField}
                   type="text"
                   placeholder="Cari kelas..."
-                  className="w-full h-full text-gray-900 outline-none"
+                  className={`w-full h-full text-gray-900 outline-none lg:block ${seacrhActive ? 'block' : 'hidden'}`}
                 />
                 <button
+                  onClick={() => setSeacrhActive(!seacrhActive)}
                   type="submit"
-                  className="flex items-center justify-center w-[1.5rem] h-[1.5rem] bg-[#6148FF] rounded-[0.625rem]"
+                  className="flex items-center justify-center  w-[35px] h-[2rem] bg-[#6148FF] rounded-[0.625rem]"
                 >
-                  <img src={bx_search} className="w-[0.94738rem]" />
+                  <img src={bx_search} className="w-[20px]" />
                 </button>
               </form>
             </div>
           </div>
 
-          <aside className="float-left pr-12">
+          <aside className="float-left pr-12 hidden lg:block">
             <FilterCourse
               setFilterCheckboxesFilter={setFilterCheckboxesFilter}
               setFilterCheckboxesCategory={setFilterCheckboxesCategory}
@@ -130,7 +145,7 @@ const Class = () => {
           </aside>
 
           <div>
-            <div className="button-fillter-progress flex gap-7">
+            <div className="button-fillter-progress flex gap-4 lg:gap-7">
               {buttonData.map((button, index) => (
                 <Button
                   key={index}
@@ -142,7 +157,7 @@ const Class = () => {
                 />
               ))}
             </div>
-            <div className="pt-[1.39rem] grid grid-cols-3 gap-4">
+            <div className="pt-[1.39rem] grid grid-rows-1 lg:grid-cols-3 gap-4">
               {courses.map((course) => (
                 <CardCourse
                   key={course.id}

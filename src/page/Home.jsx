@@ -93,12 +93,12 @@ const Home = () => {
       </header>
       <main>
         <section id="Hero">
-          <div className=" bg-[#6148ff] hidden lg:grid grid-flow-col auto-cols-max gap-40">
+          <div className=" bg-[#6148ff] flex flex-col lg:grid grid-flow-col auto-cols-max gap-5 lg:gap-10">
             <div className="relative">
               <img src={hero} />
               <div className="absolute bg-gradient-to-l from-[#6148ff] h-full w-full top-0"></div>
             </div>
-            <div className="flex flex-col gap-6 justify-center">
+            <div className="flex flex-col gap-6 justify-center pb-10 pt-0 lg:py-0 px-10 lg:px-0 ">
               <div className="text-white font-bold text-2xl ">
                 <h1>Belajar</h1>
                 <h1>dari Praktisi Terbaik!</h1>
@@ -114,19 +114,19 @@ const Home = () => {
           </div>
         </section>
 
-        <section id="kategori-belajar" className="bg-[#EBF3FC]">
-          <div className="mx-7 lg:mx-60 pt-7">
+        <section id="kategori-belajar" className="bg-[#EBF3FC] pt-5 pb-10">
+          <div className="mx-7 lg:mx-[110px] pt-7">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Kategori Belajar</h2>
+              <h2 className=" text-[16px] lg:text-2xl font-bold">Kategori Belajar</h2>
               <Link
                 to="/class"
-                className="text-xs font-extrabold text-[#6148FF]"
+                className=" text-[12px] lg:text-xs font-extrabold text-[#6148FF]"
               >
                 Lihat Semua
               </Link>
             </div>
             <div className="py-5">
-              <div className="flex flex-wrap justify-center">
+              <div className="flex flex-wrap gap-5 justify-center">
                 <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
                 <CardCategory
                   link={"#"}
@@ -158,11 +158,11 @@ const Home = () => {
 
         <section id="kursus-populer">
           <div className="mx-7 lg:mx-60 py-7 ">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Kursus Populer</h2>
+            <div className="flex justify-between items-center mb-3">
+              <h2 className=" text-[16px] lg:text-2xl font-bold">Kursus Populer</h2>
               <Link
                 to="/class"
-                className="text-xs font-extrabold text-[#6148FF]"
+                className=" text-[12px] lg:text-xs font-extrabold text-[#6148FF]"
               >
                 Lihat Semua
               </Link>
