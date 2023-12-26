@@ -59,7 +59,7 @@ const NotificationUser = () => {
               Notifikasi
             </h2>
             {isLoading ? (
-              <p className="text-center mt-4 text-gray-800 mb-10">
+              <p className="text-center mt-4 text-gray-800 mb-4">
                 Tunggu Sebentar...
               </p>
             ) : notifications.length === 0 ? (
