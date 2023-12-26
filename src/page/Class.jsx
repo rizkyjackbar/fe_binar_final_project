@@ -96,8 +96,8 @@ const Class = () => {
       </header>
 
       <main className="bg-[#EBF3FC] h-full w-full">
-        <div className=" mx-8 lg:mx-56 pt-5">
-          <div className="flex flex-row items-center gap-4 lg:justify-between">
+        <div className=" mx-6 lg:mx-56 pt-5">
+          <div className="flex flex-row items-center justify-between">
             <h2 className={`text-[16px] ${seacrhActive? 'mr-0': 'mr-14'} lg:mr-0 lg:text-2xl font-bold `}>Topik Kelas</h2>
             <div className=" relative">
             <button onClick={() => setFilterActive(!filterActive)} className={`w-[50px] bg-[#6148FF] rounded-[0.625rem] py-3 px-2 lg:px-6 text-white ${seacrhActive ? 'hidden': 'block'} lg:hidden`}>Filter</button>

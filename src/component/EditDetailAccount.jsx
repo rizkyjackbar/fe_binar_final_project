@@ -11,6 +11,7 @@ const EditDetailAccount = () => {
     country: "",
     city: "",
   });
+  const [userPhoto, setUserPhoto] = useState(userData?.photo || DummyProfile);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +35,7 @@ const EditDetailAccount = () => {
     try {
       const userData = JSON.parse(userDataString);
       setUserData(userData.data ?? {});
+      setUserPhoto(userData.data?.photo || DummyProfile);
     } catch (error) {
       console.error("Error parsing data from Local Storage:", error);
     }
@@ -55,15 +57,17 @@ const EditDetailAccount = () => {
         const userData = await response.json();
 
         setUserData(userData.data ?? {});
+        setUserPhoto(userData.data?.photo || DummyProfile);
+
         localStorage.setItem("userData", JSON.stringify(userData));
         const userPhoto =
           userData.data.photo || localStorage.getItem("userPhoto");
 
         if (userPhoto) {
-          setUserData((prevData) => ({ ...prevData, photo: userPhoto }));
+          setUserPhoto(userPhoto);
           localStorage.setItem("userPhoto", userPhoto);
         } else {
-          setUserData((prevData) => ({ ...prevData, photo: DummyProfile }));
+          setUserPhoto(DummyProfile);
           localStorage.setItem("userPhoto", DummyProfile);
         }
       } else {
@@ -83,10 +87,9 @@ const EditDetailAccount = () => {
         const updatedPhoto = reader.result;
 
         setUserData((prevData) => ({ ...prevData, photo: updatedPhoto }));
+        setUserPhoto(updatedPhoto);
 
         localStorage.setItem("userPhoto", updatedPhoto);
-
-        fetchUserDataFromApi();
       };
       reader.readAsDataURL(file);
     }
@@ -169,7 +172,7 @@ const EditDetailAccount = () => {
               onChange={handleImageChange}
             />
             <img
-              src={userData?.photo ?? DummyProfile}
+              src={userPhoto}
               alt=""
               className="w-24 h-24 object-cover rounded-full mx-auto cursor-pointer"
             />
@@ -260,6 +263,7 @@ const EditDetailAccount = () => {
               Negara
             </label>
           </div>
+
           <div className="relative w-full">
             <input
               id="country"

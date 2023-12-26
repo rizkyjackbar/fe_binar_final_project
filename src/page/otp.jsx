@@ -1,6 +1,6 @@
 import { mainlogo } from "../assets";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Otp = () => {
   const location = useLocation();
@@ -15,14 +15,13 @@ const Otp = () => {
       : email;
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(300);
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [accessToken, setAccessToken] = useState(
     location.state?.accessToken || localStorage.getItem("accessToken") || ""
   );
   const [alertMessage, setAlertMessage] = useState(null);
 
   useEffect(() => {
-    // console.log(location.state);
     const storedToken =
       location.state?.accessToken || localStorage.getItem("accessToken");
 
@@ -146,6 +145,28 @@ const Otp = () => {
     }
   };
 
+  const inputRefs = [
+    useRef(),
+    useRef(),
+    useRef(),
+    useRef(),
+    useRef(),
+    useRef(),
+  ];
+
+  const handleInputChange = (index, value) => {
+    setOtp((prev) => {
+      const newOtp = [...prev];
+      newOtp[index] = value;
+
+      if (value && index < inputRefs.length - 1) {
+        inputRefs[index + 1].current.focus();
+      }
+
+      return newOtp;
+    });
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* Left Section */}
@@ -164,126 +185,21 @@ const Otp = () => {
           )}
           <form className="space-y-4">
             <div className="flex items-center space-x-4 justify-center mt-16 mb-11">
-              <input
-                type="text"
-                className="p-3 h-11 w-11 border rounded-md pl-3 pr-3"
-                style={{
-                  borderRadius: "16px",
-                }}
-                placeholder="8"
-                maxLength="1"
-                value={otp[0] || ""}
-                onChange={(e) =>
-                  setOtp((prev) => [
-                    e.target.value,
-                    prev[1],
-                    prev[2],
-                    prev[3],
-                    prev[4],
-                    prev[5],
-                  ])
-                }
-              />
-              <input
-                type="text"
-                className="p-3 h-11 w-11 border rounded-md pl-3 pr-3"
-                style={{
-                  borderRadius: "16px",
-                }}
-                placeholder="5"
-                maxLength="1"
-                value={otp[1] || ""}
-                onChange={(e) =>
-                  setOtp((prev) => [
-                    prev[0],
-                    e.target.value,
-                    prev[2],
-                    prev[3],
-                    prev[4],
-                    prev[5],
-                  ])
-                }
-              />
-              <input
-                type="text"
-                className="p-3 h-11 w-11 border rounded-md pl-3 pr-3"
-                style={{
-                  borderRadius: "16px",
-                }}
-                placeholder=""
-                maxLength="1"
-                value={otp[2] || ""}
-                onChange={(e) =>
-                  setOtp((prev) => [
-                    prev[0],
-                    prev[1],
-                    e.target.value,
-                    prev[3],
-                    prev[4],
-                    prev[5],
-                  ])
-                }
-              />
-              <input
-                type="text"
-                className="p-3 h-11 w-11 border rounded-md pl-3 pr-3"
-                style={{
-                  borderRadius: "16px",
-                }}
-                placeholder=""
-                maxLength="1"
-                value={otp[3] || ""}
-                onChange={(e) =>
-                  setOtp((prev) => [
-                    prev[0],
-                    prev[1],
-                    prev[2],
-                    e.target.value,
-                    prev[4],
-                    prev[5],
-                  ])
-                }
-              />
-              <input
-                type="text"
-                className="p-3 h-11 w-11 border rounded-md pl-3 pr-3"
-                style={{
-                  borderRadius: "16px",
-                }}
-                placeholder=""
-                maxLength="1"
-                value={otp[4] || ""}
-                onChange={(e) =>
-                  setOtp((prev) => [
-                    prev[0],
-                    prev[1],
-                    prev[2],
-                    prev[3],
-                    e.target.value,
-                    prev[5],
-                  ])
-                }
-              />
-              <input
-                type="text"
-                className="p-3 h-11 w-11 border rounded-md pl-3 pr-3"
-                style={{
-                  borderRadius: "16px",
-                }}
-                placeholder=""
-                maxLength="1"
-                value={otp[5] || ""}
-                onChange={(e) =>
-                  setOtp((prev) => [
-                    prev[0],
-                    prev[1],
-                    prev[2],
-                    prev[3],
-                    prev[4],
-                    e.target.value,
-                  ])
-                }
-              />
+              {inputRefs.map((ref, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  className="p-3 h-11 w-11 border rounded-md pl-3 pr-3"
+                  style={{
+                    borderRadius: "16px",
+                  }}
+                  placeholder=""
+                  maxLength="1"
+                  value={otp[index] || ""}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
+                  ref={ref}
+                />
+              ))}
             </div>
 
             <div className="flex justify-center items-center text-gray-600 mb-12">

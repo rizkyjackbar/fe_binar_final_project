@@ -11,10 +11,6 @@ import { Link, useLocation } from "react-router-dom";
 import ModalBuy from "../component/ModalBuy";
 
 const DetailClass = () => {
-  const data = {
-    progres: "20%",
-  };
-
   const location = useLocation();
   const [classData, setClassData] = useState(null);
   const [chapterData, setChapterData] = useState([]);
@@ -27,6 +23,8 @@ const DetailClass = () => {
   const openModal = () => {
     setIsModalOpen(true);
   };
+
+  // const nextButton = () => {};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -103,7 +101,7 @@ const DetailClass = () => {
       <main className=" -ml-[90px] lg:ml-0">
         <div className=" hidden lg:block">
           <Module
-            progres={data.progres}
+            // progres={data.progres}
             chapterData={chapterData}
             setCurrentVideoUrl={setCurrentVideoUrl}
             openModal={openModal}
@@ -127,7 +125,7 @@ const DetailClass = () => {
                 </button>
                 <div className={`float-right w-[200px] absolute mt-6 right-0 h-auto ${seProgress ? 'hidden' : 'block'} lg:hidden`}>
                 <Module
-            progres={data.progres}
+            // progres={data.progres}
             chapterData={chapterData}
             setCurrentVideoUrl={setCurrentVideoUrl}
             openModal={openModal}
@@ -154,7 +152,9 @@ const DetailClass = () => {
                     <p className="">{classData.total_duration} Menit</p>
                   </div>
                 </div>
-                <span>
+                <span
+                  className={token ? "cursor-pointer" : "pointer-events-none"}
+                >
                   <a
                     className="flex mt-4 bg-[#73CA5C] font-bold text-base w-64 text-white justify-center rounded-3xl shadow-lg gap-2 py-1"
                     href={classData.telegram_group}
@@ -166,13 +166,13 @@ const DetailClass = () => {
               </div>
             </section>
 
-            <div className="pl-36 lg:w-8/12">
-              <section className="py-8 w-[300px] lg:w-[520px]">
+            <div className="pl-36 lg:w-8/12 -ml-6">
+              <section className="py-8 w-[93%] lg:w-[660px]">
                 <ReactPlayer
                   url={currentVideoUrl}
                   controls
                   width={"auto"}
-                  height={250}
+                  height={300}
                 />
               </section>
 

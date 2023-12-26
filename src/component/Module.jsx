@@ -1,23 +1,96 @@
 import { BadgeCheckIcon } from "@heroicons/react/outline";
 import ProgresBar from "./ProgresBar";
 import { LockClosedIcon, PlayIcon } from "@heroicons/react/solid";
+import { useEffect, useState } from "react";
 
-const Module = ({ progres, chapterData, setCurrentVideoUrl, openModal }) => {
-  const handleModuleClick = (videoUrl, isLocked) => {
+const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
+  const token = localStorage.getItem("accessToken");
+  const [tracker, setTracker] = useState({
+    id: "",
+    last_opened_chapter: 0,
+    last_opened_module: 0,
+    progress_course: 0,
+    total_modules_viewed: 0,
+  });
+
+  const handleModuleClick = async (
+    chapIndex,
+    modulIndex,
+    videoUrl,
+    isLocked
+  ) => {
     if (!isLocked) {
       setCurrentVideoUrl(videoUrl);
+      if (chapIndex == 1 && modulIndex == 1) {
+        if (modulIndex > tracker.last_opened_module) {
+          try {
+            const postTrackerData = await fetch(
+              `https://befinalprojectbinar-production.up.railway.app/api/trackers/`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                  course_id: courseId,
+                }),
+              }
+            );
+            if (postTrackerData.ok) {
+              console.log(`tracker ${courseId} berhasil dibuat`);
+              setTracker(postTrackerData);
+            } else {
+              console.error(
+                `Error create tracker ${courseId}:`,
+                postTrackerData.status,
+                postTrackerData.statusText
+              );
+            }
+          } catch (error) {
+            console.error("Error create tracker:", error);
+          }
+        }
+      }
     } else {
       openModal();
     }
   };
 
+  useEffect(() => {
+    const fetchTrackerData = async () => {
+      if (token) {
+        try {
+          const response = await fetch(
+            `https://befinalprojectbinar-production.up.railway.app/api/trackers/${courseId}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (response.ok) {
+            const { data } = await response.json();
+            console.log(data);
+            setTracker(data);
+          }
+        } catch (error) {
+          console.error("Error fetching chapter data:", error);
+        }
+      }
+    };
+    fetchTrackerData();
+  }, []);
+
   return (
-    <aside className="float-right w-[200px] lg:w-96 bg-white rounded-2xl shadow-md mr-0 lg:mr-32 ml-12 p-5 mt-10 lg:mt-20">
+    <aside className="float-right w-[220px] lg:w-96 bg-white rounded-2xl shadow-md mr-0 lg:mr-32 ml-12 p-5 mt-10 lg:mt-20">
       <div className="flex justify-between">
         <h1 className="text-lg font-bold hidden lg:block">Materi Belajar</h1>
         <div className="flex w-2/5 lg:gap-0 gap-2">
           <BadgeCheckIcon className="w-6 stroke-green-400" />
-          <ProgresBar progres={progres} />
+          <ProgresBar progres={tracker.progress_course} />
         </div>
       </div>
 
@@ -28,17 +101,31 @@ const Module = ({ progres, chapterData, setCurrentVideoUrl, openModal }) => {
               <h4 className="text-indigo-600 text-[14px] lg:text-[16px] mr-3 lg:mr-0">{`Chapter ${chapter.index} - ${chapter.name}`}</h4>
               <h4 className="text-blue-400 text-[12px] lg:text-[14px]">{`${chapter.total_module_duration} Menit`}</h4>
             </div>
-            {chapter.modules.map((module, index) => (
+            {chapter.modules.map((module) => (
               <button
                 key={module.id}
-                className="text-xs font-normal flex flex-row justify-between mt-0.5 pb-2 border-b-2 mt-3 w-full items-center"
+                className={`text-xs font-normal flex flex-row justify-between mt-0.5 pb-2 border-b-2 mt-3 w-full items-center
+                    ${
+                      token
+                        ? tracker.id !== ""
+                          ? module.index > tracker.last_opened_module
+                            ? "pointer-events-none"
+                            : "cursor-pointer"
+                          : "cursor-pointer"
+                        : "cursor-pointer"
+                    } `}
                 onClick={() =>
-                  handleModuleClick(module.video, chapter.is_locked)
+                  handleModuleClick(
+                    chapter.index,
+                    module.index,
+                    module.video,
+                    chapter.is_locked
+                  )
                 }
               >
                 <div className="flex flex-row items-center">
                   <div className="w-9 h-9 bg-indigo-50 rounded-full flex items-center mr-3 justify-center font-bold">
-                    {index + 1}
+                    {module.index}
                   </div>
                   {module.name}
                 </div>
