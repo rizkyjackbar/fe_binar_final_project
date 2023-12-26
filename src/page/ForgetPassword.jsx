@@ -1,10 +1,9 @@
 import { mainlogo } from "../assets";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const [notification, setNotification] = useState(null);
 
   const handleResetPassword = async () => {
     try {
@@ -14,7 +13,6 @@ const ForgetPassword = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify({
             email: email,
@@ -24,40 +22,43 @@ const ForgetPassword = () => {
 
       if (response.ok) {
         const successData = await response.json();
-        setSuccess(successData.message);
-        setTimeout(() => setSuccess(null), 5000);
+        setNotification({
+          type: "success",
+          message: successData.message,
+        });
       } else {
         const errorData = await response.json();
-        setError(errorData.message);
-        setTimeout(() => setError(null), 5000);
+        setNotification({
+          type: "error",
+          message: errorData.message,
+        });
       }
     } catch (error) {
       console.error("Error resetting password:", error.message);
-      setError("An error occurred while resetting the password");
-      setTimeout(() => {
-        setError(null);
-      }, 5000);
+      setNotification({
+        type: "error",
+        message: "An error occurred while resetting the password",
+      });
     }
   };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+
+    return () => clearTimeout(timeoutId);
+  }, [notification]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* Left Section */}
-      <div className="p-10 flex items-center justify-center ml-16 mx-9 bg-white">
+      <div className="p-10 flex items-center justify-center ml-16 mx-9 bg-white relative">
         <form className="w-full lg:w-80 flex flex-col items-start">
           <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
             Lupa Password
           </h2>
-          {success && (
-            <div className="text-green-500 bg-green-100 p-2 rounded-md">
-              {success}
-            </div>
-          )}
-          {error && (
-            <div className="text-red-500 bg-red-100 p-2 rounded-md">
-              {error}
-            </div>
-          )}
+
           <div className="mb-4 mt-4 w-full">
             <label
               htmlFor="email"
@@ -94,6 +95,34 @@ const ForgetPassword = () => {
               Daftar disini
             </a>
           </p>
+          {/* Notif Responsive */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-center mb-4">
+            {notification && (
+              <div
+                className={`text-${
+                  notification.type === "success" ? "green" : "red"
+                }-500 bg-${
+                  notification.type === "success" ? "green" : "red"
+                }-100 p-2 rounded-xl`}
+              >
+                {notification.message}
+              </div>
+            )}
+          </div>
+          {/* Notif Desktop */}
+          <div className="hidden lg:flex items-center justify-center absolute bottom-4 left-1/2 transform -translate-x-1/2">
+            {notification && (
+              <div
+                className={`text-${
+                  notification.type === "success" ? "green" : "red"
+                }-500 bg-${
+                  notification.type === "success" ? "green" : "red"
+                }-100 p-2 rounded-xl`}
+              >
+                {notification.message}
+              </div>
+            )}
+          </div>
         </form>
       </div>
 
