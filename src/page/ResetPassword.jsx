@@ -1,16 +1,17 @@
 import { logo } from "../assets";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [new_password, setNewPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const {tokenResetPassword} = useParams()
+  const { tokenResetPassword } = useParams();
 
   const handlePasswordChange = (e) => {
     setNewPassword(e.target.value);
@@ -32,7 +33,7 @@ const ResetPassword = () => {
 
     try {
       const response = await fetch(
-        "https://befinalprojectbinar-production.up.railway.app/api/reset/password/"+tokenResetPassword,
+        `https://befinalprojectbinar-production.up.railway.app/api/reset/password/${tokenResetPassword}`,
         {
           method: "PUT",
           headers: {
@@ -48,7 +49,11 @@ const ResetPassword = () => {
       if (response.ok) {
         const successData = await response.json();
         setSuccess(successData.message);
-        setTimeout(() => setSuccess(null), 5000);
+        setTimeout(() => {
+          setSuccess(null);
+          // Navigasi ke halaman login setelah pesan sukses ditampilkan
+          navigate("/login");
+        }, 5000);
       } else {
         const errorData = await response.json();
         setError(errorData.message);
@@ -164,13 +169,6 @@ const ResetPassword = () => {
           >
             Reset Password
           </button>
-
-          <p className="mt-4 text-gray-600 flex items-center justify-center w-full">
-            Belum punya akun?&nbsp;
-            <Link to="/register" className="text-indigo-600">
-              Daftar disini
-            </Link>
-          </p>
         </form>
       </div>
 
