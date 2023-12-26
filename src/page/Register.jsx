@@ -226,7 +226,21 @@ const Register = () => {
               Masuk disini
             </Link>
           </p>
-          <div className="flex items-center justify-center mx-2 lg:mx-40">
+
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-center mb-4">
+            {notification && (
+              <div
+                className={`text-${
+                  notification.type === "success" ? "green" : "red"
+                }-500 bg-${
+                  notification.type === "success" ? "green" : "red"
+                }-100 p-2 rounded-xl`}
+              >
+                {notification.message}
+              </div>
+            )}
+          </div>
+          <div className="hidden lg:flex items-center justify-center mx-2 lg:mx-40">
             {notification && (
               <div
                 className={`text-${
