@@ -115,7 +115,7 @@ const FilterCourse = ({
   };
 
   return (
-    <form className="bg-white max-w-max rounded-2xl px-6 py-3">
+    <form className="bg-white w-[200px]  lg:max-w-max rounded-2xl px-6 py-3">
       <h2 className="mb-5 font-bold">Filter</h2>
       {checkboxesFilter.map((checkbox, index) => (
         <CheckBoxFilter
@@ -126,7 +126,7 @@ const FilterCourse = ({
           onChange={() => handleCheckboxFilterChange(index)}
         />
       ))}
-      <h1 className="mt-4 font-bold text-base">Kategori</h1>
+      <h1 className="mt-4 mb-5 font-bold text-base">Kategori</h1>
       {checkboxesCategory.map((checkbox, index) => (
         <CheckBoxFilter
           key={index}
@@ -136,7 +136,7 @@ const FilterCourse = ({
           onChange={() => handleCheckboxCategoryChange(index)}
         />
       ))}
-      <h1 className="mt-4 font-bold text-base">Level Kesulitan</h1>
+      <h1 className="mt-4 mb-5 font-bold text-base">Level Kesulitan</h1>
       {checkboxLevel.map((checkbox, index) => (
         <CheckBoxFilter
           key={index}

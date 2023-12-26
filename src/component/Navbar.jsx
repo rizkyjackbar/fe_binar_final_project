@@ -45,7 +45,7 @@ const Navbar = () => {
         <Link to="/" className="ml-8 mr-2 lg:ml-[5.94rem] lg:mr-[2.18rem]">
           <img src={logo} className="flex w-8 lg:w-16" />
         </Link>
-        <div className="w-52 h-8 lg:w-[32.875rem] lg:h-12 bg-white  rounded-2xl p-1 px-4">
+        <div className="w-52 h-8 lg:w-[32.875rem] lg:h-12 bg-white  rounded-2xl p-1 px-4 hidden md:block">
           <div className="flex justify-between items-center">
             <input
               type="text"
