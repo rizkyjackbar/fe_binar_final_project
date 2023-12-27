@@ -4,6 +4,7 @@ import { Navbar } from "./../component";
 
 const PaymentSuccess = () => {
   const location = useLocation();
+  
   return (
     <>
       <header>

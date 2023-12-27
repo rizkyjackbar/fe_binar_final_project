@@ -20,19 +20,50 @@ class PaymentHistory extends Component {
   }
 
   fetchPaymentHistory() {
-    fetch("https://befinalprojectbinar-production.up.railway.app/api/orders")
-      .then((response) => response.json())
-      .then((data) => {
-        // Pastikan bahwa data dari API adalah array
-        if (Array.isArray(data)) {
-          this.setState({ paymentHistory: data });
-        } else {
-          console.error("Invalid data format from API. Expected an array.");
+    const token = localStorage.getItem("accessToken");
+
+    // Memeriksa apakah ada data pembayaran
+    if (this.state.paymentHistory.length > 0) {
+      // Mengambil courseId dari data pembayaran yang pertama
+      const courseId = this.state.paymentHistory[0].course_id;
+
+      console.log("Course ID from payment history:", courseId);
+
+      fetch(
+        `https://befinalprojectbinar-production.up.railway.app/api/orders?course_id=${courseId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching payment history:", error);
-      });
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("API Response:", data);
+
+          if (Array.isArray(data)) {
+            // Menampilkan orderId jika tersedia
+            if (data.length > 0 && data[0].orderId) {
+              console.log("Order ID:", data[0].orderId);
+            } else {
+              console.error("No orderId found in the API response.");
+            }
+
+            // Memperbarui state dengan data pembayaran
+            this.setState({ paymentHistory: data });
+          } else {
+            console.error(
+              "Format data from API is not valid. Expected an array."
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching payment history:", error);
+        });
+    } else {
+      console.error("No payment data available to fetch courseId.");
+    }
   }
 
   render() {
