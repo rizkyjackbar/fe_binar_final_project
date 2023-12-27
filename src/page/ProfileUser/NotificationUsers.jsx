@@ -44,8 +44,7 @@ const NotificationUser = () => {
       </header>
 
       <div className="bg-[#EBF3FC] h-40 p-4 mb-8">
-        <div className="mt-6 mx-4 md:mx-52">
-          {" "}
+        <div className="mt-6 ms-2 md:ms-52">
           <a className="text-indigo-600 font-bold flex items-center" href="/">
             <ArrowLeftIcon className="w-6 h-6 mr-2" />
             <p>Kembali Ke Beranda</p>
