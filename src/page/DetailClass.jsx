@@ -123,7 +123,7 @@ const DetailClass = () => {
                 <button onClick={() => setSePogress(!seProgress)} className=" block lg:hidden float-right mr-5 bg-[#6148FF] w-[130px] h-[40px] rounded-lg text-white font-medium">
                   Lihat Progres
                 </button>
-                <div className={`float-right w-[200px] absolute mt-6 right-0 h-auto ${seProgress ? 'hidden' : 'block'} lg:hidden`}>
+                <div className={`float-right w-[200px] z-30 absolute mt-6 right-0 h-auto ${seProgress ? 'hidden' : 'block'} lg:hidden`}>
                 <Module
             // progres={data.progres}
             chapterData={chapterData}
