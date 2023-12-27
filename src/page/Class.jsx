@@ -62,25 +62,27 @@ const Class = () => {
   };
 
   const createTracker = async (id) => {
-    try {
-      const postTrackerData = await fetch(
-        `https://befinalprojectbinar-production.up.railway.app/api/trackers/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            course_id: id,
-          }),
+    if (courses.type === "Free") {
+      try {
+        const postTrackerData = await fetch(
+          `https://befinalprojectbinar-production.up.railway.app/api/trackers/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              course_id: id,
+            }),
+          }
+        );
+        if (postTrackerData.ok) {
+          console.log(`tracker ${id} berhasil dibuat`);
         }
-      );
-      if (postTrackerData.ok) {
-        console.log(`tracker ${id} berhasil dibuat`);
+      } catch (error) {
+        console.log("");
       }
-    } catch (error) {
-      console.log("");
     }
   };
 
