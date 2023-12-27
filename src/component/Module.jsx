@@ -12,8 +12,12 @@ const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
     progress_course: 0,
     total_modules_viewed: 0,
   });
+  const [active, setActive] = useState(null);
+
+  console.log(tracker);
 
   const handleModuleClick = async (
+    moduleId,
     chapIndex,
     modulIndex,
     videoUrl,
@@ -21,41 +25,91 @@ const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
   ) => {
     if (!isLocked) {
       setCurrentVideoUrl(videoUrl);
-      if (chapIndex == 1 && modulIndex == 1) {
-        if (modulIndex > tracker.last_opened_module) {
-          try {
-            const postTrackerData = await fetch(
-              `https://befinalprojectbinar-production.up.railway.app/api/trackers/`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                  course_id: courseId,
-                }),
-              }
-            );
-            if (postTrackerData.ok) {
-              console.log(`tracker ${courseId} berhasil dibuat`);
-              setTracker(postTrackerData);
-            } else {
-              console.error(
-                `Error create tracker ${courseId}:`,
-                postTrackerData.status,
-                postTrackerData.statusText
-              );
+      setActive(modulIndex);
+
+      if (chapIndex > tracker.last_opened_chapter) {
+        try {
+          const updateTracker = await fetch(
+            `https://befinalprojectbinar-production.up.railway.app/api/trackers/${courseId}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                last_opened_chapter: chapIndex,
+                last_opened_module: modulIndex,
+                module_id: moduleId,
+              }),
             }
-          } catch (error) {
-            console.error("Error create tracker:", error);
+          );
+          if (updateTracker.ok) {
+            console.log(`tracker ${moduleId} berhasil diupdate`);
+            // setTracker(updateTracker);
+            // const { data } = await updateTracker.json();
+            // console.log(data);
+
+            // setTracker({
+            //   ...data,
+            //   progress_course: prevProgress,
+            // });
+            setActive(modulIndex);
+          } else {
+            console.error(
+              `Error create tracker ${moduleId}:`,
+              updateTracker.status,
+              updateTracker.statusText
+            );
           }
+        } catch (error) {
+          console.error("Error create tracker:", error);
         }
+      } else if (modulIndex > tracker.last_opened_module) {
+        try {
+          const updateTracker = await fetch(
+            `https://befinalprojectbinar-production.up.railway.app/api/trackers/${courseId}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                last_opened_chapter: chapIndex,
+                last_opened_module: modulIndex,
+                module_id: moduleId,
+              }),
+            }
+          );
+          if (updateTracker.ok) {
+            console.log(`tracker ${moduleId} berhasil diupdate`);
+            //   const { data } = await updateTracker.json();
+            //   setTracker({
+            //     ...data,
+            //     progress_course: prevProgress,
+            //   });
+            setActive(modulIndex);
+          } else {
+            console.error(
+              `Error create tracker ${moduleId}:`,
+              updateTracker.status,
+              updateTracker.statusText
+            );
+          }
+        } catch (error) {
+          console.error("Error create tracker:", error);
+        }
+        setCurrentVideoUrl(videoUrl);
       }
     } else {
       openModal();
     }
   };
+
+  // useEffect(() => {
+  //   setCurrentVideoUrl(tracker.last_opened_module_video);
+  // }, [tracker.last_opened_module_video]);
 
   useEffect(() => {
     const fetchTrackerData = async () => {
@@ -75,6 +129,26 @@ const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
             const { data } = await response.json();
             console.log(data);
             setTracker(data);
+
+            if (data.last_opened_chapter && data.last_opened_module) {
+              const chapterIndex = data.last_opened_chapter;
+              const moduleIndex = data.last_opened_module;
+
+              const selectedChapter = chapterData.find(
+                (chapter) => chapter.index === chapterIndex
+              );
+
+              if (selectedChapter) {
+                const selectedModule = selectedChapter.modules.find(
+                  (module) => module.index === moduleIndex
+                );
+
+                if (selectedModule) {
+                  setCurrentVideoUrl(selectedModule.video);
+                  setActive(selectedModule.index);
+                }
+              }
+            }
           }
         } catch (error) {
           console.error("Error fetching chapter data:", error);
@@ -82,7 +156,7 @@ const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
       }
     };
     fetchTrackerData();
-  }, []);
+  }, [courseId, token, chapterData]);
 
   return (
     <aside className="float-right w-[220px] lg:w-96 bg-white rounded-2xl shadow-md mr-0 lg:mr-32 ml-12 p-5 mt-10 lg:mt-20">
@@ -108,14 +182,17 @@ const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
                     ${
                       token
                         ? tracker.id !== ""
-                          ? module.index > tracker.last_opened_module
-                            ? "pointer-events-none"
+                          ? module.index > tracker.last_opened_module + 1
+                            ? // &&
+                              // chapter.index === tracker.last_opened_chapter
+                              "pointer-events-none"
                             : "cursor-pointer"
                           : "cursor-pointer"
                         : "cursor-pointer"
                     } `}
                 onClick={() =>
                   handleModuleClick(
+                    module.id,
                     chapter.index,
                     module.index,
                     module.video,
@@ -130,7 +207,13 @@ const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
                   {module.name}
                 </div>
                 {chapter.is_locked === false && (
-                  <PlayIcon className="w-4 fill-green-400" />
+                  <PlayIcon
+                    className={`w-4 fill-green-400 ${
+                      module.index === active
+                        ? "fill-indigo-600"
+                        : "fill-green-400"
+                    }`}
+                  />
                 )}
                 {chapter.is_locked === true && (
                   <LockClosedIcon className="w-4 fill-indigo-900" />

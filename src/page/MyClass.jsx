@@ -26,7 +26,8 @@ const Class = () => {
       colorBf: "#FFF",
       textColor: "black",
       text: "In Progress",
-      classes: "rounded-2xl font-semibold px-5 py-2 grow text-[14px] lg:text-[16px]",
+      classes:
+        "rounded-2xl font-semibold px-5 py-2 grow text-[14px] lg:text-[16px]",
       query: "In Progress",
     },
     {
@@ -34,7 +35,8 @@ const Class = () => {
       colorBf: "#FFF",
       textColor: "black",
       text: "Selesai",
-      classes: "rounded-2xl font-semibold px-5 py-2 grow text-[14px] lg:text-[16px]",
+      classes:
+        "rounded-2xl font-semibold px-5 py-2 grow text-[14px] lg:text-[16px]",
       query: "Selesai ",
     },
   ];
@@ -85,6 +87,7 @@ const Class = () => {
       );
       const { data } = await response.json();
       setCourses(data);
+      console.log(data);
     };
     fetchData();
   }, [
@@ -105,20 +108,37 @@ const Class = () => {
       <main className="bg-[#EBF3FC] h-full w-full">
         <div className=" mx-6 lg:mx-56 pt-5">
           <div className="flex flex-row items-center justify-between">
-            <h2 className={`text-[16px] ${seacrhActive? 'mr-0': 'mr-14'} lg:mr-0 lg:text-2xl font-bold `}>Kelas Berjalan</h2>
+            <h2
+              className={`text-[16px] ${
+                seacrhActive ? "mr-0" : "mr-14"
+              } lg:mr-0 lg:text-2xl font-bold `}
+            >
+              Kelas Berjalan
+            </h2>
             <div className=" relative">
-            <button onClick={() => setFilterActive(!filterActive)} className={`w-[50px] bg-[#6148FF] rounded-[0.625rem] py-3 px-2 lg:px-6 text-white ${seacrhActive ? 'hidden': 'block'} lg:hidden`}>Filter</button>
-            <div className={`absolute ${filterActive ? 'block' : 'hidden'}`}>
-              <div className=" -ml-20 mt-5">
-              <FilterCourse
-              setFilterCheckboxesFilter={setFilterCheckboxesFilter}
-              setFilterCheckboxesCategory={setFilterCheckboxesCategory}
-              setFilterCheckboxesLevel={setFilterCheckboxesLevel}
-            />
+              <button
+                onClick={() => setFilterActive(!filterActive)}
+                className={`w-[50px] bg-[#6148FF] rounded-[0.625rem] py-3 px-2 lg:px-6 text-white ${
+                  seacrhActive ? "hidden" : "block"
+                } lg:hidden`}
+              >
+                Filter
+              </button>
+              <div className={`absolute ${filterActive ? "block" : "hidden"}`}>
+                <div className=" -ml-20 mt-5">
+                  <FilterCourse
+                    setFilterCheckboxesFilter={setFilterCheckboxesFilter}
+                    setFilterCheckboxesCategory={setFilterCheckboxesCategory}
+                    setFilterCheckboxesLevel={setFilterCheckboxesLevel}
+                  />
+                </div>
               </div>
             </div>
-            </div>
-            <div className={`${seacrhActive ? 'w-[160px]' : ''} lg:w-[12.5rem] bg-white my-[1.13rem] rounded-2xl py-3 px-2 lg:px-6 border border-indigo-600`}>
+            <div
+              className={`${
+                seacrhActive ? "w-[160px]" : ""
+              } lg:w-[12.5rem] bg-white my-[1.13rem] rounded-2xl py-3 px-2 lg:px-6 border border-indigo-600`}
+            >
               <form
                 className="flex items-center"
                 onSubmit={async (e) => {
@@ -130,7 +150,9 @@ const Class = () => {
                   ref={inputField}
                   type="text"
                   placeholder="Cari kelas..."
-                  className={`w-full h-full text-gray-900 outline-none lg:block ${seacrhActive ? 'block' : 'hidden'}`}
+                  className={`w-full h-full text-gray-900 outline-none lg:block ${
+                    seacrhActive ? "block" : "hidden"
+                  }`}
                 />
                 <button
                   onClick={() => setSeacrhActive(!seacrhActive)}
@@ -180,7 +202,7 @@ const Class = () => {
                       moduls={course.course.total_chapter}
                       times={course.course.total_duration}
                     >
-                      <ProgresBar progres={`${course.progress_course}%`} />
+                      <ProgresBar progres={`${course.progress_course}`} />
                     </CardCourse>
                   ) : activeIndex === 2 && course.progress_course === 100 ? (
                     <CardCourse
