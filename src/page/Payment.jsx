@@ -10,7 +10,7 @@ const Payment = () => {
 
   const location = useLocation();
   const [course, setCourse] = useState([]);
-  const [orderId] = useState(null);
+  const [orderId, setOrderId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const [bankTransferData, setBankTransferData] = useState({
@@ -88,7 +88,7 @@ const Payment = () => {
   };
 
   useEffect(() => {
-    const fetchCourse = async () => {
+    const fetchCourseAndOrder = async () => {
       if (location?.state?.id) {
         try {
           const response = await fetch(
@@ -98,7 +98,6 @@ const Payment = () => {
           if (response.ok) {
             const { data } = await response.json();
             setCourse(data);
-
             console.log("Informasi Course yang dipilih:", data);
           } else {
             console.error(
@@ -111,9 +110,7 @@ const Payment = () => {
           console.error("Error fetching data:", error);
         }
       }
-    };
 
-    const fetchOrder = async () => {
       try {
         const response = await fetch(
           "https://befinalprojectbinar-production.up.railway.app/api/orders",
@@ -133,12 +130,9 @@ const Payment = () => {
               data.status === "BELUM BAYAR"
           );
 
-          const orderId = filteredOrders.map((order) => order.id);
-
-          if (orderId.length > 0) {
+          if (filteredOrders.length > 0) {
             const order = filteredOrders[0];
-
-            // Tambahkan pernyataan console.log untuk informasi order di sini
+            setOrderId(order.id);
             console.log("Informasi Order yang belum bayar:", order);
           }
         } else {
@@ -153,8 +147,7 @@ const Payment = () => {
       }
     };
 
-    fetchCourse();
-    fetchOrder();
+    fetchCourseAndOrder();
   }, [location.state.id, token]);
 
   return (
