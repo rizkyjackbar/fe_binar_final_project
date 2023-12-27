@@ -62,27 +62,25 @@ const Class = () => {
   };
 
   const createTracker = async (id) => {
-    if (courses.type === "Free") {
-      try {
-        const postTrackerData = await fetch(
-          `https://befinalprojectbinar-production.up.railway.app/api/trackers/`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              course_id: id,
-            }),
-          }
-        );
-        if (postTrackerData.ok) {
-          console.log(`tracker ${id} berhasil dibuat`);
+    try {
+      const postTrackerData = await fetch(
+        `https://befinalprojectbinar-production.up.railway.app/api/trackers/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            course_id: id,
+          }),
         }
-      } catch (error) {
-        console.log("");
+      );
+      if (postTrackerData.ok) {
+        console.log(`tracker ${id} berhasil dibuat`);
       }
+    } catch (error) {
+      console.log("");
     }
   };
 
@@ -207,7 +205,11 @@ const Class = () => {
             <div className="pt-[1.39rem] grid grid-rows-1 lg:grid-cols-3 gap-4">
               {courses.map((course) => (
                 <CardCourse
-                  onClick={() => createTracker(course.id)}
+                  onClick={
+                    course.type === "Free"
+                      ? () => createTracker(course.id)
+                      : null
+                  }
                   key={course.id}
                   id={course.id}
                   img={course.category.image}
