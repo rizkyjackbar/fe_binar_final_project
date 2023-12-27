@@ -125,7 +125,7 @@ const DetailClass = () => {
                   Lihat Progres
                 </button>
                 <div
-                  className={`float-right w-[200px] absolute mt-6 right-0 h-auto ${
+                  className={`float-right w-[200px] z-30 absolute mt-6 right-0 h-auto ${
                     seProgress ? "hidden" : "block"
                   } lg:hidden`}
                 >

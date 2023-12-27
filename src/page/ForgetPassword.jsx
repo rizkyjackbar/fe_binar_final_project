@@ -1,4 +1,4 @@
-import { mainlogo } from "../assets";
+import { logo } from "../assets";
 import { useState, useEffect } from "react";
 
 const ForgetPassword = () => {
@@ -128,7 +128,7 @@ const ForgetPassword = () => {
 
       {/* Right Section */}
       <div className="hidden ms-24 lg:flex bg-[#6148FF] items-center justify-center text-white">
-        <img src={mainlogo} alt="Logo" className="text-3xl font-semibold" />
+        <img src={logo} alt="Logo" className="text-3xl w-44 font-semibold" />
       </div>
     </div>
   );

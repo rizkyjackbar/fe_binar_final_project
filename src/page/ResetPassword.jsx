@@ -1,29 +1,47 @@
-import { mainlogo } from "../assets";
+import { logo } from "../assets";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [new_password, setNewPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const {tokenResetPassword} = useParams()
+  const { tokenResetPassword } = useParams();
+
+  const [touched, setTouched] = useState({
+    newPassword: false,
+    confirmPassword: false,
+  });
 
   const handlePasswordChange = (e) => {
     setNewPassword(e.target.value);
     setPasswordMatchError(false);
+    setTouched((prevTouched) => ({ ...prevTouched, newPassword: true }));
   };
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
     setPasswordMatchError(false);
+    setTouched((prevTouched) => ({ ...prevTouched, confirmPassword: true }));
+  };
+
+  const isFormInvalid = () => {
+    return !new_password || !confirm_password || passwordMatchError;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Set all fields as touched when submitting the form
+    setTouched({
+      newPassword: true,
+      confirmPassword: true,
+    });
 
     if (new_password !== confirm_password) {
       setPasswordMatchError(true);
@@ -32,7 +50,7 @@ const ResetPassword = () => {
 
     try {
       const response = await fetch(
-        "https://befinalprojectbinar-production.up.railway.app/api/reset/password/"+tokenResetPassword,
+        `https://befinalprojectbinar-production.up.railway.app/api/reset/password/${tokenResetPassword}`,
         {
           method: "PUT",
           headers: {
@@ -48,7 +66,10 @@ const ResetPassword = () => {
       if (response.ok) {
         const successData = await response.json();
         setSuccess(successData.message);
-        setTimeout(() => setSuccess(null), 5000);
+        setTimeout(() => {
+          setSuccess(null);
+          navigate("/login");
+        }, 5000);
       } else {
         const errorData = await response.json();
         setError(errorData.message);
@@ -62,24 +83,36 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 h-screen">
+    <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* Left Section */}
-      <div className="p-10 flex items-center justify-center ml-16 mx-9 bg-white">
+      <div className="p-4 lg:p-10 flex items-center justify-center mx-4 lg:mx-9 bg-white relative">
         <form
           className="w-full lg:w-80 flex flex-col items-start"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-3xl font-bold mb-6 text-indigo-600 self-start">
+          <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-6 text-indigo-600 self-start">
             Reset Password
           </h2>
           {success && (
-            <div className="text-green-500 bg-green-100 p-2 rounded-md">
-              {success}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-center mb-4">
+              <div
+                className={`text-${success ? "green" : "red"}-500 bg-${
+                  success ? "green" : "red"
+                }-100 p-2 rounded-xl`}
+              >
+                {success}
+              </div>
             </div>
           )}
           {error && (
-            <div className="text-red-500 bg-red-100 p-2 rounded-md">
-              {error}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-center mb-4">
+              <div
+                className={`text-${error ? "green" : "red"}-500 bg-${
+                  error ? "green" : "red"
+                }-100 p-2 rounded-xl`}
+              >
+                {error}
+              </div>
             </div>
           )}
           <div className="mb-4 mt-4 w-full">
@@ -96,7 +129,9 @@ const ResetPassword = () => {
                 name="newPassword"
                 value={new_password}
                 onChange={handlePasswordChange}
-                className="mt-1 p-3 w-full border rounded-md pl-3 pr-10 mb-3"
+                className={`mt-1 p-3 w-full border rounded-md pl-3 pr-10 mb-3 ${
+                  touched.newPassword && !new_password ? 'border-red-500' : ''
+                }`}
                 style={{
                   borderRadius: "16px",
                 }}
@@ -132,7 +167,9 @@ const ResetPassword = () => {
                 name="confirmPassword"
                 value={confirm_password}
                 onChange={handleConfirmPasswordChange}
-                className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
+                className={`mt-1 p-3 w-full border rounded-md pr-10 pl-3 ${
+                  touched.confirmPassword && !confirm_password ? 'border-red-500' : ''
+                }`}
                 style={{
                   borderRadius: "16px",
                 }}
@@ -150,6 +187,11 @@ const ResetPassword = () => {
                 )}
               </button>
             </div>
+            {touched.confirmPassword && !confirm_password && (
+              <p className="text-red-500 text-sm mt-1">
+                Harap mengisi ulang password.
+              </p>
+            )}
             {passwordMatchError && (
               <p className="text-red-500 text-sm mt-1">
                 Password tidak sesuai.
@@ -161,22 +203,20 @@ const ResetPassword = () => {
             type="submit"
             className="w-full py-2 px-4 mb-5 bg-indigo-600 text-white rounded hover:bg-indigo-600"
             style={{ borderRadius: "16px" }}
+            disabled={isFormInvalid()}
           >
             Reset Password
           </button>
-
-          <p className="mt-4 text-gray-600 flex items-center justify-center w-full">
-            Belum punya akun?&nbsp;
-            <Link to="/register" className="text-indigo-600">
-              Daftar disini
-            </Link>
-          </p>
         </form>
       </div>
 
       {/* Right Section */}
       <div className="hidden lg:flex bg-[#6148FF] items-center justify-center text-white w-full">
-        <img src={mainlogo} alt="Logo" className="text-3xl font-semibold" />
+        <img
+          src={logo}
+          alt="Logo"
+          className="text-2xl lg:text-3xl w-44 font-semibold"
+        />
       </div>
     </div>
   );

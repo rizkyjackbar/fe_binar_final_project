@@ -10,7 +10,7 @@ const Payment = () => {
 
   const location = useLocation();
   const [course, setCourse] = useState([]);
-  const [orderId, setOrderId] = useState(null);
+  const [orderId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const [bankTransferData, setBankTransferData] = useState({
@@ -101,6 +101,8 @@ const Payment = () => {
           if (response.ok) {
             const { data } = await response.json();
             setCourse(data);
+
+            console.log("Informasi Course yang dipilih:", data);
           } else {
             console.error(
               "Error fetching data:",
@@ -136,8 +138,12 @@ const Payment = () => {
 
           const orderId = filteredOrders.map((order) => order.id);
 
-          console.log("Order IDs yang belum bayar:", orderId);
-          setOrderId(orderId);
+          if (orderId.length > 0) {
+            const order = filteredOrders[0];
+
+            // Tambahkan pernyataan console.log untuk informasi order di sini
+            console.log("Informasi Order yang belum bayar:", order);
+          }
         } else {
           console.error(
             "Error fetching data:",
@@ -149,9 +155,10 @@ const Payment = () => {
         console.error("Error fetching data:", error);
       }
     };
+
     fetchCourse();
     fetchOrder();
-  }, [location.state.id]);
+  }, [location.state.id, token]);
 
   return (
     <>

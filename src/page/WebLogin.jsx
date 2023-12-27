@@ -1,4 +1,4 @@
-import { mainlogo } from "../assets";
+import { logo } from "../assets";
 import { useState, useEffect } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 import { Link, useNavigate } from "react-router-dom";
@@ -187,9 +187,9 @@ const WebLogin = () => {
       {/* Right Section */}
       <div className="hidden lg:flex bg-[#6148FF] items-center justify-center text-white">
         <img
-          src={mainlogo}
+          src={logo}
           alt="Logo"
-          className="text-2xl lg:text-3xl font-semibold"
+          className="text-2xl lg:text-3xl w-44 font-semibold"
         />
       </div>
     </div>
