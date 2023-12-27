@@ -10,7 +10,7 @@ const Payment = () => {
 
   const location = useLocation();
   const [course, setCourse] = useState([]);
-  const [orderId, setOrderId] = useState(null);
+  const [orderId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const [bankTransferData, setBankTransferData] = useState({
