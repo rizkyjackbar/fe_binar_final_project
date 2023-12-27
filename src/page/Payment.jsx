@@ -48,6 +48,9 @@ const Payment = () => {
 
   const handlePaymentButtonClick = () => {
     validatePaymentMethod();
+    console.log(bankTransferData);
+    console.log(creditCardData);
+    console.log(orderId, paymentMethod);
     if (paymentMethod == "Bank Transfer") {
       sendUpdatePayment(orderId, paymentMethod);
     } else if (paymentMethod == "Credit Card") {
@@ -57,7 +60,7 @@ const Payment = () => {
 
   const sendUpdatePayment = async (orderId, paymentMetode) => {
     try {
-      if (paymentMethod != "") {
+      if (paymentMethod) {
         const updateResponse = await fetch(
           `https://befinalprojectbinar-production.up.railway.app/api/orders/${orderId}`,
           {

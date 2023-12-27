@@ -16,15 +16,13 @@ const DetailClass = () => {
   const [chapterData, setChapterData] = useState([]);
   const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [seProgress, setSePogress] = useState(false)
+  const [seProgress, setSePogress] = useState(false);
 
   const token = localStorage.getItem("accessToken");
 
   const openModal = () => {
     setIsModalOpen(true);
   };
-
-  // const nextButton = () => {};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +88,7 @@ const DetailClass = () => {
     };
 
     fetchData();
-  }, [location?.state?.id]);
+  }, [location?.state?.id, token]);
 
   return (
     <>
@@ -101,7 +99,7 @@ const DetailClass = () => {
       <main className=" -ml-[90px] lg:ml-0">
         <div className=" hidden lg:block">
           <Module
-            // progres={data.progres}
+            courseId={location.state.id}
             chapterData={chapterData}
             setCurrentVideoUrl={setCurrentVideoUrl}
             openModal={openModal}
@@ -120,16 +118,23 @@ const DetailClass = () => {
                 </Link>
               </span>
               <div className="pl-6 pt-5">
-                <button onClick={() => setSePogress(!seProgress)} className=" block lg:hidden float-right mr-5 bg-[#6148FF] w-[130px] h-[40px] rounded-lg text-white font-medium">
+                <button
+                  onClick={() => setSePogress(!seProgress)}
+                  className=" block lg:hidden float-right mr-5 bg-[#6148FF] w-[130px] h-[40px] rounded-lg text-white font-medium"
+                >
                   Lihat Progres
                 </button>
-                <div className={`float-right w-[200px] z-30 absolute mt-6 right-0 h-auto ${seProgress ? 'hidden' : 'block'} lg:hidden`}>
-                <Module
-            // progres={data.progres}
-            chapterData={chapterData}
-            setCurrentVideoUrl={setCurrentVideoUrl}
-            openModal={openModal}
-          />
+                <div
+                  className={`float-right w-[200px] z-30 absolute mt-6 right-0 h-auto ${
+                    seProgress ? "hidden" : "block"
+                  } lg:hidden`}
+                >
+                  <Module
+                    courseId={classData.id}
+                    chapterData={chapterData}
+                    setCurrentVideoUrl={setCurrentVideoUrl}
+                    openModal={openModal}
+                  />
                 </div>
                 <p className="text-xl font-bold text-[#6148FF]">
                   {classData.category.category}
