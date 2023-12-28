@@ -53,35 +53,33 @@ class PaymentHistory extends Component {
           <h1 className="font-bold">Riwayat Pembayaran</h1>
         </div>
 
-        <div className="d-flex justify-content-center flex-grow-1">
+        <div className="d-flex flex-wrap justify-content-center">
           {paymentHistory.length === 0 ? (
             <div className="text-center my-16 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-2 mx-16 rounded-lg shadow-lg">
               <p className="text-xl font-bold">Tidak Ada Pembayaran</p>
             </div>
           ) : (
-            <div>
-              {paymentHistory.map((payment, index) => (
-                <div key={index} className="mb-3">
-                  <CardCourse
-                    img={payment.course.category.image}
-                    idCourse={payment.course.id}
-                    classCategory={payment.course.category.category}
-                    classesName={payment.course.name}
-                    rating={payment.course.rating}
-                    classMentor={payment.course.mentor}
-                    level={payment.course.level}
-                    moduls={payment.course.moduls}
-                    times={payment.course.times}
-                  >
-                    {payment.status === "SUDAH BAYAR" && <ButtonPaid />}
-                    {payment.status === "BELUM BAYAR" && <ButtonPaidFailed />}
-                    {payment.status === "MENUNGGU PEMBAYARAN" && (
-                      <ButtonPaidWaiting />
-                    )}
-                  </CardCourse>
-                </div>
-              ))}
-            </div>
+            paymentHistory.map((payment, index) => (
+              <div key={index} className="mb-3">
+                <CardCourse
+                  img={payment.course.category.image}
+                  idCourse={payment.course.id}
+                  classCategory={payment.course.category.category}
+                  classesName={payment.course.name}
+                  rating={payment.course.rating}
+                  classMentor={payment.course.mentor}
+                  level={payment.course.level}
+                  moduls={payment.course.moduls}
+                  times={payment.course.times}
+                >
+                  {payment.status === "SUDAH BAYAR" && <ButtonPaid />}
+                  {payment.status === "BELUM BAYAR" && <ButtonPaidFailed />}
+                  {payment.status === "MENUNGGU PEMBAYARAN" && (
+                    <ButtonPaidWaiting />
+                  )}
+                </CardCourse>
+              </div>
+            ))
           )}
         </div>
       </div>
