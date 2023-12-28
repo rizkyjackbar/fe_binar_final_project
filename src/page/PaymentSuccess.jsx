@@ -3,7 +3,7 @@ import { cart_shopping } from "../assets";
 import { Navbar } from "./../component";
 
 const PaymentSuccess = () => {
-  const token = localStorage.getItem("accessToken");
+  // const token = localStorage.getItem("accessToken");
   const location = useLocation();
   return (
     <>
