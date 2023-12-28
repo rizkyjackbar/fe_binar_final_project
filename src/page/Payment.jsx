@@ -10,7 +10,7 @@ const Payment = () => {
 
   const location = useLocation();
   const [course, setCourse] = useState([]);
-  const [orderId] = useState(null);
+  const [orderId, setOrderId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const [bankTransferData, setBankTransferData] = useState({
@@ -137,11 +137,11 @@ const Payment = () => {
           );
 
           const orderId = filteredOrders.map((order) => order.id);
-
+          console.log("Order IDs yang belum bayar:", orderId);
+          setOrderId(orderId);
           if (orderId.length > 0) {
             const order = filteredOrders[0];
 
-            // Tambahkan pernyataan console.log untuk informasi order di sini
             console.log("Informasi Order yang belum bayar:", order);
           }
         } else {
