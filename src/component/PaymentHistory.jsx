@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import {
   CardCourse,
   ButtonPaid,
   ButtonPaidFailed,
   ButtonPaidWaiting,
 } from "../component";
-import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 
 class PaymentHistory extends Component {
   constructor(props) {
@@ -33,7 +32,6 @@ class PaymentHistory extends Component {
         console.log("Complete API Response:", data);
 
         if (data.status === "OK") {
-          // Extracting payment history data
           const paymentHistory = data.data;
 
           this.setState({ paymentHistory });
@@ -45,21 +43,6 @@ class PaymentHistory extends Component {
         console.error("Error fetching payment history:", error);
       });
   }
-
-  // Fungsi untuk mendapatkan gambar berdasarkan kategori
-  getImageByCategory = (category) => {
-    switch (category) {
-      case "UI/UX":
-        return UIUX;
-      case "AND":
-        return AND;
-      case "WEB":
-        return WEB;
-      // Tambahkan case untuk kategori lain jika diperlukan
-      default:
-        return hero; // Gambar default jika kategori tidak dikenali
-    }
-  };
 
   render() {
     const { paymentHistory } = this.state;
@@ -90,9 +73,11 @@ class PaymentHistory extends Component {
                     moduls={payment.course.moduls}
                     times={payment.course.times}
                   >
-                    {payment.status === "success" && <ButtonPaid />}
-                    {payment.status === "failed" && <ButtonPaidFailed />}
-                    {payment.status === "waiting" && <ButtonPaidWaiting />}
+                    {payment.status === "SUDAH BAYAR" && <ButtonPaid />}
+                    {payment.status === "BELUM BAYAR" && <ButtonPaidFailed />}
+                    {payment.status === "MENUNGGU PEMBAYARAN" && (
+                      <ButtonPaidWaiting />
+                    )}
                   </CardCourse>
                 </div>
               ))}
