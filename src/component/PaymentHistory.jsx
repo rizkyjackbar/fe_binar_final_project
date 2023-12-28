@@ -19,52 +19,36 @@ class PaymentHistory extends Component {
     this.fetchPaymentHistory();
   }
 
+  // ...
+
   fetchPaymentHistory() {
     const token = localStorage.getItem("accessToken");
 
-    // Memeriksa apakah ada data pembayaran
-    if (this.state.paymentHistory.length > 0) {
-      // Mengambil courseId dari data pembayaran yang pertama
-      const courseId = this.state.paymentHistory[0].course_id;
+    fetch(`https://befinalprojectbinar-production.up.railway.app/api/orders`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Complete API Response:", data);
 
-      console.log("Course ID from payment history:", courseId);
-
-      fetch(
-        `https://befinalprojectbinar-production.up.railway.app/api/orders?course_id=${courseId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        if (data.status === "OK") {
+          // Extracting payment history data
+          const paymentHistory = [data.data];
+          console.log("ID Payment", paymentHistory.id);
+          this.setState({ paymentHistory });
+        } else {
+          console.error("API request failed. Status:", data.status);
         }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("API Response:", data);
-
-          if (Array.isArray(data)) {
-            // Menampilkan orderId jika tersedia
-            if (data.length > 0 && data[0].orderId) {
-              console.log("Order ID:", data[0].orderId);
-            } else {
-              console.error("No orderId found in the API response.");
-            }
-
-            // Memperbarui state dengan data pembayaran
-            this.setState({ paymentHistory: data });
-          } else {
-            console.error(
-              "Format data from API is not valid. Expected an array."
-            );
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching payment history:", error);
-        });
-    } else {
-      console.error("No payment data available to fetch courseId.");
-    }
+      })
+      .catch((error) => {
+        console.error("Error fetching payment history:", error);
+      });
   }
+
+  // ...
 
   render() {
     const { paymentHistory } = this.state;
