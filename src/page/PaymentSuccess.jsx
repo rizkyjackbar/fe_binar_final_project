@@ -37,7 +37,7 @@ const PaymentSuccess = () => {
             <button
               type="button"
               className="w-40 h-8 lg:w-72 lg:h-8 bg-[#6148ff] text-white font-bold text-[0.625rem] lg:text-sm rounded-2xl p-1 px-4"
-              onClick={handleMulai}
+              // onClick={handleMulai}
             >
               Mulai Belajar
             </button>
