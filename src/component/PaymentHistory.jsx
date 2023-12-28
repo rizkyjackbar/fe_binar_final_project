@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import {
   CardCourse,
   ButtonPaid,
@@ -19,8 +19,6 @@ class PaymentHistory extends Component {
     this.fetchPaymentHistory();
   }
 
-  // ...
-
   fetchPaymentHistory() {
     const token = localStorage.getItem("accessToken");
 
@@ -36,8 +34,8 @@ class PaymentHistory extends Component {
 
         if (data.status === "OK") {
           // Extracting payment history data
-          const paymentHistory = [data.data];
-          console.log("ID Payment", paymentHistory.id);
+          const paymentHistory = data.data;
+
           this.setState({ paymentHistory });
         } else {
           console.error("API request failed. Status:", data.status);
@@ -48,7 +46,20 @@ class PaymentHistory extends Component {
       });
   }
 
-  // ...
+  // Fungsi untuk mendapatkan gambar berdasarkan kategori
+  getImageByCategory = (category) => {
+    switch (category) {
+      case "UI/UX":
+        return UIUX;
+      case "AND":
+        return AND;
+      case "WEB":
+        return WEB;
+      // Tambahkan case untuk kategori lain jika diperlukan
+      default:
+        return hero; // Gambar default jika kategori tidak dikenali
+    }
+  };
 
   render() {
     const { paymentHistory } = this.state;
@@ -67,27 +78,23 @@ class PaymentHistory extends Component {
           ) : (
             <div>
               {paymentHistory.map((payment, index) => (
-                <CardCourse
-                  key={index}
-                  img={
-                    payment.category === "UI/UX"
-                      ? UIUX
-                      : payment.category === "AND"
-                      ? AND
-                      : WEB
-                  }
-                  classCategory={payment.category}
-                  classesName={payment.className}
-                  rating={payment.rating}
-                  classMentor={payment.mentor}
-                  level={payment.level}
-                  moduls={payment.moduls}
-                  times={payment.times}
-                >
-                  {payment.status === "success" && <ButtonPaid />}
-                  {payment.status === "failed" && <ButtonPaidFailed />}
-                  {payment.status === "waiting" && <ButtonPaidWaiting />}
-                </CardCourse>
+                <div key={index} className="mb-3">
+                  <CardCourse
+                    img={payment.course.category.image}
+                    idCourse={payment.course.id}
+                    classCategory={payment.course.category.category}
+                    classesName={payment.course.name}
+                    rating={payment.course.rating}
+                    classMentor={payment.course.mentor}
+                    level={payment.course.level}
+                    moduls={payment.course.moduls}
+                    times={payment.course.times}
+                  >
+                    {payment.status === "success" && <ButtonPaid />}
+                    {payment.status === "failed" && <ButtonPaidFailed />}
+                    {payment.status === "waiting" && <ButtonPaidWaiting />}
+                  </CardCourse>
+                </div>
               ))}
             </div>
           )}
