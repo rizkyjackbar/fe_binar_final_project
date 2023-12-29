@@ -4,6 +4,7 @@ import {
   ButtonBuy,
   Button,
   Navbar,
+  ButtonFree,
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 import { useEffect, useState } from "react";
@@ -117,7 +118,9 @@ const Home = () => {
         <section id="kategori-belajar" className="bg-[#EBF3FC] pt-5 pb-10">
           <div className="mx-7 lg:mx-[110px] pt-7">
             <div className="flex justify-between items-center">
-              <h2 className=" text-[16px] lg:text-2xl font-bold">Kategori Belajar</h2>
+              <h2 className=" text-[16px] lg:text-2xl font-bold">
+                Kategori Belajar
+              </h2>
               <Link
                 to="/class"
                 className=" text-[12px] lg:text-xs font-extrabold text-[#6148FF]"
@@ -159,7 +162,9 @@ const Home = () => {
         <section id="kursus-populer">
           <div className="mx-7 lg:mx-[110px] py-7 ">
             <div className="flex justify-between items-center mb-3">
-              <h2 className=" text-[16px] lg:text-2xl font-bold">Kursus Populer</h2>
+              <h2 className=" text-[16px] lg:text-2xl font-bold">
+                Kursus Populer
+              </h2>
               <Link
                 to="/class"
                 className=" text-[12px] lg:text-xs font-extrabold text-[#6148FF]"
@@ -192,7 +197,11 @@ const Home = () => {
                   moduls={course.total_chapter}
                   times={course.total_duration}
                 >
-                  <ButtonBuy price={course.price} />
+                  {course.price == 0 ? (
+                    <ButtonFree />
+                  ) : (
+                    <ButtonBuy price={course.price} />
+                  )}
                 </CardCourse>
               ))}
             </div>
