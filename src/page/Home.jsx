@@ -4,6 +4,7 @@ import {
   ButtonBuy,
   Button,
   Navbar,
+  Footer,
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 import { useEffect, useState } from "react";
@@ -199,6 +200,7 @@ const Home = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 };
