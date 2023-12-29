@@ -160,7 +160,7 @@ const Class = () => {
                 <button
                   onClick={() => setSeacrhActive(!seacrhActive)}
                   type="submit"
-                  className="flex items-center justify-center  w-[35px] h-[30px] bg-[#6148FF] rounded-[0.625rem]"
+                  className="flex items-center justify-center  w-[34px] h-[28px] bg-[#6148FF] rounded-xl"
                 >
                   <img src={bx_search} className="w-[20px]" />
                 </button>
