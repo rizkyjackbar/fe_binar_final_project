@@ -3,8 +3,32 @@ import { cart_shopping } from "../assets";
 import { Navbar } from "./../component";
 
 const PaymentSuccess = () => {
-  // const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");
   const location = useLocation();
+
+  const handleMulai = async () => {
+    try {
+      const postTrackerData = await fetch(
+        `https://befinalprojectbinar-production.up.railway.app/api/trackers/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            course_id: location.state.id,
+          }),
+        }
+      );
+      console.log("cek", postTrackerData.ok);
+      if (postTrackerData.ok) {
+        console.log("tracker berhsil dibuat");
+      }
+    } catch (error) {
+      console.log("");
+    }
+  };
   return (
     <>
       <header>
@@ -33,11 +57,11 @@ const PaymentSuccess = () => {
             <p> E-receipt telah dikirim ke email</p>
           </div>
 
-          <Link to="/detailclass" state={{ id: location.state.id }}>
+          <Link to={`/detailclass/${location.state.id}`}>
             <button
               type="button"
               className="w-40 h-8 lg:w-72 lg:h-8 bg-[#6148ff] text-white font-bold text-[0.625rem] lg:text-sm rounded-2xl p-1 px-4"
-              // onClick={handleMulai}
+              onClick={handleMulai}
             >
               Mulai Belajar
             </button>

@@ -23,22 +23,23 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<WebLogin />} />
         <Route path="/otp" element={<Otp />} />
-        <Route path="/reset/password/:tokenResetPassword" element={<ResetPassword />} />
+        <Route
+          path="/reset/password/:tokenResetPassword"
+          element={<ResetPassword />}
+        />
         <Route path="/myclass" element={<MyClass />} />
         <Route path="/class" element={<Class />} />
-        <Route path="/detailclass" element={<DetailClass />} />
+        <Route path="/detailclass/:id" element={<DetailClass />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/notification" element={<NotificationUser />} />
         <Route path="/editdetailaccount" element={<EditDetailAccount />} />
         <Route path="/changepassword" element={<ChangePasswordUser />} />
         <Route path="/paymenthistory" element={<PaymentHistory />} />
-        <Route path="/payment" element={<Payment />} />
+        <Route path="/payment/:id" element={<Payment />} />
         <Route path="/paymentsuccess" element={<PaymentSuccess />} />
-
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-

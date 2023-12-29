@@ -3,7 +3,13 @@ import ProgresBar from "./ProgresBar";
 import { LockClosedIcon, PlayIcon } from "@heroicons/react/solid";
 import { useEffect, useState } from "react";
 
-const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
+const Module = ({
+  courseId,
+  chapterData,
+  setCurrentVideoUrl,
+  openModal,
+  setIsOnBoardingOpen,
+}) => {
   const token = localStorage.getItem("accessToken");
   const [tracker, setTracker] = useState({
     id: "",
@@ -129,6 +135,9 @@ const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
             const { data } = await response.json();
             console.log(data);
             setTracker(data);
+            if (data.last_opened_chapter == 0) {
+              setIsOnBoardingOpen(true);
+            }
 
             if (data.last_opened_chapter && data.last_opened_module) {
               const chapterIndex = data.last_opened_chapter;
@@ -178,18 +187,7 @@ const Module = ({ courseId, chapterData, setCurrentVideoUrl, openModal }) => {
             {chapter.modules.map((module) => (
               <button
                 key={module.id}
-                className={`text-xs font-normal flex flex-row justify-between mt-0.5 pb-2 border-b-2 mt-3 w-full items-center
-                    ${
-                      token
-                        ? tracker.id !== ""
-                          ? module.index > tracker.last_opened_module + 1
-                            ? // &&
-                              // chapter.index === tracker.last_opened_chapter
-                              "pointer-events-none"
-                            : "cursor-pointer"
-                          : "cursor-pointer"
-                        : "cursor-pointer"
-                    } `}
+                className={`text-xs font-normal flex flex-row justify-between mt-0.5 pb-2 border-b-2 mt-3 w-full items-center`}
                 onClick={() =>
                   handleModuleClick(
                     module.id,

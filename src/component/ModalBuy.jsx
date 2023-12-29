@@ -1,7 +1,6 @@
 import { ArrowCircleRightIcon, XIcon } from "@heroicons/react/solid";
 import CardCourse from "./CardCourse";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
 const ModalBuy = ({
   isOpen,
@@ -47,8 +46,6 @@ const ModalBuy = ({
       } catch (error) {
         console.error("Error:", error);
       }
-    } else {
-      console.log("User is not logged in. Redirect to login page.");
     }
   };
 
@@ -87,7 +84,7 @@ const ModalBuy = ({
                 times={duration}
               />
             </div>
-            <Link to={token ? "/payment" : "/login"} state={{ id: id }}>
+            <Link to={token ? `/payment/${id}` : "/login"}>
               <button
                 type="button"
                 onClick={handleBuyNowClick}
