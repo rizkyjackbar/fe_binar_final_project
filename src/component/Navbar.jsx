@@ -45,18 +45,26 @@ const Navbar = () => {
         <Link to="/" className="ml-8 mr-2 lg:ml-[5.94rem] lg:mr-[2.18rem]">
           <img src={logo} className="flex w-8 lg:w-16" />
         </Link>
-        <div className="w-52 h-8 lg:w-[32.875rem] lg:h-12 bg-white  rounded-2xl p-1 px-4 hidden md:block">
+        {/* Search Bar */}
+        <div className="lg:w-[400px] lg:h-13 bg-white  rounded-2xl p-1 px-4 hidden md:block ml-10">
           <div className="flex justify-between items-center">
             <input
               type="text"
               placeholder="Cari Kursus terbaik...."
               className="w-full h-full text-gray-900 text-xs lg:text-sm outline-none focus:outline-none"
             />
-            <button className="flex justify-center items-center w-6 h-6 lg:w-[2.375rem] lg:h-[2.375rem] bg-[#6148FF] rounded-lg lg:rounded-xl">
-              <img src={bx_search} alt="Search Icon" />
-            </button>
+            <div className="flex justify-center items-center">
+              <button className="flex justify-center items-center w-9 h-9 lg:w-38 lg:h-38 bg-[#6148FF] rounded-lg lg:rounded-xl">
+                <img
+                  src={bx_search}
+                  alt="Search Icon"
+                  className="flex justify-center items-center"
+                />
+              </button>
+            </div>
           </div>
         </div>
+        {/* Blabla */}
       </div>
       <div className="text-white flex pr-8 lg:pr-[9.16rem]">
         {isLoggedIn ? (
