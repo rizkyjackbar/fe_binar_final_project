@@ -1,15 +1,21 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BellIcon } from "@heroicons/react/solid";
 
-const IsiCard = ({ data, createdAt }) => {
+const IsiCard = ({ data, createdAt, onClick, isRead }) => {
   const [isCardClicked, setCardClicked] = useState(false);
 
-  const handleCardClick = () => {
-    setCardClicked(!isCardClicked);
-  };
+  useEffect(() => {
+    setCardClicked(isRead);
+  }, [isRead]);
 
-  const { title, message, is_readed } = data;
+  const handleCardClick = () => {
+    if (!isRead) {
+      setCardClicked(true);
+      onClick(); // Panggil fungsi onClick dari parent component
+    }
+    // Jika notifikasi sudah dibaca, tidak ada aksi yang diambil saat diklik
+  };
 
   return (
     <a
@@ -21,7 +27,7 @@ const IsiCard = ({ data, createdAt }) => {
     >
       <div
         className={`bg-indigo-600 p-1 rounded-full ${
-          !is_readed ? "ring-2 ring-white" : ""
+          isRead ? "bg-green-500" : "ring-2 ring-white"
         }`}
       >
         <BellIcon className="w-6 h-6 text-white" />
@@ -29,17 +35,17 @@ const IsiCard = ({ data, createdAt }) => {
       <div className="ml-4">
         <h2
           className={`text-indigo-600 ${
-            !is_readed ? "font-bold" : "font-normal"
+            isRead ? "font-normal" : "font-bold"
           }`}
         >
-          {title}
+          {data.title}
         </h2>
         <p
           className={`text-gray-800 ${
-            !is_readed ? "font-bold" : "font-normal"
+            isRead ? "font-normal" : "font-bold"
           }`}
         >
-          {message}
+          {data.message}
         </p>
         <p className="text-sm text-gray-500"></p>
       </div>
@@ -64,6 +70,8 @@ IsiCard.propTypes = {
     date_notif: PropTypes.string.isRequired,
   }).isRequired,
   createdAt: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  isRead: PropTypes.bool.isRequired,
 };
 
 export default IsiCard;
