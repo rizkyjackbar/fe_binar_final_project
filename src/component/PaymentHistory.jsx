@@ -69,7 +69,7 @@ class PaymentHistory extends Component {
               <div key={index} className="mb-3">
                 <CardCourse
                   img={payment.course.category.image}
-                  idCourse={payment.course.id}
+                  id={payment.course.id}
                   classCategory={payment.course.category.category}
                   classesName={payment.course.name}
                   classMentor={payment.course.facilitator}
