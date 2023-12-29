@@ -140,7 +140,7 @@ const Class = () => {
             <div
               className={`${
                 seacrhActive ? "w-[160px]" : ""
-              } lg:w-[12.5rem] bg-white my-[1.13rem] rounded-2xl py-3 px-2 lg:px-6 border border-indigo-600`}
+              } lg:w-[12.5rem] bg-white my-[1.13rem] rounded-2xl py-1 px-2 lg:px-3 border border-indigo-600`}
             >
               <form
                 className="flex items-center"
@@ -160,7 +160,7 @@ const Class = () => {
                 <button
                   onClick={() => setSeacrhActive(!seacrhActive)}
                   type="submit"
-                  className="flex items-center justify-center  w-[35px] h-[2rem] bg-[#6148FF] rounded-[0.625rem]"
+                  className="flex items-center justify-center  w-[35px] h-[30px] bg-[#6148FF] rounded-[0.625rem]"
                 >
                   <img src={bx_search} className="w-[20px]" />
                 </button>
