@@ -4,11 +4,9 @@ import {
   ButtonBuy,
   Button,
   Navbar,
-<<<<<<< HEAD
   Footer,
-=======
   ButtonFree,
->>>>>>> a015e8e4b2922b7b4ac48a8199c433531d7c22a1
+// >>>>>>> a015e8e4b2922b7b4ac48a8199c433531d7c22a1
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
 import { useEffect, useState } from "react";
