@@ -115,7 +115,7 @@ const FilterCourse = ({
   };
 
   return (
-    <form className="bg-white w-[200px]  lg:max-w-max rounded-2xl px-6 py-3">
+    <form className="bg-white w-[200px]  lg:max-w-max rounded-2xl px-6 py-3 shadow-lg mb-10">
       <h2 className="mb-5 font-bold">Filter</h2>
       {checkboxesFilter.map((checkbox, index) => (
         <CheckBoxFilter
