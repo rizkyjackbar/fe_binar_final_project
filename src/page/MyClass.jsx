@@ -238,13 +238,19 @@ const Class = () => {
             ) : (
               <div className="flex items-center text-center pt-[1.39rem]">
                 <p className="grow py-36 font-bold text-xl">
-                  {searchInput
+                  {activeIndex === 1
+                    ? "Tidak ada course berlangsung"
+                    : activeIndex === 2
+                    ? "Masih belum ada course yang selesai"
+                    : searchInput
                     ? "Sepertinya Anda tidak mengambil course tersebut."
                     : "Anda belum memulai kelas tersebut"}
-                  <Link to="/class" className="text-blue-900">
-                    {" "}
-                    Cari kelas dulu yuk!
-                  </Link>
+                  {activeIndex !== 0 && (
+                    <Link to="/class" className="text-blue-900">
+                      {" "}
+                      Cari kelas dulu yuk!
+                    </Link>
+                  )}
                 </p>
               </div>
             )}
