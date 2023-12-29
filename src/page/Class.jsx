@@ -78,7 +78,7 @@ const Class = () => {
       );
 
       if (postTrackerData.ok) {
-        console.log("tracker berhsil dibuat");
+        console.log("tracker berhasil dibuat");
       }
     } catch (error) {
       console.log("");
@@ -122,8 +122,11 @@ const Class = () => {
         <Navbar />
       </header>
 
-      <main className="bg-[#EBF3FC] h-full w-full">
-        <div className=" mx-6 lg:mx-56 pt-5">
+      <main
+        className="bg-[#EBF3FC] min-h-screen w-full"
+        style={{ paddingBottom: "3rem" }}
+      >
+        <div className="mx-6 lg:mx-56 pt-5">
           <div className="flex flex-row items-center justify-between">
             <h2
               className={`text-[16px] ${
@@ -142,7 +145,7 @@ const Class = () => {
                 Filter
               </button>
               <div className={`absolute ${filterActive ? "block" : "hidden"}`}>
-                <div className=" -ml-20 mt-5">
+                <div className="-ml-20 mt-5">
                   <FilterCourse
                     setFilterCheckboxesFilter={setFilterCheckboxesFilter}
                     setFilterCheckboxesCategory={setFilterCheckboxesCategory}
@@ -174,7 +177,7 @@ const Class = () => {
                 <button
                   onClick={() => setSeacrhActive(!seacrhActive)}
                   type="submit"
-                  className="flex items-center justify-center  w-[35px] h-[2rem] bg-[#6148FF] rounded-[0.625rem]"
+                  className="flex items-center justify-center w-[35px] h-[2rem] bg-[#6148FF] rounded-[0.625rem]"
                 >
                   <img src={bx_search} className="w-[20px]" />
                 </button>
@@ -190,42 +193,40 @@ const Class = () => {
             />
           </aside>
 
-          <div>
-            <div className="button-fillter-progress flex gap-4 lg:gap-7">
-              {buttonData.map((button, index) => (
-                <Button
-                  key={index}
-                  index={index}
-                  activeIndex={activeIndex}
-                  setActiveIndex={setActiveIndex}
-                  {...button}
-                  setQueries={() => setQueries(button.query)}
-                />
-              ))}
-            </div>
-            <div className="pt-[1.39rem] grid grid-rows-1 lg:grid-cols-3 gap-4">
-              {courses.map((course) => (
-                <CardCourse
-                  onClick={
-                    course.type === "Free"
-                      ? () => createTracker(course.id)
-                      : null
-                  }
-                  key={course.id}
-                  id={course.id}
-                  img={course.category.image}
-                  classCategory={course.category.category}
-                  classesName={course.name}
-                  classMentor={course.facilitator}
-                  level={course.level}
-                  moduls={course.total_chapter}
-                  times={course.total_duration}
-                >
-                  {course.type === "Premium" && <ButtonPremium />}
-                  {course.type === "Free" && <ButtonFree />}
-                </CardCourse>
-              ))}
-            </div>
+          <div className="button-fillter-progress flex gap-4 lg:gap-7">
+            {buttonData.map((button, index) => (
+              <Button
+                key={index}
+                index={index}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                {...button}
+                setQueries={() => setQueries(button.query)}
+              />
+            ))}
+          </div>
+          <div className="pt-[1.39rem] grid grid-rows-1 lg:grid-cols-3 gap-4">
+            {courses.map((course) => (
+              <CardCourse
+                onClick={
+                  course.type === "Free"
+                    ? () => createTracker(course.id)
+                    : null
+                }
+                key={course.id}
+                id={course.id}
+                img={course.category.image}
+                classCategory={course.category.category}
+                classesName={course.name}
+                classMentor={course.facilitator}
+                level={course.level}
+                moduls={course.total_chapter}
+                times={course.total_duration}
+              >
+                {course.type === "Premium" && <ButtonPremium />}
+                {course.type === "Free" && <ButtonFree />}
+              </CardCourse>
+            ))}
           </div>
         </div>
       </main>
