@@ -12,9 +12,8 @@ const IsiCard = ({ data, createdAt, onClick, isRead }) => {
   const handleCardClick = () => {
     if (!isRead) {
       setCardClicked(true);
-      onClick(); // Panggil fungsi onClick dari parent component
+      onClick();
     }
-    // Jika notifikasi sudah dibaca, tidak ada aksi yang diambil saat diklik
   };
 
   return (
@@ -34,17 +33,11 @@ const IsiCard = ({ data, createdAt, onClick, isRead }) => {
       </div>
       <div className="ml-4">
         <h2
-          className={`text-indigo-600 ${
-            isRead ? "font-normal" : "font-bold"
-          }`}
+          className={`text-indigo-600 ${isRead ? "font-normal" : "font-bold"}`}
         >
           {data.title}
         </h2>
-        <p
-          className={`text-gray-800 ${
-            isRead ? "font-normal" : "font-bold"
-          }`}
-        >
+        <p className={`text-gray-800 ${isRead ? "font-normal" : "font-bold"}`}>
           {data.message}
         </p>
         <p className="text-sm text-gray-500"></p>

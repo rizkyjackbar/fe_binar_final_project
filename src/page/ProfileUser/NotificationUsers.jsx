@@ -62,7 +62,7 @@ const NotificationUser = () => {
                 Tunggu Sebentar...
               </p>
             ) : notifications.length === 0 ? (
-              <p className="text-center mt-4 text-gray-800">
+              <p className="text-center text-gray-800 my-3">
                 Tidak Ada Pemberitahuan
               </p>
             ) : (
