@@ -177,7 +177,7 @@ const Class = () => {
           </aside>
 
           <div>
-            <div className="button-fillter-progress flex gap-7">
+            <div className="button-fillter-progress flex gap-3">
               {buttonData.map((button, index) => (
                 <Button
                   key={index}
@@ -192,7 +192,7 @@ const Class = () => {
             {courses.length > 0 ? (
               <div className="pt-[1.39rem] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {courses.map((course) => (
-                  <div key={course.course.id} className="mb-4">
+                  <div key={course.course.id} className="mb-1">
                     {activeIndex === 0 ||
                     (activeIndex === 1 && course.progress_course < 100) ||
                     (activeIndex === 2 && course.progress_course === 100) ? (
