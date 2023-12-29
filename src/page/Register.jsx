@@ -8,7 +8,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phone_number, setphone_number] = useState("");
   const [password, setPassword] = useState("");
   const [registrationMessage, setRegistrationMessage] = useState(null);
   const [notification, setNotification] = useState(null);
@@ -16,7 +16,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (!name || !email || !phoneNumber || !password) {
+    if (!name || !email || !phone_number || !password) {
       setNotification({
         type: "error",
         message: "Harap lengkapi semua field formulir.",
@@ -43,7 +43,7 @@ const Register = () => {
           body: JSON.stringify({
             name,
             email,
-            phone_number: phoneNumber,
+            phone_number: phone_number,
             password,
           }),
         }
@@ -55,7 +55,13 @@ const Register = () => {
         localStorage.setItem("accessToken", data.data.accessToken);
         localStorage.setItem(
           "userData",
-          JSON.stringify({ name, email, phoneNumber })
+          JSON.stringify({
+            data: {
+              name,
+              email,
+              phone_number,
+            },
+          })
         );
 
         setRegistrationMessage(
@@ -157,7 +163,7 @@ const Register = () => {
 
           <div className="mb-2 lg:mb-4 w-full relative">
             <label
-              htmlFor="phoneNumber"
+              htmlFor="phone_number"
               className="block text-sm lg:text-base font-medium text-gray-600"
             >
               Nomor Telepon
@@ -168,10 +174,10 @@ const Register = () => {
               </span>
               <input
                 type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                id="phone_number"
+                name="phone_number"
+                value={phone_number}
+                onChange={(e) => setphone_number(e.target.value)}
                 className="pl-10 lg:pl-12 mt-1 p-2 lg:p-3 w-full border rounded-md text-sm lg:text-base my-1"
                 style={{
                   borderRadius: "12px",

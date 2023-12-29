@@ -34,12 +34,26 @@ const EditDetailAccount = () => {
   const setInitialUserDataFromLocalStorage = (userDataString) => {
     try {
       const userData = JSON.parse(userDataString);
+      console.log(userDataString);
       setUserData(userData.data ?? {});
       setUserPhoto(userData.data?.photo || DummyProfile);
     } catch (error) {
       console.error("Error parsing data from Local Storage:", error);
     }
   };
+
+  const populateUserDataFromLocalStorage = () => {
+    const storedUserDataString = localStorage.getItem("userData");
+    if (storedUserDataString) {
+      const storedUserData = JSON.parse(storedUserDataString);
+      setUserData(storedUserData.data ?? {});
+      setUserPhoto(storedUserData.data?.photo || DummyProfile);
+    }
+  };
+
+  useEffect(() => {
+    populateUserDataFromLocalStorage();
+  }, []);
 
   const fetchUserDataFromApi = async () => {
     try {
@@ -138,7 +152,6 @@ const EditDetailAccount = () => {
           setAlert(null);
         }, 3000);
 
-        // Panggil kembali fetchUserDataFromApi setelah update berhasil
         await fetchUserDataFromApi();
       } else {
         setAlert({
