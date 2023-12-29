@@ -216,10 +216,12 @@ const Class = () => {
             ) : (
               <div className="flex items-center text-center pt-[1.39rem]">
                 <p className="grow py-36 font-bold text-xl">
-                  Anda belum memulai kelas,
+                  {searchInput
+                    ? "Seperti nya anda tidak mengambil course tersbut deh,"
+                    : "Anda belum memulai kelas, mulai cari kelas!"}
                   <Link to="/class" className="text-blue-900">
                     {" "}
-                    mulai cari kelas!
+                    Cari kelas lainnya yuk!
                   </Link>
                 </p>
               </div>
