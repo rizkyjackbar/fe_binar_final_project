@@ -105,8 +105,11 @@ const Class = () => {
         <Navbar />
       </header>
 
-      <main className="bg-[#EBF3FC] h-full w-full">
-        <div className=" mx-6 lg:mx-56 pt-5">
+      <main
+        className="bg-[#EBF3FC] min-h-screen w-full"
+        style={{ paddingBottom: "3rem" }}
+      >
+        <div className="mx-6 lg:mx-56 pt-5">
           <div className="flex flex-row items-center justify-between">
             <h2
               className={`text-[16px] ${
@@ -189,7 +192,7 @@ const Class = () => {
             {courses.length > 0 ? (
               <div className="pt-[1.39rem] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {courses.map((course) => (
-                  <div key={course.course.id} className="mb-">
+                  <div key={course.course.id} className="mb-4">
                     {activeIndex === 0 ||
                     (activeIndex === 1 && course.progress_course < 100) ||
                     (activeIndex === 2 && course.progress_course === 100) ? (
@@ -217,7 +220,7 @@ const Class = () => {
               <div className="flex items-center text-center pt-[1.39rem]">
                 <p className="grow py-36 font-bold text-xl">
                   {searchInput
-                    ? "Seperti nya anda tidak mengambil course tersbut deh,"
+                    ? "Sepertinya Anda tidak mengambil course tersebut."
                     : "Anda belum memulai kelas, mulai cari kelas!"}
                   <Link to="/class" className="text-blue-900">
                     {" "}
