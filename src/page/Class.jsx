@@ -50,6 +50,7 @@ const Class = () => {
   const [courses, setCourses] = useState([]);
   const [seacrhActive, setSeacrhActive] = useState(false);
   const [filterActive, setFilterActive] = useState(false);
+  const [noResults, setNoResults] = useState(false);
 
   const inputField = useRef();
 
@@ -106,6 +107,7 @@ const Class = () => {
       );
       const { data } = await response.json();
       setCourses(data);
+      setNoResults(data.length === 0);
     };
     fetchData();
   }, [
@@ -205,29 +207,35 @@ const Class = () => {
               />
             ))}
           </div>
-          <div className="pt-[1.39rem] grid grid-rows-1 lg:grid-cols-3 gap-4">
-            {courses.map((course) => (
-              <CardCourse
-                onClick={
-                  course.type === "Free"
-                    ? () => createTracker(course.id)
-                    : null
-                }
-                key={course.id}
-                id={course.id}
-                img={course.category.image}
-                classCategory={course.category.category}
-                classesName={course.name}
-                classMentor={course.facilitator}
-                level={course.level}
-                moduls={course.total_chapter}
-                times={course.total_duration}
-              >
-                {course.type === "Premium" && <ButtonPremium />}
-                {course.type === "Free" && <ButtonFree />}
-              </CardCourse>
-            ))}
-          </div>
+          {noResults ? (
+            <div className="flex items-center text-center pt-[1.39rem]">
+              <p className="grow py-36 font-bold text-xl">
+                Maaf nih Course yang Anda cari tidak ada.
+              </p>
+            </div>
+          ) : (
+            <div className="pt-[1.39rem] grid grid-rows-1 lg:grid-cols-3 gap-4">
+              {courses.map((course) => (
+                <CardCourse
+                  onClick={
+                    course.type === "Free" ? () => createTracker(course.id) : null
+                  }
+                  key={course.id}
+                  id={course.id}
+                  img={course.category.image}
+                  classCategory={course.category.category}
+                  classesName={course.name}
+                  classMentor={course.facilitator}
+                  level={course.level}
+                  moduls={course.total_chapter}
+                  times={course.total_duration}
+                >
+                  {course.type === "Premium" && <ButtonPremium />}
+                  {course.type === "Free" && <ButtonFree />}
+                </CardCourse>
+              ))}
+            </div>
+          )}
         </div>
       </main>
     </>
