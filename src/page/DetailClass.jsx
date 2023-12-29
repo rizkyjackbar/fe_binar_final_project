@@ -3,20 +3,22 @@ import {
   ClockIcon,
   ShieldExclamationIcon,
 } from "@heroicons/react/outline";
-import { Module, Navbar } from "../component";
+import { ModalOnBoarding, Module, Navbar } from "../component";
 import { ArrowLeftIcon, ChatAlt2Icon } from "@heroicons/react/solid";
 import ReactPlayer from "react-player";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ModalBuy from "../component/ModalBuy";
 
 const DetailClass = () => {
-  const location = useLocation();
+  const { id } = useParams();
+  // const location = useLocation();
   const [classData, setClassData] = useState(null);
   const [chapterData, setChapterData] = useState([]);
   const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [seProgress, setSePogress] = useState(false);
+  const [isOnBoardingOpen, setIsOnBoardingOpen] = useState(false);
 
   const token = localStorage.getItem("accessToken");
 
@@ -24,12 +26,17 @@ const DetailClass = () => {
     setIsModalOpen(true);
   };
 
+  // useEffect(() => {
+  //   setIsOnBoardingOpen(location?.state?.tracker);
+  //   console.log(location?.state?.tracker);
+  // }, [location]);
+
   useEffect(() => {
     const fetchData = async () => {
-      if (location?.state?.id) {
+      if (id) {
         try {
           const response = await fetch(
-            `https://befinalprojectbinar-production.up.railway.app/api/courses/${location.state.id}`
+            `https://befinalprojectbinar-production.up.railway.app/api/courses/${id}`
           );
 
           if (response.ok) {
@@ -88,7 +95,7 @@ const DetailClass = () => {
     };
 
     fetchData();
-  }, [location?.state?.id, token]);
+  }, [id, token]);
 
   return (
     <>
@@ -99,7 +106,7 @@ const DetailClass = () => {
       <main className=" -ml-[90px] lg:ml-0">
         <div className=" hidden lg:block">
           <Module
-            courseId={location.state.id}
+            courseId={id}
             chapterData={chapterData}
             setCurrentVideoUrl={setCurrentVideoUrl}
             openModal={openModal}
@@ -134,6 +141,7 @@ const DetailClass = () => {
                     chapterData={chapterData}
                     setCurrentVideoUrl={setCurrentVideoUrl}
                     openModal={openModal}
+                    setIsOnBoardingOpen={setIsOnBoardingOpen}
                   />
                 </div>
                 <p className="text-xl font-bold text-[#6148FF]">
@@ -199,6 +207,11 @@ const DetailClass = () => {
               level={classData.level}
               modul={chapterData.total_chapter}
               duration={chapterData.total_duration}
+            />
+            <ModalOnBoarding
+              isOpen={isOnBoardingOpen}
+              onClose={() => setIsOnBoardingOpen(false)}
+              field={classData.on_boarding}
             />
           </>
         )}

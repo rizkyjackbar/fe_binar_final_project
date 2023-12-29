@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { payment_option } from "../assets";
 import Card from "../component/Card";
 import { Navbar } from "./../component";
@@ -8,10 +8,10 @@ import { useEffect, useState } from "react";
 const Payment = () => {
   const token = localStorage.getItem("accessToken");
 
-  const location = useLocation();
+  const { id } = useParams();
   const [course, setCourse] = useState([]);
   const [orderId, setOrderId] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const [bankTransferData, setBankTransferData] = useState({
     accountNumber: "",
@@ -48,9 +48,6 @@ const Payment = () => {
 
   const handlePaymentButtonClick = () => {
     validatePaymentMethod();
-    console.log(bankTransferData);
-    console.log(creditCardData);
-    console.log(orderId, paymentMethod);
     if (paymentMethod == "Bank Transfer") {
       sendUpdatePayment(orderId, paymentMethod);
     } else if (paymentMethod == "Credit Card") {
@@ -70,7 +67,7 @@ const Payment = () => {
               Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
-              course_id: location.state.id,
+              course_id: id,
               order_method: paymentMetode,
             }),
           }
@@ -92,10 +89,10 @@ const Payment = () => {
 
   useEffect(() => {
     const fetchCourse = async () => {
-      if (location?.state?.id) {
+      if (id) {
         try {
           const response = await fetch(
-            `https://befinalprojectbinar-production.up.railway.app/api/courses/${location.state.id}`
+            `https://befinalprojectbinar-production.up.railway.app/api/courses/${id}`
           );
 
           if (response.ok) {
@@ -131,9 +128,7 @@ const Payment = () => {
         if (response.ok) {
           const { data } = await response.json();
           const filteredOrders = data.filter(
-            (data) =>
-              data.course.id === location.state.id &&
-              data.status === "BELUM BAYAR"
+            (data) => data.course.id === id && data.status === "BELUM BAYAR"
           );
 
           const orderId = filteredOrders.map((order) => order.id);
@@ -158,7 +153,7 @@ const Payment = () => {
 
     fetchCourse();
     fetchOrder();
-  }, [location.state.id, token]);
+  }, [id, token]);
 
   return (
     <>
@@ -171,7 +166,6 @@ const Payment = () => {
           <div className="lg:mt-2 ms-8 lg:ms-36">
             <Link
               className="text-black text-[0.625rem] lg:text-sm font-bold flex items-center"
-              //   onClick={handleGoBack}
               to="/"
             >
               <ArrowLeftIcon className="w-4 h-4 mr-2" />
@@ -193,7 +187,10 @@ const Payment = () => {
             type="submit"
             onClick={handlePaymentButtonClick}
           >
-            <Link to="/paymentsuccess" state={{ id: course.id }}>
+            <Link
+              to={paymentMethod ? "/paymentsuccess" : null}
+              state={{ id: course.id }}
+            >
               <p>Bayar dan Ikuti Kelas Selamanya</p>
             </Link>
           </button>
@@ -423,7 +420,10 @@ const Payment = () => {
               type="submit"
               onClick={handlePaymentButtonClick}
             >
-              <Link to="/paymentsuccess" state={{ id: course.id }}>
+              <Link
+                to={paymentMethod ? "/paymentsuccess" : null}
+                state={{ id: course.id }}
+              >
                 <p>Bayar dan Ikuti Kelas Selamanya</p>
               </Link>
             </button>

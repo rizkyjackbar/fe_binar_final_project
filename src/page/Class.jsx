@@ -76,8 +76,9 @@ const Class = () => {
           }),
         }
       );
+
       if (postTrackerData.ok) {
-        console.log(`tracker ${id} berhasil dibuat`);
+        console.log("tracker berhsil dibuat");
       }
     } catch (error) {
       console.log("");

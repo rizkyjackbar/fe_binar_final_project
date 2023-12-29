@@ -19,7 +19,7 @@ const CardCourse = ({
 }) => {
   return (
     <div className="shadow-lg rounded-2xl w-full bg-white " onClick={onClick}>
-      <Link className="cardCourse" to={"/detailclass"} state={{ id: id }}>
+      <Link className="cardCourse" to={`/detailclass/${id}`}>
         <img src={img} className="rounded-t-2xl w-full h-20 object-cover" />
         <div className="cardBody px-2.5 py-2 flex flex-col gap-0.5">
           <p className="text-[0.625rem] font-bold text-[#6148FF]">
