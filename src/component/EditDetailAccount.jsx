@@ -137,6 +137,9 @@ const EditDetailAccount = () => {
         setTimeout(() => {
           setAlert(null);
         }, 3000);
+
+        // Panggil kembali fetchUserDataFromApi setelah update berhasil
+        await fetchUserDataFromApi();
       } else {
         setAlert({
           type: "error",
