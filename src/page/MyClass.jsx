@@ -191,30 +191,50 @@ const Class = () => {
             </div>
             {courses.length > 0 ? (
               <div className="pt-[1.39rem] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {courses.map((course) => (
-                  <div key={course.course.id} className="mb-1">
-                    {activeIndex === 0 ||
-                    (activeIndex === 1 && course.progress_course < 100) ||
-                    (activeIndex === 2 && course.progress_course === 100) ? (
-                      <CardCourse
-                        id={course.course.id}
-                        img={course.course.category.image}
-                        classCategory={course.course.category.category}
-                        classesName={course.course.name}
-                        classMentor={course.course.facilitator}
-                        level={course.course.level}
-                        moduls={course.course.total_chapter}
-                        times={course.course.total_duration}
-                      >
-                        <ProgresBar
-                          progres={`${course.progress_course}${
-                            activeIndex === 2 ? "%" : ""
-                          }`}
-                        />
-                      </CardCourse>
-                    ) : null}
-                  </div>
-                ))}
+                {/* Filter dan sort courses berdasarkan progres */}
+                {courses
+                  .filter((course) =>
+                    activeIndex === 1
+                      ? course.progress_course < 100
+                      : activeIndex === 2
+                      ? course.progress_course === 100
+                      : true
+                  )
+                  .sort((a, b) => {
+                    if (activeIndex === 1) {
+                      return a.progress_course - b.progress_course;
+                    } else if (activeIndex === 2) {
+                      return b.progress_course - a.progress_course;
+                    } else {
+                      return 0;
+                    }
+                  })
+                  .map((course) => (
+                    <div key={course.course.id} className="mb-1">
+                      {activeIndex === 0 ||
+                      (activeIndex === 1 && course.progress_course < 100) ||
+                      (activeIndex === 2 && course.progress_course === 100) ? (
+                        <div>
+                          <CardCourse
+                            id={course.course.id}
+                            img={course.course.category.image}
+                            classCategory={course.course.category.category}
+                            classesName={course.course.name}
+                            classMentor={course.course.facilitator}
+                            level={course.course.level}
+                            moduls={course.course.total_chapter}
+                            times={course.course.total_duration}
+                          >
+                            <ProgresBar
+                              progres={`${course.progress_course}${
+                                activeIndex === 2 ? "%" : ""
+                              }`}
+                            />
+                          </CardCourse>
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
               </div>
             ) : (
               <div className="flex items-center text-center pt-[1.39rem]">
