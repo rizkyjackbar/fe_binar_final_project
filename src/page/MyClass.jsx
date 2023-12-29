@@ -191,7 +191,6 @@ const Class = () => {
             </div>
             {courses.length > 0 ? (
               <div className="pt-[1.39rem] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Filter dan sort courses berdasarkan progres */}
                 {courses
                   .filter((course) =>
                     activeIndex === 1
@@ -241,10 +240,10 @@ const Class = () => {
                 <p className="grow py-36 font-bold text-xl">
                   {searchInput
                     ? "Sepertinya Anda tidak mengambil course tersebut."
-                    : "Anda belum memulai kelas, mulai cari kelas!"}
+                    : "Anda belum memulai kelas tersebut"}
                   <Link to="/class" className="text-blue-900">
                     {" "}
-                    Cari kelas lainnya yuk!
+                    Cari kelas dulu yuk!
                   </Link>
                 </p>
               </div>
