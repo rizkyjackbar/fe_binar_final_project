@@ -187,39 +187,31 @@ const Class = () => {
               ))}
             </div>
             {courses.length > 0 ? (
-              <div className="pt-[1.39rem] grid grid-cols-3 gap-4">
-                {courses.map((course) =>
-                  activeIndex === 0 ||
-                  (activeIndex === 1 && course.progress_course < 100) ? (
-                    <CardCourse
-                      key={course.course.id}
-                      id={course.course.id}
-                      img={course.course.category.image}
-                      classCategory={course.course.category.category}
-                      classesName={course.course.name}
-                      classMentor={course.course.facilitator}
-                      level={course.course.level}
-                      moduls={course.course.total_chapter}
-                      times={course.course.total_duration}
-                    >
-                      <ProgresBar progres={`${course.progress_course}`} />
-                    </CardCourse>
-                  ) : activeIndex === 2 && course.progress_course === 100 ? (
-                    <CardCourse
-                      key={course.course.id}
-                      id={course.course.id}
-                      img={course.course.category.image}
-                      classCategory={course.course.category.category}
-                      classesName={course.course.name}
-                      classMentor={course.course.facilitator}
-                      level={course.course.level}
-                      moduls={course.course.total_chapter}
-                      times={course.course.total_duration}
-                    >
-                      <ProgresBar progres={`${course.progress_course}%`} />
-                    </CardCourse>
-                  ) : null
-                )}
+              <div className="pt-[1.39rem] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {courses.map((course) => (
+                  <div key={course.course.id} className="mb-">
+                    {activeIndex === 0 ||
+                    (activeIndex === 1 && course.progress_course < 100) ||
+                    (activeIndex === 2 && course.progress_course === 100) ? (
+                      <CardCourse
+                        id={course.course.id}
+                        img={course.course.category.image}
+                        classCategory={course.course.category.category}
+                        classesName={course.course.name}
+                        classMentor={course.course.facilitator}
+                        level={course.course.level}
+                        moduls={course.course.total_chapter}
+                        times={course.course.total_duration}
+                      >
+                        <ProgresBar
+                          progres={`${course.progress_course}${
+                            activeIndex === 2 ? "%" : ""
+                          }`}
+                        />
+                      </CardCourse>
+                    ) : null}
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="flex items-center text-center pt-[1.39rem]">
