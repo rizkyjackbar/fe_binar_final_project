@@ -14,6 +14,7 @@ import ModalOnBoarding from "./ModalOnBoarding";
 import ButtonPaid from "./ButtonPaid";
 import ButtonPaidFailed from "./ButtonPaidFailed";
 import ButtonPaidWaiting from "./ButtonPaidWaiting";
+import CheckBoxFilter from "./CheckBoxFilter";
 
 export {
   Button,
@@ -32,4 +33,5 @@ export {
   ButtonPaid,
   ButtonPaidFailed,
   ButtonPaidWaiting,
+  CheckBoxFilter
 };
