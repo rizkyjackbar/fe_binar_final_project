@@ -239,7 +239,7 @@ const Register = () => {
             </Link>
           </p>
 
-          <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-center mb-4">
+          <div className="lg:hidden fixed bottom-0 left-0 text-xs right-0 mx-10 flex items-center justify-center mb-4">
             {notification && (
               <div
                 className={`text-${
