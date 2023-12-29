@@ -150,7 +150,7 @@ const WebLogin = () => {
           </button>
 
           <p className="mt-2 lg:mt-4 text-gray-600 flex items-center justify-center w-full text-sm lg:text-base">
-            Belum punya akun?&nbsp;
+            Belum punya akun ?&nbsp;
             <Link to="/register" className="text-indigo-600">
               Daftar disini
             </Link>
