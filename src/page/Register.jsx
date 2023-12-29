@@ -154,25 +154,31 @@ const Register = () => {
               placeholder="Contoh: johndoe@gmail.com"
             />
           </div>
-          <div className="mb-2 lg:mb-4 w-full">
+
+          <div className="mb-2 lg:mb-4 w-full relative">
             <label
               htmlFor="phoneNumber"
               className="block text-sm lg:text-base font-medium text-gray-600"
             >
               Nomor Telepon
             </label>
-            <input
-              type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              className="mt-1 p-2 lg:p-3 w-full border rounded-md pl-2 lg:pl-3 pr-2 lg:pr-3 text-sm lg:text-base"
-              style={{
-                borderRadius: "12px",
-              }}
-              placeholder="+62."
-            />
+            <div className="flex items-center">
+              <span className="absolute left-2 lg:left-3 flex items-center text-sm lg:text-base">
+                +62
+              </span>
+              <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="pl-10 lg:pl-12 mt-1 p-2 lg:p-3 w-full border rounded-md text-sm lg:text-base my-1"
+                style={{
+                  borderRadius: "12px",
+                }}
+                placeholder="81234567890"
+              />
+            </div>
           </div>
 
           <div className="mb-2 lg:mb-4 w-full">
