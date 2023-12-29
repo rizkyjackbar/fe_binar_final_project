@@ -7,12 +7,11 @@ import { ModalOnBoarding, Module, Navbar } from "../component";
 import { ArrowLeftIcon, ChatAlt2Icon } from "@heroicons/react/solid";
 import ReactPlayer from "react-player";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ModalBuy from "../component/ModalBuy";
 
 const DetailClass = () => {
   const { id } = useParams();
-  // const location = useLocation();
   const [classData, setClassData] = useState(null);
   const [chapterData, setChapterData] = useState([]);
   const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
@@ -25,11 +24,6 @@ const DetailClass = () => {
   const openModal = () => {
     setIsModalOpen(true);
   };
-
-  // useEffect(() => {
-  //   setIsOnBoardingOpen(location?.state?.tracker);
-  //   console.log(location?.state?.tracker);
-  // }, [location]);
 
   useEffect(() => {
     const fetchData = async () => {
