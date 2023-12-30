@@ -1,14 +1,14 @@
-// MenuActionProfile.js
-
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { MenuIcon, XIcon } from "@heroicons/react/solid";
+import { Dialog, Transition } from "@headlessui/react";
 
 const MenuActionProfile = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [userName, setUserName] = useState("User");
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,6 +20,14 @@ const MenuActionProfile = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData && userData.data.name) {
+      const firstName = userData.data.name.split(" ")[0];
+      setUserName(firstName);
+    }
   }, []);
 
   const handleLogout = () => {
@@ -132,26 +140,40 @@ const MenuActionProfile = () => {
 
       {/* Logout Confirmation Modal */}
       {isLogoutModalOpen && (
-        <div className="fixed inset-0 bg-gray-700 bg-opacity-75 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-md w-96">
-            <p className="text-lg font-semibold mb-4">Konfirmasi Logout</p>
-            <p className="mb-4">Apakah Anda yakin ingin keluar?</p>
-            <div className="flex justify-end">
-              <button
-                onClick={() => setIsLogoutModalOpen(false)}
-                className="px-4 py-2 mr-2 bg-gray-300 text-gray-700 rounded-md"
-              >
-                Batal
-              </button>
-              <button
-                onClick={confirmLogout}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md"
-              >
-                Keluar
-              </button>
+        <Transition show={isLogoutModalOpen} as={Fragment}>
+          <Dialog
+            as="div"
+            className="fixed inset-0 z-10 overflow-y-auto"
+            onClose={() => setIsLogoutModalOpen(false)}
+          >
+            <div className="min-h-screen px-4 text-center">
+              <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+
+              <div className="inline-block align-middle my-8 p-4 max-w-md text-left overflow-hidden bg-white rounded-md shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:p-6">
+                <Dialog.Title as="h3" className="text-lg font-semibold mb-4">
+                  Haiii {userName}
+                </Dialog.Title>
+                <Dialog.Description className="mb-4">
+                  Apakah Anda yakin ingin keluar?
+                </Dialog.Description>
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => setIsLogoutModalOpen(false)}
+                    className="px-4 py-2 mr-2 bg-gray-300 text-gray-700 rounded-md"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    onClick={confirmLogout}
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-md"
+                  >
+                    Keluar
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </Dialog>
+        </Transition>
       )}
     </div>
   );
