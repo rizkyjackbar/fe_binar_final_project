@@ -8,26 +8,30 @@ const FormChangePasswordUser = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const handleChangePassword = async () => {
     try {
-      // Verifikasi input kosong
       if (!oldPassword || !newPassword || !confirmPassword) {
         setError("Semua kolom password harus diisi");
         setTimeout(() => {
           setError(null);
+          setButtonDisabled(false);
         }, 5000);
         return;
       }
 
-      // Verifikasi kesamaan password baru dan konfirmasi password
       if (newPassword !== confirmPassword) {
         setError("Password baru dan konfirmasi password harus sama");
         setTimeout(() => {
           setError(null);
+          setButtonDisabled(false);
         }, 5000);
         return;
       }
+
+      // Menetapkan setButtonDisabled ke true saat ada alert
+      setButtonDisabled(true);
 
       const response = await fetch(
         "https://befinalprojectbinar-production.up.railway.app/api/user/password",
@@ -50,19 +54,24 @@ const FormChangePasswordUser = () => {
         setSuccessMessage("Update password success");
         setTimeout(() => {
           setSuccessMessage(null);
+          setButtonDisabled(false);
         }, 5000);
       } else {
         const errorData = await response.json();
         setError(errorData.message);
         setTimeout(() => {
           setError(null);
+          setButtonDisabled(false);
         }, 5000);
       }
     } catch (error) {
       console.error("Error changing password:", error.message);
       setError("An error occurred while changing the password");
+      setButtonDisabled(true);
+
       setTimeout(() => {
         setError(null);
+        setButtonDisabled(false);
       }, 5000);
     }
   };
@@ -82,7 +91,7 @@ const FormChangePasswordUser = () => {
             Masukkan Password Lama
           </label>
         </div>
-        <div className="relative w-full">
+        <div className="flex items-center">
           <input
             type={showPassword ? "text" : "password"}
             id="old_password"
@@ -95,17 +104,22 @@ const FormChangePasswordUser = () => {
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
           />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? (
-              <EyeOffIcon className="h-6 w-6 text-gray-400" />
-            ) : (
-              <EyeIcon className="h-6 w-6 text-gray-400" />
-            )}
-          </button>
+          <div className="relative">
+            <button
+              type="button"
+              className={`absolute inset-y-0 right-0 pr-3 flex items-center ${
+                isButtonDisabled ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              disabled={isButtonDisabled}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <EyeOffIcon className="h-6 w-6 text-gray-400" />
+              ) : (
+                <EyeIcon className="h-6 w-6 text-gray-400" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -118,7 +132,7 @@ const FormChangePasswordUser = () => {
             Masukkan Password Baru
           </label>
         </div>
-        <div className="relative w-full">
+        <div className="flex items-center">
           <input
             type={showPassword ? "text" : "password"}
             id="new_password"
@@ -131,17 +145,22 @@ const FormChangePasswordUser = () => {
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? (
-              <EyeOffIcon className="h-6 w-6 text-gray-400" />
-            ) : (
-              <EyeIcon className="h-6 w-6 text-gray-400" />
-            )}
-          </button>
+          <div className="relative">
+            <button
+              type="button"
+              className={`absolute inset-y-0 right-0 pr-3 flex items-center ${
+                isButtonDisabled ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              disabled={isButtonDisabled}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <EyeOffIcon className="h-6 w-6 text-gray-400" />
+              ) : (
+                <EyeIcon className="h-6 w-6 text-gray-400" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -154,7 +173,7 @@ const FormChangePasswordUser = () => {
             Ulangi Password Baru
           </label>
         </div>
-        <div className="relative w-full">
+        <div className="flex items-center">
           <input
             type={showPassword ? "text" : "password"}
             id="confirm_password"
@@ -167,25 +186,33 @@ const FormChangePasswordUser = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? (
-              <EyeOffIcon className="h-6 w-6 text-gray-400" />
-            ) : (
-              <EyeIcon className="h-6 w-6 text-gray-400" />
-            )}
-          </button>
+          <div className="relative">
+            <button
+              type="button"
+              className={`absolute inset-y-0 right-0 pr-3 flex items-center ${
+                isButtonDisabled ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              disabled={isButtonDisabled}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <EyeOffIcon className="h-6 w-6 text-gray-400" />
+              ) : (
+                <EyeIcon className="h-6 w-6 text-gray-400" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
       <button
         type="button"
-        className="w-full py-2 px-4 mb-5 font-bold bg-indigo-600 text-white rounded hover:bg-indigo-600"
+        className={`w-full py-2 px-4 mb-5 font-bold bg-indigo-600 text-white rounded hover:bg-indigo-600 ${
+          isButtonDisabled ? "cursor-not-allowed opacity-50" : ""
+        }`}
         style={{ borderRadius: "16px" }}
         onClick={handleChangePassword}
+        disabled={isButtonDisabled}
       >
         Ubah Password
       </button>
