@@ -34,12 +34,26 @@ const EditDetailAccount = () => {
   const setInitialUserDataFromLocalStorage = (userDataString) => {
     try {
       const userData = JSON.parse(userDataString);
+      console.log(userDataString);
       setUserData(userData.data ?? {});
       setUserPhoto(userData.data?.photo || DummyProfile);
     } catch (error) {
       console.error("Error parsing data from Local Storage:", error);
     }
   };
+
+  const populateUserDataFromLocalStorage = () => {
+    const storedUserDataString = localStorage.getItem("userData");
+    if (storedUserDataString) {
+      const storedUserData = JSON.parse(storedUserDataString);
+      setUserData(storedUserData.data ?? {});
+      setUserPhoto(storedUserData.data?.photo || DummyProfile);
+    }
+  };
+
+  useEffect(() => {
+    populateUserDataFromLocalStorage();
+  }, []);
 
   const fetchUserDataFromApi = async () => {
     try {
@@ -137,6 +151,8 @@ const EditDetailAccount = () => {
         setTimeout(() => {
           setAlert(null);
         }, 3000);
+
+        await fetchUserDataFromApi();
       } else {
         setAlert({
           type: "error",
@@ -255,64 +271,55 @@ const EditDetailAccount = () => {
         </div>
 
         <div className="mb-4 w-full">
-          <div className="flex justify-between items-center w-full">
-            <label
-              htmlFor="country"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Negara
-            </label>
-          </div>
-
-          <div className="relative w-full">
-            <input
-              id="country"
-              type="text"
-              name="country"
-              value={userData.country}
-              onChange={(e) =>
-                setUserData((prevData) => ({
-                  ...prevData,
-                  country: e.target.value,
-                }))
-              }
-              className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
-              style={{
-                borderRadius: "16px",
-              }}
-              placeholder="Masukkan Negara Tempat Tinggal"
-            />
-          </div>
+          <label
+            htmlFor="country"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Negara
+          </label>
+          <input
+            id="country"
+            type="text"
+            name="country"
+            value={userData.country}
+            onChange={(e) =>
+              setUserData((prevData) => ({
+                ...prevData,
+                country: e.target.value,
+              }))
+            }
+            className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
+            style={{
+              borderRadius: "16px",
+            }}
+            placeholder="Masukkan Negara Tempat Tinggal"
+          />
         </div>
 
         <div className="mb-4 w-full">
-          <div className="flex justify-between items-center w-full">
-            <label
-              htmlFor="city"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Kota
-            </label>
-          </div>
-          <div className="relative w-full">
-            <input
-              id="city"
-              type="text"
-              name="city"
-              value={userData.city}
-              onChange={(e) =>
-                setUserData((prevData) => ({
-                  ...prevData,
-                  city: e.target.value,
-                }))
-              }
-              className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
-              style={{
-                borderRadius: "16px",
-              }}
-              placeholder="Masukkan Kota Tempat Tinggal"
-            />
-          </div>
+          <label
+            htmlFor="city"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Kota
+          </label>
+          <input
+            id="city"
+            type="text"
+            name="city"
+            value={userData.city}
+            onChange={(e) =>
+              setUserData((prevData) => ({
+                ...prevData,
+                city: e.target.value,
+              }))
+            }
+            className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
+            style={{
+              borderRadius: "16px",
+            }}
+            placeholder="Masukkan Kota Tempat Tinggal"
+          />
         </div>
 
         <button

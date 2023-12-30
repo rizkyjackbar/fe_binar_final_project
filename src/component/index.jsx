@@ -15,6 +15,7 @@ import ButtonPaid from "./ButtonPaid";
 import ButtonPaidFailed from "./ButtonPaidFailed";
 import ButtonPaidWaiting from "./ButtonPaidWaiting";
 import CheckBoxFilter from "./CheckBoxFilter";
+import Footer from "./footer";
 
 export {
   Button,
@@ -33,5 +34,6 @@ export {
   ButtonPaid,
   ButtonPaidFailed,
   ButtonPaidWaiting,
-  CheckBoxFilter
+  CheckBoxFilter,
+  Footer
 };

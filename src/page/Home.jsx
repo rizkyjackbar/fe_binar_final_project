@@ -4,6 +4,7 @@ import {
   ButtonBuy,
   Button,
   Navbar,
+  Footer,
   ButtonFree,
 } from "../component";
 import { hero, PM, UIUX, WEB, AND, DS, IOS } from "../assets";
@@ -208,6 +209,7 @@ const Home = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 };

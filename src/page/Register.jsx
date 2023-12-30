@@ -8,7 +8,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phone_number, setphone_number] = useState("");
   const [password, setPassword] = useState("");
   const [registrationMessage, setRegistrationMessage] = useState(null);
   const [notification, setNotification] = useState(null);
@@ -16,7 +16,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (!name || !email || !phoneNumber || !password) {
+    if (!name || !email || !phone_number || !password) {
       setNotification({
         type: "error",
         message: "Harap lengkapi semua field formulir.",
@@ -43,7 +43,7 @@ const Register = () => {
           body: JSON.stringify({
             name,
             email,
-            phone_number: phoneNumber,
+            phone_number: phone_number,
             password,
           }),
         }
@@ -55,7 +55,13 @@ const Register = () => {
         localStorage.setItem("accessToken", data.data.accessToken);
         localStorage.setItem(
           "userData",
-          JSON.stringify({ name, email, phoneNumber })
+          JSON.stringify({
+            data: {
+              name,
+              email,
+              phone_number,
+            },
+          })
         );
 
         setRegistrationMessage(
@@ -154,25 +160,31 @@ const Register = () => {
               placeholder="Contoh: johndoe@gmail.com"
             />
           </div>
-          <div className="mb-2 lg:mb-4 w-full">
+
+          <div className="mb-2 lg:mb-4 w-full relative">
             <label
-              htmlFor="phoneNumber"
+              htmlFor="phone_number"
               className="block text-sm lg:text-base font-medium text-gray-600"
             >
               Nomor Telepon
             </label>
-            <input
-              type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              className="mt-1 p-2 lg:p-3 w-full border rounded-md pl-2 lg:pl-3 pr-2 lg:pr-3 text-sm lg:text-base"
-              style={{
-                borderRadius: "12px",
-              }}
-              placeholder="+62."
-            />
+            <div className="flex items-center">
+              <span className="absolute left-2 lg:left-3 flex items-center text-sm lg:text-base">
+                +62
+              </span>
+              <input
+                type="tel"
+                id="phone_number"
+                name="phone_number"
+                value={phone_number}
+                onChange={(e) => setphone_number(e.target.value)}
+                className="pl-10 lg:pl-12 mt-1 p-2 lg:p-3 w-full border rounded-md text-sm lg:text-base my-1"
+                style={{
+                  borderRadius: "12px",
+                }}
+                placeholder="81234567890"
+              />
+            </div>
           </div>
 
           <div className="mb-2 lg:mb-4 w-full">
@@ -227,7 +239,7 @@ const Register = () => {
             </Link>
           </p>
 
-          <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-center mb-4">
+          <div className="lg:hidden fixed bottom-0 left-0 text-xs right-0 mx-10 flex items-center justify-center mb-4">
             {notification && (
               <div
                 className={`text-${
