@@ -6,6 +6,7 @@ const MenuActionProfile = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,6 +21,10 @@ const MenuActionProfile = () => {
   }, []);
 
   const handleLogout = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const confirmLogout = () => {
     clearSessionData();
     navigate("/login");
   };
@@ -120,6 +125,30 @@ const MenuActionProfile = () => {
               </button>
             </li>
           </ul>
+        </div>
+      )}
+
+      {/* Logout Confirmation Modal */}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 bg-gray-700 bg-opacity-75 flex items-center justify-center">
+          <div className="bg-white p-4 rounded-md w-96">
+            <p className="text-lg font-semibold mb-4">Konfirmasi Logout</p>
+            <p className="mb-4">Apakah Anda yakin ingin keluar?</p>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setIsLogoutModalOpen(false)}
+                className="px-4 py-2 mr-2 bg-gray-300 text-gray-700 rounded-md"
+              >
+                Batal
+              </button>
+              <button
+                onClick={confirmLogout}
+                className="px-4 py-2 bg-indigo-600 text-white rounded-md"
+              >
+                Keluar
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
