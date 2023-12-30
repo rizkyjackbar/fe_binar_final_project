@@ -218,7 +218,9 @@ const Class = () => {
               {courses.map((course) => (
                 <CardCourse
                   onClick={
-                    course.type === "Free" ? () => createTracker(course.id) : null
+                    course.type === "Free"
+                      ? () => createTracker(course.id)
+                      : null
                   }
                   key={course.id}
                   id={course.id}

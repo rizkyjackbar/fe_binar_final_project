@@ -18,7 +18,9 @@ const Module = ({
     progress_course: 0,
     total_modules_viewed: 0,
   });
-  const [active, setActive] = useState(null);
+  const [activeModule, setActiveModule] = useState(null);
+  const [activeChapter, setActiveChapter] = useState(null);
+  // const [forceUpdate, setForceUpdate] = useState(false);
 
   console.log(tracker);
 
@@ -31,91 +33,45 @@ const Module = ({
   ) => {
     if (!isLocked) {
       setCurrentVideoUrl(videoUrl);
-      setActive(modulIndex);
+      setActiveChapter(chapIndex);
+      setActiveModule(modulIndex);
 
-      if (chapIndex > tracker.last_opened_chapter) {
-        try {
-          const updateTracker = await fetch(
-            `https://befinalprojectbinar-production.up.railway.app/api/trackers/${courseId}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({
-                last_opened_chapter: chapIndex,
-                last_opened_module: modulIndex,
-                module_id: moduleId,
-              }),
-            }
-          );
-          if (updateTracker.ok) {
-            console.log(`tracker ${moduleId} berhasil diupdate`);
-            // setTracker(updateTracker);
-            // const { data } = await updateTracker.json();
-            // console.log(data);
-
-            // setTracker({
-            //   ...data,
-            //   progress_course: prevProgress,
-            // });
-            setActive(modulIndex);
-          } else {
-            console.error(
-              `Error create tracker ${moduleId}:`,
-              updateTracker.status,
-              updateTracker.statusText
-            );
+      try {
+        const updateTracker = await fetch(
+          `https://befinalprojectbinar-production.up.railway.app/api/trackers/${courseId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              last_opened_chapter: chapIndex,
+              last_opened_module: modulIndex,
+              module_id: moduleId,
+            }),
           }
-        } catch (error) {
-          console.error("Error create tracker:", error);
-        }
-      } else if (modulIndex > tracker.last_opened_module) {
-        try {
-          const updateTracker = await fetch(
-            `https://befinalprojectbinar-production.up.railway.app/api/trackers/${courseId}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({
-                last_opened_chapter: chapIndex,
-                last_opened_module: modulIndex,
-                module_id: moduleId,
-              }),
-            }
+        );
+        if (updateTracker.ok) {
+          console.log(`tracker ${moduleId} berhasil diupdate`);
+          const { data } = await updateTracker.json();
+          const firstDataObject = data[0];
+          setTracker(firstDataObject);
+          console.log("Data from response:", firstDataObject);
+        } else {
+          console.error(
+            `Error create tracker ${moduleId}:`,
+            updateTracker.status,
+            updateTracker.statusText
           );
-          if (updateTracker.ok) {
-            console.log(`tracker ${moduleId} berhasil diupdate`);
-            //   const { data } = await updateTracker.json();
-            //   setTracker({
-            //     ...data,
-            //     progress_course: prevProgress,
-            //   });
-            setActive(modulIndex);
-          } else {
-            console.error(
-              `Error create tracker ${moduleId}:`,
-              updateTracker.status,
-              updateTracker.statusText
-            );
-          }
-        } catch (error) {
-          console.error("Error create tracker:", error);
         }
-        setCurrentVideoUrl(videoUrl);
+      } catch (error) {
+        console.error("Error create tracker:", error);
       }
     } else {
       openModal();
     }
   };
-
-  // useEffect(() => {
-  //   setCurrentVideoUrl(tracker.last_opened_module_video);
-  // }, [tracker.last_opened_module_video]);
 
   useEffect(() => {
     const fetchTrackerData = async () => {
@@ -133,7 +89,7 @@ const Module = ({
 
           if (response.ok) {
             const { data } = await response.json();
-            console.log(data);
+            console.log("respons from get", data);
             setTracker(data);
             if (data.last_opened_chapter == 0) {
               setIsOnBoardingOpen(true);
@@ -154,7 +110,8 @@ const Module = ({
 
                 if (selectedModule) {
                   setCurrentVideoUrl(selectedModule.video);
-                  setActive(selectedModule.index);
+                  setActiveModule(selectedModule.index);
+                  setActiveChapter(selectedChapter.index);
                 }
               }
             }
@@ -172,8 +129,12 @@ const Module = ({
       <div className="flex justify-between">
         <h1 className="text-lg font-bold hidden lg:block">Materi Belajar</h1>
         <div className="flex w-2/5 lg:gap-0 gap-2">
-          <BadgeCheckIcon className="w-6 stroke-green-400" />
-          <ProgresBar progres={tracker.progress_course} />
+          {token ? (
+            <>
+              <BadgeCheckIcon className="w-6 stroke-green-400" />{" "}
+              <ProgresBar progres={tracker.progress_course} />
+            </>
+          ) : null}
         </div>
       </div>
 
@@ -207,7 +168,8 @@ const Module = ({
                 {chapter.is_locked === false && (
                   <PlayIcon
                     className={`w-4 fill-green-400 ${
-                      module.index === active
+                      chapter.index === activeChapter &&
+                      module.index === activeModule
                         ? "fill-indigo-600"
                         : "fill-green-400"
                     }`}
