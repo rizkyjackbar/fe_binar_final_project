@@ -11,6 +11,24 @@ const FormChangePasswordUser = () => {
 
   const handleChangePassword = async () => {
     try {
+      // Verifikasi input kosong
+      if (!oldPassword || !newPassword || !confirmPassword) {
+        setError("Semua kolom password harus diisi");
+        setTimeout(() => {
+          setError(null);
+        }, 5000);
+        return;
+      }
+
+      // Verifikasi kesamaan password baru dan konfirmasi password
+      if (newPassword !== confirmPassword) {
+        setError("Password baru dan konfirmasi password harus sama");
+        setTimeout(() => {
+          setError(null);
+        }, 5000);
+        return;
+      }
+
       const response = await fetch(
         "https://befinalprojectbinar-production.up.railway.app/api/user/password",
         {
@@ -53,14 +71,6 @@ const FormChangePasswordUser = () => {
     <div className="FormChangePasswordUser p-4">
       <div className="mb-4 text-center">
         <h1 className="font-bold">Ubah Password</h1>
-        {successMessage && (
-          <div className="text-green-500 bg-green-100 p-2 rounded-md">
-            {successMessage}
-          </div>
-        )}
-        {error && (
-          <div className="text-red-500 bg-red-100 p-2 rounded-md">{error}</div>
-        )}
       </div>
 
       <div className="mb-4 w-full">
@@ -179,6 +189,16 @@ const FormChangePasswordUser = () => {
       >
         Ubah Password
       </button>
+      {successMessage && (
+        <div className="flex justify-center items-center text-green-500 bg-green-100 p-2 rounded-md">
+          {successMessage}
+        </div>
+      )}
+      {error && (
+        <div className="flex justify-center items-center text-red-500 bg-red-100 p-2 rounded-md">
+          {error}
+        </div>
+      )}
     </div>
   );
 };
