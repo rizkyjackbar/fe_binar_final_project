@@ -154,7 +154,7 @@ const MenuActionProfile = () => {
                   Haiii {userName}
                 </Dialog.Title>
                 <Dialog.Description className="mb-4">
-                  Apakah Anda yakin ingin keluar?
+                  Apakah Anda yakin ingin keluar ?
                 </Dialog.Description>
                 <div className="flex justify-end">
                   <button
