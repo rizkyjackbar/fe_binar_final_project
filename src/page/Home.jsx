@@ -137,7 +137,7 @@ const Home = () => {
                   img={PM}
                   label={"Product Management"}
                 />
-                <CardCategory link={"#"} img={WEB} label={"Web Developer"} />
+                <CardCategory link={"#"} img={WEB} label={"Web Development"} />
                 <CardCategory
                   link={"#"}
                   img={AND}
