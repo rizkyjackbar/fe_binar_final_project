@@ -271,64 +271,55 @@ const EditDetailAccount = () => {
         </div>
 
         <div className="mb-4 w-full">
-          <div className="flex justify-between items-center w-full">
-            <label
-              htmlFor="country"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Negara
-            </label>
-          </div>
-
-          <div className="relative w-full">
-            <input
-              id="country"
-              type="text"
-              name="country"
-              value={userData.country}
-              onChange={(e) =>
-                setUserData((prevData) => ({
-                  ...prevData,
-                  country: e.target.value,
-                }))
-              }
-              className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
-              style={{
-                borderRadius: "16px",
-              }}
-              placeholder="Masukkan Negara Tempat Tinggal"
-            />
-          </div>
+          <label
+            htmlFor="country"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Negara
+          </label>
+          <input
+            id="country"
+            type="text"
+            name="country"
+            value={userData.country}
+            onChange={(e) =>
+              setUserData((prevData) => ({
+                ...prevData,
+                country: e.target.value,
+              }))
+            }
+            className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
+            style={{
+              borderRadius: "16px",
+            }}
+            placeholder="Masukkan Negara Tempat Tinggal"
+          />
         </div>
 
         <div className="mb-4 w-full">
-          <div className="flex justify-between items-center w-full">
-            <label
-              htmlFor="city"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Kota
-            </label>
-          </div>
-          <div className="relative w-full">
-            <input
-              id="city"
-              type="text"
-              name="city"
-              value={userData.city}
-              onChange={(e) =>
-                setUserData((prevData) => ({
-                  ...prevData,
-                  city: e.target.value,
-                }))
-              }
-              className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
-              style={{
-                borderRadius: "16px",
-              }}
-              placeholder="Masukkan Kota Tempat Tinggal"
-            />
-          </div>
+          <label
+            htmlFor="city"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Kota
+          </label>
+          <input
+            id="city"
+            type="text"
+            name="city"
+            value={userData.city}
+            onChange={(e) =>
+              setUserData((prevData) => ({
+                ...prevData,
+                city: e.target.value,
+              }))
+            }
+            className="mt-1 p-3 w-full border rounded-md pr-10 pl-3"
+            style={{
+              borderRadius: "16px",
+            }}
+            placeholder="Masukkan Kota Tempat Tinggal"
+          />
         </div>
 
         <button
