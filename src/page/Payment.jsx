@@ -98,8 +98,6 @@ const Payment = () => {
           if (response.ok) {
             const { data } = await response.json();
             setCourse(data);
-
-            console.log("Informasi Course yang dipilih:", data);
           } else {
             console.error(
               "Error fetching data:",
@@ -162,20 +160,15 @@ const Payment = () => {
       </header>
 
       <div className="">
-        <div className="bg-[#EBF3FC] h-12 lg:h-[7rem] p-4">
-          <div className="lg:mt-2 ms-8 lg:ms-36">
+        <div className="bg-[#EBF3FC] h-12  p-4">
+          <div className=" ms-8 lg:ms-36">
             <Link
               className="text-black text-[0.625rem] lg:text-sm font-bold flex items-center"
-              to="/"
+              to={`/detailclass/${id}`}
             >
               <ArrowLeftIcon className="w-4 h-4 mr-2" />
               <p>Kembali</p>
             </Link>
-          </div>
-          <div className="hidden lg:flex justify-center items-center">
-            <div className="flex justify-center items-center w-[26rem] h-6 lg:w-[45rem] lg:h-[2.75rem] bg-[#FF0000] rounded-2xl mt-2 text-white font-bold text-[0.625rem] lg:text-sm">
-              <p>Selesaikan Pembayaran sampai 10 Maret 2023 12:00</p>
-            </div>
           </div>
         </div>
       </div>
