@@ -13,7 +13,7 @@ const Footer = () => {
             style={{ width: "160px" }}
           />
           <p className="mt-2 text-xs">
-            Meningkatkan pengetahuan, merajut masa depan.
+            One step solution, to learn new skill
           </p>
         </div>
 
