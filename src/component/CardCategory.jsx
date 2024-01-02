@@ -5,8 +5,7 @@ const CardCategory = ({ link, img, label, classes }) => {
   return (
     <span className={classes}>
       <Link
-        href={link}
-        // state={}
+        to={link}
         className="flex items-center flex-col gap-4 text-center mx-2"
       >
         <img
