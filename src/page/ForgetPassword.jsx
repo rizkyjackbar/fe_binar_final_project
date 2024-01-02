@@ -127,7 +127,7 @@ const ForgetPassword = () => {
       </div>
 
       {/* Right Section */}
-      <div className="hidden ms-24 lg:flex bg-[#6148FF] items-center justify-center text-white">
+      <div className="hidden lg:flex bg-[#6148FF] items-center justify-center text-white">
         <img
           src={logo}
           alt="Logo"
