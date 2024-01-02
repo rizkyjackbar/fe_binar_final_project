@@ -10,7 +10,7 @@ const Footer = () => {
             src={logo}
             alt="Logo"
             className="text-2xl lg:text-3xl font-semibold"
-            style={{ width: "1500px" }}
+            style={{ width: "160px" }}
           />
           <p className="mt-2 text-xs">
             Meningkatkan pengetahuan, merajut masa depan.
