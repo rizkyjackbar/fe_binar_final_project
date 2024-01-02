@@ -1,4 +1,4 @@
-import { mainlogo } from "../assets";
+import { logo } from "../assets";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
@@ -258,9 +258,10 @@ const Otp = () => {
       {/* Right Section */}
       <div className="hidden lg:flex bg-[#6148FF] items-center justify-center text-white">
         <img
-          src={mainlogo}
+          src={logo}
           alt="Logo"
           className="text-2xl lg:text-3xl font-semibold"
+          style={{ width: "400px" }}
         />
       </div>
     </div>

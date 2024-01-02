@@ -1,11 +1,17 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { logo } from "../assets";
 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-[#6148ff] via-[#667EEA] to-[#64B6FF] text-white py-8 mt-10">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0 text-center md:text-left">
-          <h3 className="text-xl font-bold">Dev Academy</h3>
+          <img
+            src={logo}
+            alt="Logo"
+            className="text-2xl lg:text-3xl font-semibold"
+            style={{ width: "1500px" }}
+          />
           <p className="mt-2 text-xs">
             Meningkatkan pengetahuan, merajut masa depan.
           </p>

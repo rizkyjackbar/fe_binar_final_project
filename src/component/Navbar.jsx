@@ -43,7 +43,12 @@ const Navbar = () => {
     <nav className="h-12 sm:h-14 lg:h-20 shadow-[0_0_0_10px_0_rgba(0, 0, 0, 0.15)] flex justify-between bg-[#6148ff]">
       <div className="flex justify-center items-center">
         <Link to="/" className="ml-8 mr-2 lg:ml-[5.94rem] lg:mr-[2.18rem]">
-          <img src={logo} className="flex w-8 lg:w-16" />
+          <img
+            src={logo}
+            alt="Logo"
+            className="text-2xl lg:text-3xl font-semibold"
+            style={{ width: "180px" }}
+          />
         </Link>
         {/* Search Bar */}
         <div className="lg:w-[400px] lg:h-13 bg-white  rounded-2xl p-1 px-4 hidden md:block ml-10">

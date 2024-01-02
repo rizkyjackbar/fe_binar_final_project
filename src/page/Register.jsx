@@ -273,7 +273,8 @@ const Register = () => {
         <img
           src={logo}
           alt="Logo"
-          className="text-2xl lg:text-3xl w-44 font-semibold"
+          className="text-2xl lg:text-3xl font-semibold"
+          style={{ width: "400px" }}
         />
       </div>
     </div>

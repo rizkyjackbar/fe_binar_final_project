@@ -130,7 +130,7 @@ const ResetPassword = () => {
                 value={new_password}
                 onChange={handlePasswordChange}
                 className={`mt-1 p-3 w-full border rounded-md pl-3 pr-10 mb-3 ${
-                  touched.newPassword && !new_password ? 'border-red-500' : ''
+                  touched.newPassword && !new_password ? "border-red-500" : ""
                 }`}
                 style={{
                   borderRadius: "16px",
@@ -168,7 +168,9 @@ const ResetPassword = () => {
                 value={confirm_password}
                 onChange={handleConfirmPasswordChange}
                 className={`mt-1 p-3 w-full border rounded-md pr-10 pl-3 ${
-                  touched.confirmPassword && !confirm_password ? 'border-red-500' : ''
+                  touched.confirmPassword && !confirm_password
+                    ? "border-red-500"
+                    : ""
                 }`}
                 style={{
                   borderRadius: "16px",
@@ -215,7 +217,8 @@ const ResetPassword = () => {
         <img
           src={logo}
           alt="Logo"
-          className="text-2xl lg:text-3xl w-44 font-semibold"
+          className="text-2xl lg:text-3xl font-semibold"
+          style={{ width: "400px" }}
         />
       </div>
     </div>
