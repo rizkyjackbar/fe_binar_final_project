@@ -146,7 +146,9 @@ const Class = () => {
               >
                 Filter
               </button>
-              <div className={`absolute ${filterActive ? "block" : "hidden"}`}>
+              <div
+                className={`absolute ${filterActive ? "block" : "hidden"} z-10`}
+              >
                 <div className="-ml-20 mt-5">
                   <FilterCourse
                     setFilterCheckboxesFilter={setFilterCheckboxesFilter}
