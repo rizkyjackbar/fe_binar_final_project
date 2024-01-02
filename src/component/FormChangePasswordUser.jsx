@@ -51,14 +51,19 @@ const FormChangePasswordUser = () => {
 
       if (response.ok) {
         console.log("Password changed successfully");
-        setSuccessMessage("Update password success");
+        setSuccessMessage("Yeay, Berhasil ganti Password");
         setTimeout(() => {
           setSuccessMessage(null);
           setButtonDisabled(false);
         }, 5000);
       } else {
         const errorData = await response.json();
-        setError(errorData.message);
+        if (errorData.message === "Invalid old password") {
+          setError("Password lama tidak sesuai");
+      } else {
+          setError(errorData.message);
+          setError("Password lama tidak sesuai nih");
+        }
         setTimeout(() => {
           setError(null);
           setButtonDisabled(false);
