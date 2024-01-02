@@ -18,7 +18,10 @@ const CardCourse = ({
   onClick,
 }) => {
   return (
-    <div className="shadow-lg rounded-2xl w-full bg-white transition-transform transform hover:scale-105" onClick={onClick}>
+    <div
+      className="shadow-lg rounded-2xl w-full bg-white transition-transform transform hover:scale-105"
+      onClick={onClick}
+    >
       <Link className="cardCourse" to={`/detailclass/${id}`}>
         <img src={img} className="rounded-t-2xl w-full h-20 object-cover" />
         <div className="cardBody px-2.5 py-2 flex flex-col gap-0.5">

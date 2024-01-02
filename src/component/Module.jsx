@@ -20,7 +20,6 @@ const Module = ({
   });
   const [activeModule, setActiveModule] = useState(null);
   const [activeChapter, setActiveChapter] = useState(null);
-  // const [forceUpdate, setForceUpdate] = useState(false);
 
   console.log(tracker);
 

@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const token = localStorage.getItem("accessToken");
   const [queries, setQueries] = useState("");
 
   const buttonData = [
@@ -77,6 +77,30 @@ const Home = () => {
 
   const [courses, setCourses] = useState([]);
 
+  const createTracker = async (id) => {
+    try {
+      const postTrackerData = await fetch(
+        `https://befinalprojectbinar-production.up.railway.app/api/trackers/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            course_id: id,
+          }),
+        }
+      );
+
+      if (postTrackerData.ok) {
+        console.log("tracker berhasil dibuat");
+      }
+    } catch (error) {
+      console.log("");
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -133,24 +157,24 @@ const Home = () => {
               <div className="flex flex-wrap gap-5 justify-center">
                 <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
                 <CardCategory
-                  link={"#"}
+                  link={"/class"}
                   img={PM}
                   label={"Product Management"}
                 />
                 <CardCategory link={"#"} img={WEB} label={"Web Development"} />
                 <CardCategory
-                  link={"#"}
+                  link={"/class"}
                   img={AND}
                   label={"Android Development"}
                 />
                 <CardCategory
-                  link={"#"}
+                  link={"/class"}
                   img={IOS}
                   label={"IOS Development"}
                   classes={"hidden lg:block"}
                 />
                 <CardCategory
-                  link={"#"}
+                  link={"/class"}
                   img={DS}
                   label={"Data Science"}
                   classes={"hidden lg:block"}
@@ -188,6 +212,11 @@ const Home = () => {
             <div className="pt-7 flex flex-col lg:grid lg:grid-cols-3 gap-4">
               {courses.slice(0, 3).map((course) => (
                 <CardCourse
+                  onClick={
+                    course.type === "Free"
+                      ? () => createTracker(course.id)
+                      : null
+                  }
                   key={course.id}
                   id={course.id}
                   img={course.category.image}
