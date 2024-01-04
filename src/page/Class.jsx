@@ -56,20 +56,17 @@ const Class = () => {
   const inputField = useRef();
 
   const capitalizeFirstLetter = (str) => {
-    var words = str.split(" ");
-    for (var i = 0; i < words.length; i++) {
-      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    var words = str?.split(" ");
+    if (words) {
+      for (var i = 0; i < words.length; i++) {
+        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+      }
+      return words.join(" ");
     }
-    return words.join(" ");
+    return "";
   };
 
   const location = useLocation();
-
-  useEffect(() => {
-    if (location?.state?.searchInput) {
-      setSearchInput(location.state.searchInput);
-    }
-  }, [location.state]);
 
   const createTracker = async (id) => {
     try {
