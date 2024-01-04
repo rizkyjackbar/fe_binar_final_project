@@ -53,7 +53,10 @@ function App() {
         />
         <Route path="/class" element={<Class />} />
         <Route path="/detailclass/:id" element={<DetailClass />} />
-        <Route path="/forgetPassword" element={<ForgetPassword />} />
+        <Route
+          path="/forgetPassword"
+          element={<AuthRoute element={<ForgetPassword />} />}
+        />
         <Route
           path="/notification"
           element={
