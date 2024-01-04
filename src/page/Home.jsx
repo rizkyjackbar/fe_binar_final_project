@@ -155,13 +155,21 @@ const Home = () => {
             </div>
             <div className="py-5">
               <div className="flex flex-wrap gap-5 justify-center">
-                <CardCategory link={"#"} img={UIUX} label={"UI/UX Design"} />
+                <CardCategory
+                  link={"/class"}
+                  img={UIUX}
+                  label={"UI/UX Design"}
+                />
                 <CardCategory
                   link={"/class"}
                   img={PM}
                   label={"Product Management"}
                 />
-                <CardCategory link={"#"} img={WEB} label={"Web Development"} />
+                <CardCategory
+                  link={"/class"}
+                  img={WEB}
+                  label={"Web Development"}
+                />
                 <CardCategory
                   link={"/class"}
                   img={AND}
