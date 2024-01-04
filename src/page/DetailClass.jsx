@@ -35,6 +35,7 @@ const DetailClass = () => {
 
           if (response.ok) {
             const { data } = await response.json();
+            console.log(data);
             setClassData(data);
             setCurrentVideoUrl(data.introduction_video);
 
@@ -201,6 +202,7 @@ const DetailClass = () => {
               level={classData.level}
               modul={chapterData.total_chapter}
               duration={chapterData.total_duration}
+              price={classData.price}
             />
             <ModalOnBoarding
               isOpen={isOnBoardingOpen}

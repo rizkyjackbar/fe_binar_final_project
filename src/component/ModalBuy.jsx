@@ -1,6 +1,7 @@
 import { ArrowCircleRightIcon, XIcon } from "@heroicons/react/solid";
 import CardCourse from "./CardCourse";
 import { Link } from "react-router-dom";
+import ButtonBuy from "./ButtonBuy";
 
 const ModalBuy = ({
   isOpen,
@@ -13,6 +14,7 @@ const ModalBuy = ({
   level,
   modul,
   duration,
+  price,
 }) => {
   if (!isOpen) return null;
 
@@ -82,7 +84,9 @@ const ModalBuy = ({
                 level={level}
                 moduls={modul}
                 times={duration}
-              />
+              >
+                <ButtonBuy price={price} />
+              </CardCourse>
             </div>
             <Link to={token ? `/payment/${id}` : "/login"}>
               <button
