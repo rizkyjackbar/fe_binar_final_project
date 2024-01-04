@@ -34,7 +34,7 @@ const WebLogin = () => {
           message: responseData.message,
         });
         localStorage.setItem("accessToken", responseData.data.accessToken);
-        navigate("/");
+        location.reload();
       } else {
         const errorData = await response.json();
         setNotification({

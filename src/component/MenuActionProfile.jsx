@@ -36,7 +36,7 @@ const MenuActionProfile = () => {
 
   const confirmLogout = () => {
     clearSessionData();
-    navigate("/login");
+    location.reload();
   };
 
   const clearSessionData = () => {
