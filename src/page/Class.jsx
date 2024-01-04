@@ -8,6 +8,7 @@ import {
   FilterCourse,
   Navbar,
 } from "../component";
+import { useLocation } from "react-router-dom";
 
 const Class = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -62,6 +63,14 @@ const Class = () => {
     return words.join(" ");
   };
 
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location?.state?.searchInput) {
+      setSearchInput(location.state.searchInput);
+    }
+  }, [location.state]);
+
   const createTracker = async (id) => {
     try {
       const postTrackerData = await fetch(
@@ -102,7 +111,7 @@ const Class = () => {
 
       const response = await fetch(
         `https://befinalprojectbinar-production.up.railway.app/api/courses?filter=${filters}&type=${queries}&${filtersCategories}&level=${filtersLevel}&name=${encodeURIComponent(
-          capitalizeFirstLetter(searchInput)
+          capitalizeFirstLetter(searchInput || location?.state?.searchInput)
         )}`
       );
       const { data } = await response.json();
@@ -111,6 +120,7 @@ const Class = () => {
     };
     fetchData();
   }, [
+    location.state,
     searchInput,
     queries,
     filterCheckboxesFilter,
@@ -121,7 +131,7 @@ const Class = () => {
   return (
     <>
       <header className="sticky top-0 z-20">
-        <Navbar />
+        <Navbar setSearchInput={setSearchInput} />
       </header>
 
       <main

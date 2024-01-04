@@ -12,6 +12,7 @@ const Payment = () => {
   const [course, setCourse] = useState([]);
   const [orderId, setOrderId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
 
   const [bankTransferData, setBankTransferData] = useState({
     accountNumber: "",
@@ -156,7 +157,7 @@ const Payment = () => {
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar setSearchInput={setSearchInput} />
       </header>
 
       <div className="">

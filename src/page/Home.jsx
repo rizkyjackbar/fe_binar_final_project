@@ -15,6 +15,7 @@ const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const token = localStorage.getItem("accessToken");
   const [queries, setQueries] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   const buttonData = [
     {
@@ -115,7 +116,7 @@ const Home = () => {
   return (
     <>
       <header className="sticky top-0 z-10">
-        <Navbar />
+        <Navbar setSearchInput={setSearchInput} />
       </header>
       <main>
         <section id="Hero">

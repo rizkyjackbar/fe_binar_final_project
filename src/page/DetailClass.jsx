@@ -12,6 +12,7 @@ import ModalBuy from "../component/ModalBuy";
 
 const DetailClass = () => {
   const { id } = useParams();
+  const [searchInput, setSearchInput] = useState("");
   const [classData, setClassData] = useState(null);
   const [chapterData, setChapterData] = useState([]);
   const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
@@ -95,7 +96,7 @@ const DetailClass = () => {
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar setSearchInput={setSearchInput} />
       </header>
 
       <main className=" -ml-[90px] lg:ml-0">

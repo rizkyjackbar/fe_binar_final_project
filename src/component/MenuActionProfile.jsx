@@ -4,7 +4,6 @@ import { MenuIcon, XIcon } from "@heroicons/react/solid";
 import { Dialog, Transition } from "@headlessui/react";
 
 const MenuActionProfile = () => {
-  const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);

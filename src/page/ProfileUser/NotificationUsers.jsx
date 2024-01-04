@@ -6,6 +6,7 @@ import IsiCard from "../../component/InNotifCard";
 const NotificationUser = () => {
   const [notifications, setNotifications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -40,7 +41,7 @@ const NotificationUser = () => {
   return (
     <div className="">
       <header>
-        <Navbar />
+        <Navbar setSearchInput={setSearchInput} />
       </header>
 
       <div className="bg-[#EBF3FC] h-40 p-4 mb-8">

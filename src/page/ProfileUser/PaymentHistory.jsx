@@ -2,12 +2,15 @@ import { Navbar } from "../../component";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import ComPaymentHistory from "../../component/PaymentHistory";
 import MenuAction from "../../component/MenuActionProfile";
+import { useState } from "react";
 
 const PaymentHistory = () => {
+  const [searchInput, setSearchInput] = useState("");
+
   return (
     <div className="">
       <header>
-        <Navbar />
+        <Navbar setSearchInput={setSearchInput} />
       </header>
 
       <div className="bg-[#EBF3FC] h-40 p-4 mb-8">

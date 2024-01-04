@@ -102,7 +102,7 @@ const Class = () => {
   return (
     <>
       <header className="sticky top-0 z-20">
-        <Navbar />
+        <Navbar setSearchInput={setSearchInput} />
       </header>
 
       <main

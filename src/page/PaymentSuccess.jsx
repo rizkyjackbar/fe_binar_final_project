@@ -1,10 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { cart_shopping } from "../assets";
 import { Navbar } from "./../component";
+import { useState } from "react";
 
 const PaymentSuccess = () => {
   const token = localStorage.getItem("accessToken");
   const location = useLocation();
+  const [searchInput, setSearchInput] = useState("");
 
   const handleMulai = async () => {
     try {
@@ -32,7 +34,7 @@ const PaymentSuccess = () => {
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar setSearchInput={setSearchInput} />
       </header>
 
       <div className="">

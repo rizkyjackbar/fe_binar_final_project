@@ -1,15 +1,30 @@
-import { Link, NavLink, useLocation, useMatch } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useMatch,
+  useNavigate,
+} from "react-router-dom";
 import { bx_search, logo, fi_login } from "../assets";
 import { BellIcon } from "@heroicons/react/outline";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({ setSearchInput }) => {
   const location = useLocation();
   const notificationMatch = useMatch("/notification");
   const editDetailAccountMatch = useMatch("/editdetailaccount");
 
   const [activeLink, setActiveLink] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const inputField = useRef();
+
+  const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setSearchInput(inputField.current.value);
+    navigate("/class", { state: { searchInput: inputField.current.value } });
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -52,14 +67,21 @@ const Navbar = () => {
         </Link>
         {/* Search Bar */}
         <div className="lg:w-[400px] lg:h-13 bg-white  rounded-2xl p-1 px-4 hidden md:block ml-10">
-          <div className="flex justify-between items-center">
+          <form
+            className="flex justify-between items-center"
+            onSubmit={onSubmit}
+          >
             <input
+              ref={inputField}
               type="text"
               placeholder="Cari Kursus terbaik...."
               className="w-full h-full text-gray-900 text-xs lg:text-sm outline-none focus:outline-none"
             />
             <div className="flex justify-center items-center">
-              <button className="flex justify-center items-center w-9 h-9 lg:w-38 lg:h-38 bg-[#6148FF] rounded-lg lg:rounded-xl">
+              <button
+                className="flex justify-center items-center w-9 h-9 lg:w-38 lg:h-38 bg-[#6148FF] rounded-lg lg:rounded-xl"
+                type="submit"
+              >
                 <img
                   src={bx_search}
                   alt="Search Icon"
@@ -67,7 +89,7 @@ const Navbar = () => {
                 />
               </button>
             </div>
-          </div>
+          </form>
         </div>
         {/* Blabla */}
       </div>
